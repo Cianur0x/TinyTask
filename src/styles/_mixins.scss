@@ -1,0 +1,19 @@
+/* Define global mixins to be reused across components. */
+
+@mixin for-phone {
+    @media screen and (min-width: 480px) {
+        @content;
+    }
+}
+
+// @mixin for-tablet {
+//     @media screen and (min-width:#{$tablet}) {
+//         @content;
+//     }
+// }
+
+// @mixin for-desktop {
+//     @media screen and (min-width: #{$desktop}) {
+//         @content;
+//     }
+// }
