@@ -12,68 +12,13 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$gainsboro-palette: (
-  50: #f9f9fa,
-  100: #f3f3f4,
-  200: #ebebec,
-  300: #dcdcdd,
-  400: #b9b9ba,
-  500: #99999a,
-  600: #707071,
-  700: #5d5d5e,
-  800: #3e3e3f,
-  900: #1d1d1e,
-  A100: #f5f5f5,
-  A200: #eaeaeb,
-  A400: #d6d6d7,
-  A700: #838386,
-  contrast: (50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: rgba(black, 0.87),
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: rgba(black, 0.87),
-    A200: rgba(black, 0.87),
-    A400: rgba(black, 0.87),
-    A700: white,
-  )
-);
-
-$crimson-palette: (
-  50: #feebf0,
-  100: #fdcdd7,
-  200: #ee9aa2,
-  300: #e4737e,
-  400: #f05060,
-  500: #f73c49,
-  600: #e73347,
-  700: #d52940,
-  800: #c82239,
-  900: #b9142d,
-  contrast: (50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-  )
-);
-
-
-$TinyTask_App-primary: mat.define-palette(mat.$bright-navy-blue-palette, 50, 300, 900);
-$TinyTask_App-accent: mat.define-palette($gainsboro-palette, 300, 100, 500);
+// the default hue, lighter hue, and darker hue respectively.
+// By default, they will be 500, 100 and 700.
+$TinyTask_App-primary: mat.define-palette(mat.$lavender-palette, 100, 300, 800);
+$TinyTask_App-accent: mat.define-palette(mat.$indigo-palette, 600, 200, 400);
 
 // The warn palette is optional (defaults to red).
-$TinyTask_App-warn: mat.define-palette($crimson-palette, 900);
+$TinyTask_App-warn: mat.define-palette(mat.$red-palette, A700);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -81,9 +26,27 @@ $TinyTask_App-theme: mat.define-light-theme((color: (primary: $TinyTask_App-prim
         accent: $TinyTask_App-accent,
         warn: $TinyTask_App-warn,
       ),
-      typography: mat.define-typography-config(),
+      typography: mat.define-typography-config($font-family: 'Sono-Bold'),
       density: 0));
+// $my-custom-typography-config: mat.define-typography-config($font-family: 'Sono-Bold',
+//     $headline-1: mat.define-typography-level(112px, 112px, 300, 'Sono-ExtraBold', -0.05em),
+//     $headline-2: mat.define-typography-level(56px, 56px, 400, 'Sono-ExtraLight', -0.02em),
+//     $headline-3: mat.define-typography-level(45px, 48px, 400, 'Sono-Light', -0.005em),
+//     $headline-4: mat.define-typography-level(34px, 40px, 400, 'Sono-Light', -0.005em),
+//     $headline-5: mat.define-typography-level(24px, 32px, 400, 'Sono-Light', -0.005em),
+//   );
 
+// /**
+//     @return (
+//     font-size: $font-size,
+//     line-height: $line-height,
+//     font-weight: $font-weight,
+//     font-family: $font-family,
+//     letter-spacing: $letter-spacing
+//   );
+//   **/
+
+// @include mat.typography-hierarchy($my-custom-typography-config);
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
