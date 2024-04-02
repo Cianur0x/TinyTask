@@ -26,7 +26,7 @@ $TinyTask_App-theme: mat.define-light-theme((color: (primary: $TinyTask_App-prim
         accent: $TinyTask_App-accent,
         warn: $TinyTask_App-warn,
       ),
-      typography: mat.define-typography-config($font-family: 'Sono-Bold'),
+      typography: mat.define-typography-config($font-family: 'Sono'),
       density: 0));
 // $my-custom-typography-config: mat.define-typography-config($font-family: 'Sono-Bold',
 //     $headline-1: mat.define-typography-level(112px, 112px, 300, 'Sono-ExtraBold', -0.05em),
