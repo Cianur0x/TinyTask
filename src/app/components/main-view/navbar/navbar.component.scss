@@ -26,6 +26,7 @@ $menuBreakpoint: 768px;
                 font-size: 1.4rem;
                 text-decoration: none;
                 color: black;
+                font-weight: 800;
             }
         }
 
@@ -60,6 +61,7 @@ $menuBreakpoint: 768px;
                     width: 100%;
                     background-color: #DBE2EF;
                     padding-bottom: 15px;
+                    z-index: 1;
                 }
 
                 .btns {
