@@ -10,7 +10,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  showFiller = false;
   isMenuOpen = false;
 
   toggleMenu(): void {

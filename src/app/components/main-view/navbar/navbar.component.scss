@@ -1,15 +1,10 @@
-// $menuHeight: 60px;
+@import "../../../../styles/_variables.scss";
 $menuBreakpoint: 768px;
-
-
-
 
 .bg-nav {
     background-color: #DBE2EF;
 
-
     #my-first {
-        padding: 15px 0;
         margin: 0 auto;
         max-width: 1200px;
 
@@ -18,7 +13,8 @@ $menuBreakpoint: 768px;
             align-items: center;
             justify-content: space-between;
             list-style-type: none;
-
+            position: relative;
+            padding: 15px 0;
         }
 
         .logotype {
@@ -47,7 +43,7 @@ $menuBreakpoint: 768px;
         .menu {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
 
             @media (max-width: $menuBreakpoint) {
                 display: none;
@@ -57,10 +53,10 @@ $menuBreakpoint: 768px;
                     flex-direction: column;
                     position: absolute;
                     right: 0;
-                    top: 7%;
-                    background: #DBE2EF;
-                    width: 40%;
-                    height: calc(100% - 7%);
+                    top: 100%;
+                    width: 100%;
+                    background-color: #DBE2EF;
+                    padding-bottom: 15px;
                 }
 
                 .btns {
