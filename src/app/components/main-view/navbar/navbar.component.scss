@@ -18,6 +18,9 @@ $menuBreakpoint: 768px;
         }
 
         .logotype {
+            display: flex;
+            align-items: center;
+
             a {
                 padding: 0 8px;
                 font-size: 1.4rem;
