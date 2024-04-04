@@ -1,1 +1,20 @@
-<p>opinions works!</p>
+<div class="opinions">
+    <h1>Opinions</h1>
+    <div class="list">
+        @for (op of opinions; track op) {
+        <mat-card class="example-card">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image" [style.background-image]="'url(' + op.img + ')'">
+                </div>
+                <mat-card-title>{{op.name}}</mat-card-title>
+                <mat-card-subtitle></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    {{op.opinion}}
+                </p>
+            </mat-card-content>
+        </mat-card>
+        }
+    </div>
+</div>
