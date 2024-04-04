@@ -10,6 +10,12 @@
             padding: 15px 0;
         }
 
+        mat-card-content {
+            p {
+                margin: 10px 0;
+            }
+        }
+
         .example-card {
             max-width: 800px;
             margin-bottom: 10px;

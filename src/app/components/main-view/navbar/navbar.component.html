@@ -3,18 +3,23 @@
         <ul>
             <li class="logotype">
                 <img ngSrc="assets/imgs/logo.png" alt="" width="85" height="71" priority>
-                <a href="#">TinyTask</a>
+                <a routerLink="/home" routerLinkActive="active">TinyTask</a>
             </li>
             <li class="burger" (click)="toggleMenu()">
                 <i class="material-icons">{{ isMenuOpen ? "close" : "menu" }}</i>
             </li>
             <li class="menu" [class.is-open]="isMenuOpen">
-                <a href="#" class="menu-item item">Home</a>
-                <a href="#" class="menu-item item">About</a>
-                <a href="#" class="menu-item item">Contact</a>
+                <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page"
+                    class="menu-item item">Home</a>
+                <a routerLink="/about" routerLinkActive="active" ariaCurrentWhenActive="page"
+                    class="menu-item item">About</a>
+                <a routerLink="/first-component" routerLinkActive="active" ariaCurrentWhenActive="page"
+                    class="menu-item item">Contact</a>
                 <div class="btns">
-                    <a href="#" class="item btn-login">Log In</a>
-                    <a href="#" class="item btn-register">Sign Up</a>
+                    <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page"
+                        class="item btn-login">Log In</a>
+                    <a routerLink="/signin" routerLinkActive="active" ariaCurrentWhenActive="page"
+                        class="item btn-register">Sign Up</a>
                 </div>
             </li>
         </ul>

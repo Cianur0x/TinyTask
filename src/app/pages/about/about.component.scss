@@ -1,0 +1,25 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 10px 0 10px;
+
+    h1 {
+        margin: 15px 0;
+    }
+
+    .right-img {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .left-img {
+        display: flex;
+        flex-direction: row;
+
+        .especial {
+            margin-top: 80px;
+            font-size: large;
+            font-weight: 500;
+        }
+    }
+}
