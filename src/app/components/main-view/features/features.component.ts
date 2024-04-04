@@ -1,49 +1,83 @@
 import { Component } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgOptimizedImage } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
-export interface Tile {
-  color: string;
+export interface Image {
   cols: number;
   rows: number;
-  text: string;
+  img: string;
 }
 
-/**
- * @title Dynamic grid-list
- */
+export interface Feature {
+  name: string;
+  list: string[];
+  img: string;
+}
+
 @Component({
   selector: 'app-features',
   standalone: true,
-  imports: [MatGridListModule, NgOptimizedImage],
+  imports: [
+    MatGridListModule,
+    NgOptimizedImage,
+    MatCardModule,
+    MatDividerModule,
+    FontAwesomeModule,
+  ],
   templateUrl: './features.component.html',
   styleUrl: './features.component.scss',
 })
 export class FeaturesComponent {
-  tiles: Tile[] = [
+  faStar = faStar;
+  tiles: Image[] = [
     {
-      text: 'assets/imgs/bwink_bld_03.jpg',
+      img: 'assets/imgs/bwink_bld_03.jpg',
       cols: 3,
       rows: 3,
-      color: 'lightblue',
     },
     {
-      text: 'assets/imgs/bwink_bld_03.jpg',
+      img: 'assets/imgs/bwink_edu_02.jpg',
       cols: 1,
       rows: 1,
-      color: 'lightgreen',
     },
     {
-      text: 'assets/imgs/bwink_bld_03.jpg',
+      img: 'assets/imgs/bwink_edu_04.jpg',
       cols: 1,
       rows: 1,
-      color: 'lightpink',
     },
     {
-      text: 'assets/imgs/bwink_bld_03.jpg',
+      img: 'assets/imgs/bwink_edu_05.jpg',
       cols: 1,
       rows: 1,
-      color: '#DDBDF1',
+    },
+  ];
+
+  features: Feature[] = [
+    {
+      name: 'Plan your work and personal task in one place',
+      list: ['Separate your work & personal tasks or combine them both'],
+      img: 'assets/imgs/bwink_med_06.jpg',
+    },
+    {
+      name: 'Design task management',
+      list: [
+        'Customizable task views for managing design tasks',
+        'Drag tasks to time-boxs',
+      ],
+      img: 'assets/imgs/bwink_msc_05.jpg',
+    },
+    {
+      name: 'Organize projects',
+      list: [
+        'Streamlined daily task entry',
+        'Allocate specific times to tasks',
+        'Weekly task view for your tasks and calendar',
+      ],
+      img: 'assets/imgs/bwink_msc_07.jpg',
     },
   ];
 }

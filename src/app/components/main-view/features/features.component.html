@@ -1,7 +1,35 @@
-<mat-grid-list cols="4" rowHeight="250px">
-    @for (tile of tiles; track tile) {
-    <mat-grid-tile [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
-        <img ngSrc="{{tile.text}}" alt="" priority fill>
-    </mat-grid-tile>
-    }
-</mat-grid-list>
+<div class="main-grid">
+    <mat-grid-list cols="4" rowHeight="250px">
+        @for (tile of tiles; track tile) {
+        <mat-grid-tile [colspan]="tile.cols" [rowspan]="tile.rows">
+            <img ngSrc="{{tile.img}}" alt="" priority fill>
+        </mat-grid-tile>
+        }
+    </mat-grid-list>
+    <div class="features">
+        <h1>Features</h1>
+        <div>
+            @for (feat of features; track feat) {
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>{{feat.name}}</mat-card-title>
+                        <mat-card-subtitle></mat-card-subtitle>
+                        <img mat-card-lg-image ngSrc="{{feat.img}}" width="50" height="50" priority>
+                    </mat-card-title-group>
+                </mat-card-header>
+
+                <mat-card-content>
+                    @for (item of feat.list; track item) {
+                    <p><fa-icon [icon]="faStar"></fa-icon> {{item}}</p>
+                    @if (!$last) {
+                    <mat-divider></mat-divider>
+                    }
+                    }
+                </mat-card-content>
+
+            </mat-card>
+            }
+        </div>
+    </div>
+</div>

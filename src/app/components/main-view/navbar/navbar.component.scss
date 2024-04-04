@@ -3,6 +3,10 @@ $menuBreakpoint: 768px;
 
 .bg-nav {
     background-color: #DBE2EF;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
 
     #my-first {
         margin: 0 auto;

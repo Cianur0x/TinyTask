@@ -1,0 +1,19 @@
+.main-grid {
+    margin-top: 90px;
+
+    .features {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+            padding: 15px 0;
+        }
+
+        .example-card {
+            max-width: 800px;
+            margin-bottom: 10px;
+        }
+    }
+
+}
