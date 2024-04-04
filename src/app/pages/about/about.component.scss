@@ -7,17 +7,23 @@
         margin: 15px 0;
     }
 
-    .right-img {
-        display: flex;
-        flex-direction: row;
+    img {
+        width: 35%;
+        height: 35%;
     }
 
+    .right-img,
     .left-img {
         display: flex;
         flex-direction: row;
+        align-items: center;
 
+    }
+
+    .left-img {
         .especial {
             margin-top: 80px;
+            padding-bottom: 20px;
             font-size: large;
             font-weight: 500;
         }
