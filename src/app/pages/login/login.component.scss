@@ -1,0 +1,30 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 120px 10px 0 10px;
+
+    h1 {
+        text-align: center;
+    }
+
+    .content {
+        display: flex;
+
+        img {
+            width: 40%;
+            height: auto;
+        }
+
+        .mat-divider {
+            height: 350px;
+            --mat-divider-width: 18px;
+        }
+
+        #form {
+            mat-icon {
+                margin: 10px;
+            }
+        }
+    }
+
+}
