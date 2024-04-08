@@ -11,20 +11,23 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { merge } from 'rxjs';
-
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { FooterComponent } from '../../components/main-view/footer/footer.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     MatDividerModule,
-    MatFormFieldModule,
     NgOptimizedImage,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FooterComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

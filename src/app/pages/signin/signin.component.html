@@ -1,1 +1,53 @@
-<p>signin works!</p>
+<div class="container">
+    <div>
+        <h1>Log in</h1>
+        <div class="content">
+            <img ngSrc="assets/imgs/bwink_ppl_21.jpg" width="300" height="300" alt="" priority>
+            <mat-divider [vertical]="true"></mat-divider>
+            <div id="form">
+                <form action="post">
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Username</mat-label>
+                            <input matInput placeholder="Username">
+                            <mat-hint>Hint</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Enter your email</mat-label>
+                            <input matInput placeholder="pat@example.com" [formControl]="email"
+                                (blur)="updateErrorMessage()" required>
+                            @if (email.invalid) {
+                            <mat-error>{{errorMessage}}</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-fixed">
+    <app-footer></app-footer>
+</div>

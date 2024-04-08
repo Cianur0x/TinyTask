@@ -4,27 +4,37 @@
     padding: 120px 10px 0 10px;
 
     h1 {
+        font-size: 35px;
         text-align: center;
+        padding-bottom: 1rem;
     }
 
     .content {
         display: flex;
+        justify-content: center;
 
         img {
-            width: 40%;
+            width: 30%;
             height: auto;
         }
 
         .mat-divider {
             height: 350px;
-            --mat-divider-width: 18px;
+            --mat-divider-width: 5px;
         }
 
         #form {
-            mat-icon {
-                margin: 10px;
-            }
+            border: 1px solid red;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
     }
+}
 
+.footer-fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
