@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgOptimizedImage } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgIf, NgOptimizedImage } from '@angular/common';
 import {
-  FormControl,
   Validators,
   FormsModule,
   ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { merge } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FooterComponent } from '../../components/main-view/footer/footer.component';
+import { AuthService } from '../../services/auth/auth.service';
+import { StorageService } from '../../services/storage/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,30 +28,69 @@ import { FooterComponent } from '../../components/main-view/footer/footer.compon
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    FooterComponent,
+    NgIf,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  email = new FormControl('', [Validators.required, Validators.email]);
-
+  loginForm!: FormGroup;
+  isLoggedIn = false;
+  isLoginFailed = false;
   errorMessage = '';
-  hide = true;
+  roles: string[] = [];
 
-  constructor() {
-    merge(this.email.statusChanges, this.email.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
+  constructor(
+    private authService: AuthService,
+    private storageService: StorageService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: [null, Validators.required],
+      password: [null, Validators.required],
+    });
+
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+      this.router.navigateByUrl('inicio').then(() => {
+        console.log('Ya logueado, cargando index.');
+      });
+    }
   }
 
-  updateErrorMessage() {
-    if (this.email.hasError('required')) {
-      this.errorMessage = 'You must enter a value';
-    } else if (this.email.hasError('email')) {
-      this.errorMessage = 'Not a valid email';
-    } else {
-      this.errorMessage = '';
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      return;
     }
+
+    const { username, password } = this.loginForm.value;
+
+    this.authService.login(username, password).subscribe({
+      next: (data) => {
+        this.storageService.clean();
+        this.storageService.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        console.log('isLoggedIn = ' + this.isLoggedIn);
+        this.roles = this.storageService.getUser().roles;
+        this.reloadPage();
+        // this.router.navigate(['index']).then(
+        //   () => {console.log('Login OK, cargando index.')}
+        // )
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      },
+    });
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

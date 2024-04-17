@@ -20,6 +20,7 @@
                         class="item btn-login">Log In</a>
                     <a routerLink="/signin" routerLinkActive="active" ariaCurrentWhenActive="page"
                         class="item btn-register">Sign Up</a>
+                    <a *ngIf="isLoggedIn" class="item btn-register" (click)="logout()">Logout</a>
                 </div>
             </li>
         </ul>

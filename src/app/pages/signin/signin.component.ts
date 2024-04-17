@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgOptimizedImage } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  FormControl,
   Validators,
   FormsModule,
   ReactiveFormsModule,
@@ -12,7 +10,6 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { merge } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from '../../components/main-view/footer/footer.component';
@@ -73,7 +70,7 @@ export class SigninComponent implements OnInit {
     this.authService.register(username, password, email, rol).subscribe({
       next: (data) => {
         console.log(data);
-        this.router.navigate(['/login']).then(() => {
+        this.router.navigate(['/inicio']).then(() => {
           console.log('Register OK, loading login...');
         });
       },
