@@ -109,3 +109,55 @@ $menuBreakpoint: 768px;
         }
     }
 }
+
+.side-nav {
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: #F9F7F7;
+    width: 90px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: $menuBreakpoint) {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .side-nav-container {
+        display: flex;
+
+        .icons {
+            padding: 30px 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #112D4E;
+            justify-content: space-between;
+
+            .first {
+                padding-bottom: 1rem;
+            }
+
+            .more-icons {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                padding: 1.5rem 0;
+
+                li {
+                    display: flex;
+                    padding: 1.5rem 0;
+
+
+                }
+
+                .material-icons.md-48 {
+                    font-size: 48px;
+                }
+            }
+        }
+    }
+}
