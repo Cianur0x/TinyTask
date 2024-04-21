@@ -25,6 +25,10 @@ export class StorageService {
 
     return {};
   }
+  // TODO implementar funcion
+  public isAdmin(): boolean {
+    return true;
+  }
 
   public isLoggedIn(): boolean {
     const user = window.sessionStorage.getItem(USER_KEY);
