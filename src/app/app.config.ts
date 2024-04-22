@@ -17,17 +17,3 @@ export const appConfig: ApplicationConfig = {
     ...httpInterceptorProviders,
   ],
 };
-
-// function loggingInterceptor(
-//   req: HttpRequest<unknown>,
-//   next: HttpHandlerFn
-// ): Observable<HttpEvent<unknown>> {
-//   throw new Error('Function not implemented.');
-// }
-
-// function cachingInterceptor(
-//   req: HttpRequest<unknown>,
-//   next: HttpHandlerFn
-// ): Observable<HttpEvent<unknown>> {
-//   throw new Error('Function not implemented.');
-// }

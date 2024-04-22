@@ -25,9 +25,10 @@ export class StorageService {
 
     return {};
   }
-  // TODO implementar funcion
+
   public isAdmin(): boolean {
-    return true;
+    const user = this.getUser();
+    return user.roles.includes('ROL_ADMIN');
   }
 
   public isLoggedIn(): boolean {

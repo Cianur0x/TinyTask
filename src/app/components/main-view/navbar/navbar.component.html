@@ -31,19 +31,20 @@
     <div class="side-nav-container">
         <ul class="icons">
             <li class="first"><fa-icon [icon]="faUser" size="4x"></fa-icon></li>
-            <div class="more-icons">
-                <li><fa-icon [icon]="faTodo" size="2x"></fa-icon>
-                    <p matBadge="4" matBadgeOverlap="false"></p>
-                </li>
-                <li><fa-icon [icon]="faTags" size="2x"></fa-icon></li>
-                <li><fa-icon [icon]="faFriends" size="2x"></fa-icon></li>
-                <li><fa-icon [icon]="faNoti" size="2x"></fa-icon>
-                    <p matBadge="4" matBadgeOverlap="false"></p>
-                </li>
-                <li *ngIf="isAdmin" (click)="changeProfile()"><fa-icon [icon]="faAdmin" size="2x"></fa-icon></li>
-                <li (click)="logout()"><fa-icon [icon]="faFriends" size="2x"></fa-icon></li>
-            </div>
-
+            <li class="more-icons">
+                <ul>
+                    <li><fa-icon [icon]="faTodo" size="2x"></fa-icon>
+                        <p matBadge="4" matBadgeOverlap="false"></p>
+                    </li>
+                    <li><fa-icon [icon]="faTags" size="2x"></fa-icon></li>
+                    <li><fa-icon [icon]="faFriends" size="2x"></fa-icon></li>
+                    <li><fa-icon [icon]="faNoti" size="2x"></fa-icon>
+                        <p matBadge="4" matBadgeOverlap="false"></p>
+                    </li>
+                    <li *ngIf="isAdmin" (click)="changeProfile()"><fa-icon [icon]="faAdmin" size="2x"></fa-icon></li>
+                    <li (click)="logout()"><fa-icon [icon]="faExit" size="2x"></fa-icon></li>
+                </ul>
+            </li>
             <li class="last"><fa-icon [icon]="faconfig" size="2x"></fa-icon></li>
         </ul>
     </div>
@@ -52,8 +53,21 @@
 <div class="side-nav" *ngIf="isLoggedIn && switchProfile">
     <div class="side-nav-container">
         <ul class="icons">
-            <li class="first"><fa-icon [icon]="faUser" size="4x"></fa-icon></li>
-            <li *ngIf="isAdmin" (click)="changeProfile()"><fa-icon [icon]="faAdmin" size="2x"></fa-icon></li>
+            <li class="first"><fa-icon [icon]="faUserTie" size="4x"></fa-icon></li>
+            <li class="more-icons">
+                <ul>
+                    <li><fa-icon [icon]="faTicket" size="2x"></fa-icon>
+                        <p matBadge="4" matBadgeOverlap="false"></p>
+                    </li>
+                    <li><fa-icon [icon]="faNewspaper" size="2x"></fa-icon></li>
+                    <li><fa-icon [icon]="faUsersGear" size="2x"></fa-icon></li>
+                    <li><fa-icon [icon]="faWandMagicSparkles" size="2x"></fa-icon>
+                        <p matBadge="4" matBadgeOverlap="false"></p>
+                    </li>
+                    <li *ngIf="isAdmin" (click)="changeProfile()"><fa-icon [icon]="faAdmin" size="2x"></fa-icon></li>
+                    <li (click)="logout()"><fa-icon [icon]="faExit" size="2x"></fa-icon></li>
+                </ul>
+            </li>
             <li class="last"><fa-icon [icon]="faconfig" size="2x"></fa-icon></li>
         </ul>
     </div>

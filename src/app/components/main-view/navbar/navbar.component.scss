@@ -1,6 +1,7 @@
 @import "../../../../styles/_variables.scss";
 $menuBreakpoint: 768px;
 
+// nabvar general
 .bg-nav {
     background-color: #DBE2EF;
     position: fixed;
@@ -110,6 +111,7 @@ $menuBreakpoint: 768px;
     }
 }
 
+// sidenav after logging
 .side-nav {
     top: 0;
     bottom: 0;
@@ -120,7 +122,8 @@ $menuBreakpoint: 768px;
     display: flex;
     justify-content: center;
 
-    @media (max-width: $menuBreakpoint) {
+    @media (max-width: $menuBreakpoint),
+    (max-height: 620px) {
         overflow-y: scroll;
         overflow-x: hidden;
     }
@@ -145,18 +148,20 @@ $menuBreakpoint: 768px;
                 display: flex;
                 flex-direction: column;
                 height: 100%;
-                padding: 1.5rem 0;
+                padding: 1rem 0;
 
                 li {
                     display: flex;
-                    padding: 1.5rem 0;
-
-
+                    padding: 1.15rem 0;
                 }
 
                 .material-icons.md-48 {
                     font-size: 48px;
                 }
+            }
+
+            .last {
+                padding: 1rem 0;
             }
         }
     }

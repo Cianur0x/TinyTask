@@ -18,6 +18,7 @@ import { NgIf, CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
+import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-signin',
@@ -43,10 +44,14 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class SigninComponent implements OnInit {
   registerForm!: FormGroup;
+  isLoggedIn = false;
+  isLoginFailed = false;
   errorMessage = '';
+  roles: string[] = [];
 
   constructor(
     private authService: AuthService,
+    private storageService: StorageService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {}
@@ -69,14 +74,36 @@ export class SigninComponent implements OnInit {
 
     this.authService.register(username, password, email, rol).subscribe({
       next: (data) => {
-        console.log(data);
         this.router.navigate(['/inicio']).then(() => {
           console.log('Register OK, loading login...');
+          this.loginAfterSignUp(username, password);
         });
       },
       error: (err) => {
         this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
       },
     });
+  }
+
+  loginAfterSignUp(username: string, password: string) {
+    this.authService.login(username, password).subscribe({
+      next: (data) => {
+        this.storageService.clean();
+        this.storageService.saveUser(data);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.storageService.getUser().roles;
+        this.reloadPage();
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      },
+    });
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

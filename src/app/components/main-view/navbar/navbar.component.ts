@@ -19,6 +19,12 @@ import {
   faListCheck,
   faTags,
   faUserLock,
+  faRightFromBracket,
+  faUserTie,
+  faTicket,
+  faNewspaper,
+  faUsersGear,
+  faWandMagicSparkles,
 } from '@fortawesome/free-solid-svg-icons';
 import { StorageService } from '../../../services/storage/storage.service';
 
@@ -53,10 +59,16 @@ export class NavbarComponent implements OnInit {
   faNoti = faBell;
   faconfig = faGear;
   faAdmin = faUserLock;
+  faExit = faRightFromBracket;
+  faUserTie = faUserTie;
+  faTicket = faTicket;
+  faNewspaper = faNewspaper;
+  faUsersGear = faUsersGear;
+  faWandMagicSparkles = faWandMagicSparkles;
   // Variables
   isMenuOpen = false;
   isLoggedIn = false;
-  isAdmin = true;
+  isAdmin!: boolean;
   switchProfile = false;
 
   constructor(
@@ -75,29 +87,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-  }
-
-  checkifAdmin() {
-    // check if user ADMIN
-    this.route.queryParams.subscribe((params) => {
-      console.log(JSON.stringify(params)); // { tipo: "" | "solo-admin" }
-      this.tipo = params['tipo'];
-      console.log('Tipo prueba:' + this.tipo); // tipo
-
-      if (this.tipo == 'solo-admin') {
-        console.log('ola admin');
-        this.pruebaService.pruebaSoloAdmin().subscribe((value) => {
-          console.log('Respuesta pruebaSoloAdmin:' + value);
-          this.messageResponse = value;
-        });
-      } else {
-        console.log('ola random');
-        this.pruebaService.prueba().subscribe((value) => {
-          console.log('Respuesta prueba:' + value);
-          this.messageResponse = value;
-        });
-      }
-    });
+    if (this.isLoggedIn) {
+      this.isAdmin = this.storageService.isAdmin();
+    }
   }
 
   logout() {
@@ -109,7 +101,8 @@ export class NavbarComponent implements OnInit {
   }
 
   changeProfile() {
-    this.switchProfile = !this.switchProfile;
-    this.checkifAdmin();
+    if (this.storageService.isAdmin()) {
+      this.switchProfile = !this.switchProfile;
+    }
   }
 }
