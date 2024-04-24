@@ -1,0 +1,19 @@
+.main-view {
+    margin-left: 90px;
+
+    .nav-month {
+        background-color: #DBE2EF;
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+
+            .text {
+                padding: 0 20px;
+                font-weight: 600;
+            }
+        }
+    }
+}

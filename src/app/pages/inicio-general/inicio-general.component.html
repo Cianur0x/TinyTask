@@ -1,8 +1,11 @@
-<button mat-fab extended color="accent">
-    <mat-icon>favorite</mat-icon>
-    Accent
-</button>
-<button mat-fab extended color="warn">
-    <mat-icon>favorite</mat-icon>
-    Warn
-</button>
+<div class="main-view">
+    <div class="nav-month">
+        <div class="content">
+            <fa-icon [icon]="faAngleLeft" size="xl"></fa-icon>
+            <div class="text">{{month + ' ' + year}}</div>
+            <fa-icon [icon]="faAngleRight" size="xl"></fa-icon>
+        </div>
+    </div>
+
+    <app-weekday></app-weekday>
+</div>

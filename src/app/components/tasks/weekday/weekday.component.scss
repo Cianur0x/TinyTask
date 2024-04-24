@@ -1,0 +1,34 @@
+$menuBreakpoint: 768px;
+
+.weekday {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background-color: #DBE2EF;
+    background: lightgrey;
+    min-height: calc(100vh - 45px);
+
+
+    .day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 0;
+        border: 1px solid black;
+        background-color: #DBE2EF;
+    }
+
+    .add-task {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 0;
+        border: 1px solid black;
+        border-top: 0;
+        background-color: #DBE2EF;
+    }
+
+    .all-tasks {
+        .task {}
+    }
+}
