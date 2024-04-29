@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6599364831830861985" datatype="html">
+        <source>Features</source>
+        <target>Características</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/features/features.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5483635914169812984" datatype="html">
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;#&quot;&gt;"/>Contact Us<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <target>Contanctanos</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/footer/footer.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1914980323584747701" datatype="html">
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a href=&quot;#&quot;&gt;"/>Help Center<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <target>Centro de Ayuda</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/footer/footer.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2821179408673282599" datatype="html">
+        <source>Home</source>
+        <target>Inicio</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/navbar/navbar.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1726363342938046830" datatype="html">
+        <source>About</source>
+        <target>Sobre Mí</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/navbar/navbar.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7922989125096435449" datatype="html">
+        <source>Contact</source>
+        <target>Contactanos</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/navbar/navbar.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8520023152129279437" datatype="html">
+        <source>Log In</source>
+        <target>Inicio Sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/navbar/navbar.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1466012768716286509" datatype="html">
+        <source>Sign Up</source>
+        <target>Registro</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/navbar/navbar.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3797778920049399855" datatype="html">
+        <source>Logout</source>
+        <target>Cerrar Sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/navbar/navbar.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2888027057531826791" datatype="html">
+        <source>Opinions</source>
+        <target>Reseñas</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-view/opinions/opinions.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5736481176444461852" datatype="html">
+        <source>About Us</source>
+        <target>Sobre Mí</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6679647059830903282" datatype="html">
+        <source>Hey, I&apos;m the architect behind this hub of collaborative productivity. My journey revolves around turning tasks into shared victories without the corporate jargon. It&apos;s not just about codes and pixels; it&apos;s about creating a space where our to-do lists become collaborative adventures.</source>
+        <target>Soy el arquitecto detrás de este centro de productividad colaborativa. Mi viaje gira en torno a convertir tareas en victorias compartidas sin el jerga corporativa. No se trata solo de códigos y píxeles; se trata de crear un espacio donde nuestras listas de tareas se conviertan en aventuras colaborativas.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">5,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="805930427815599295" datatype="html">
+        <source>Who I Am</source>
+        <target>Quien soy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7294400691202646608" datatype="html">
+        <source>I&apos;m not your typical tech geek; I&apos;m a task enthusiast on a mission to make productivity feel less like a chore and more like a shared journey. Think of me as the friendly navigator helping you sail through the sea of tasks.</source>
+        <target>No soy el típico friki de la tecnología; soy un entusiasta de las tareas en una misión para hacer que la productividad se sienta menos como una tarea y más como un viaje compartido. Piensa en mí como el navegante amigable que te ayuda a navegar a través del mar de tareas.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">11,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8577152935479939972" datatype="html">
+        <source>What Drives Me</source>
+        <target>Qué me motiva</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2055633982756465775" datatype="html">
+        <source>Passion guides my every click. Whether it&apos;s tweaking code or brainstorming new features, I find joy in the simple yet profound act of getting things done together. It&apos;s about making productivity not just efficient but enjoyable.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">23,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3480931240511784500" datatype="html">
+        <source>Welcome to my digital nook—where tasks become triumphs, and every click is a step towards shared success. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2336550011721758066" datatype="html">
+        <source>Log in</source>
+        <target>Inicio Sesión</target>        
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5248717555542428023" datatype="html">
+        <source>Username</source>
+        <target>Usuario</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1517103645540207391" datatype="html">
+        <source> Username is required </source>
+        <target>El usuario es requerido</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <target>Contraseña</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="205044832662301680" datatype="html">
+        <source>Password is required</source>
+        <target>Controseña requerida</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6446631772000124223" datatype="html">
+        <source>Password must be at least 6 characters</source>
+        <target>La contraseña debe ser al menos de 6 carácteres</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <target>Inicar Sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8552587679160911578" datatype="html">
+        <source>Email is required</source>
+        <target>Email obligatorio</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8876822653942344131" datatype="html">
+        <source>Please enter a valid email address</source>
+        <target>Introduzca un email válido</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6459338148967667237" datatype="html">
+        <source>Rol</source>
+        <target>Rol</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9016536884183098576" datatype="html">
+        <source>User</source>
+        <target>Usuario</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7956566938889547368" datatype="html">
+        <source>Admin</source>
+        <target>Administrador</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2302882697138464477" datatype="html">
+        <source> Rol is required </source>
+        <target>Seleccione un rol</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3301086086650990787" datatype="html">
+        <source>Register</source>
+        <target>Registrarse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

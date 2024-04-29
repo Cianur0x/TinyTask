@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "TinyTask_App": {
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "es-ES": "src/locale/messages.es.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,6 +23,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "localize": [
+              "es-ES"
+            ],
             "outputPath": "dist/tiny-task-app",
             "index": "src/index.html",
             "browser": "src/main.ts",

@@ -21,7 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-signup',
   standalone: true,
   imports: [
     MatDividerModule,
@@ -39,10 +39,10 @@ import { StorageService } from '../../services/storage/storage.service';
     NgIf,
     CommonModule,
   ],
-  templateUrl: './signin.component.html',
-  styleUrl: './signin.component.scss',
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss',
 })
-export class SigninComponent implements OnInit {
+export class SignupComponent implements OnInit {
   registerForm!: FormGroup;
   isLoggedIn = false;
   isLoginFailed = false;

@@ -80,4 +80,29 @@ export class FeaturesComponent {
       img: 'assets/imgs/bwink_msc_07.jpg',
     },
   ];
+
+  características: Feature[] = [
+    {
+      name: 'Planifica tu trabajo y tareas personales en un solo lugar',
+      list: ['Separa tus tareas laborales y personales o combínalas ambas'],
+      img: 'assets/imgs/bwink_med_06.jpg',
+    },
+    {
+      name: 'Gestión de tareas de diseño',
+      list: [
+        'Vistas de tareas personalizables para gestionar tareas de diseño',
+        'Arrastra tareas a cuadros de tiempo',
+      ],
+      img: 'assets/imgs/bwink_msc_05.jpg',
+    },
+    {
+      name: 'Organiza proyectos',
+      list: [
+        'Entrada de tareas diarias simplificada',
+        'Asigna tiempos específicos a las tareas',
+        'Vista semanal de tus tareas y calendario',
+      ],
+      img: 'assets/imgs/bwink_msc_07.jpg',
+    },
+  ];
 }

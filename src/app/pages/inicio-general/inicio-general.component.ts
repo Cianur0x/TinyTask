@@ -4,22 +4,13 @@ import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { WeekdayComponent } from '../../components/tasks/weekday/weekday.component';
 import { StorageService } from '../../services/storage/storage.service';
-import { InicioAdminComponent } from '../inicio-admin/inicio-admin.component';
-import { InicioUsuarioComponent } from '../inicio-usuario/inicio-usuario.component';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-inicio-general',
   standalone: true,
-  imports: [
-    InicioAdminComponent,
-    InicioUsuarioComponent,
-    MatButtonModule,
-    MatIcon,
-    WeekdayComponent,
-    FontAwesomeModule,
-  ],
+  imports: [MatButtonModule, MatIcon, WeekdayComponent, FontAwesomeModule],
   templateUrl: './inicio-general.component.html',
   styleUrl: './inicio-general.component.scss',
 })

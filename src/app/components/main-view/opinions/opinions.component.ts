@@ -39,4 +39,27 @@ export class OpinionsComponent {
       img: 'assets/imgs/people3.jpg',
     },
   ];
+
+  opiniones: Opinion[] = [
+    {
+      name: 'Emma Thompson',
+      opinion: `TinyTask simplifies my day with its seamless integration of to-do lists and calendars. It's my go-to for staying on top of my workload.`,
+      img: 'assets/imgs/people1.jpg',
+    },
+    {
+      name: 'Clara Johnson',
+      opinion: `TinyTask's customizable categories help me stay organized across projects, boosting my productivity as a freelancer.`,
+      img: 'assets/imgs/people2.jpg',
+    },
+    {
+      name: 'Maxwell Parker',
+      opinion: `TinyTask keeps me organized anywhere with its reminders and notifications. It's now essential to my daily routine.`,
+      img: 'assets/imgs/people1.jpg',
+    },
+    {
+      name: 'Jackson Smith',
+      opinion: `TinyTask's intuitive design helps me stay focused on tasks, whether work or personal. Highly recommended for schedule control.`,
+      img: 'assets/imgs/people3.jpg',
+    },
+  ];
 }
