@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="1517103645540207391" datatype="html">
         <source> Username is required </source>
-        <target>El usuario es requerido</target>
+        <target>El usuario es obligatorio</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">14</context>
@@ -186,7 +186,7 @@
       </trans-unit>
       <trans-unit id="205044832662301680" datatype="html">
         <source>Password is required</source>
-        <target>Controseña requerida</target>
+        <target>Contraseña obligatoria</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">22,23</context>
@@ -240,15 +240,15 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9016536884183098576" datatype="html">
+      <trans-unit id="2392488717875840729" datatype="html">
         <source>User</source>
-        <target>Usuario</target>
+        <target>Usuraio</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7956566938889547368" datatype="html">
+      <trans-unit id="5041354590769758251" datatype="html">
         <source>Admin</source>
         <target>Administrador</target>
         <context-group purpose="location">

@@ -87,42 +87,42 @@
         <source>Hey, I&apos;m the architect behind this hub of collaborative productivity. My journey revolves around turning tasks into shared victories without the corporate jargon. It&apos;s not just about codes and pixels; it&apos;s about creating a space where our to-do lists become collaborative adventures.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
-          <context context-type="linenumber">5,9</context>
+          <context context-type="linenumber">5,7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="805930427815599295" datatype="html">
         <source>Who I Am</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
-          <context context-type="linenumber">10,11</context>
+          <context context-type="linenumber">8,9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7294400691202646608" datatype="html">
         <source>I&apos;m not your typical tech geek; I&apos;m a task enthusiast on a mission to make productivity feel less like a chore and more like a shared journey. Think of me as the friendly navigator helping you sail through the sea of tasks.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
-          <context context-type="linenumber">11,13</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8577152935479939972" datatype="html">
         <source>What Drives Me</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">18,19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2055633982756465775" datatype="html">
         <source>Passion guides my every click. Whether it&apos;s tweaking code or brainstorming new features, I find joy in the simple yet profound act of getting things done together. It&apos;s about making productivity not just efficient but enjoyable.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
-          <context context-type="linenumber">23,26</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3480931240511784500" datatype="html">
         <source>Welcome to my digital nook—where tasks become triumphs, and every click is a step towards shared success. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/about/about.component.html</context>
-          <context context-type="linenumber">29,30</context>
+          <context context-type="linenumber">22,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2336550011721758066" datatype="html">
@@ -215,14 +215,14 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="9016536884183098576" datatype="html">
+      <trans-unit id="2392488717875840729" datatype="html">
         <source>User</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7956566938889547368" datatype="html">
+      <trans-unit id="5041354590769758251" datatype="html">
         <source>Admin</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
