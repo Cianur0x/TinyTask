@@ -14,7 +14,40 @@
 
 // the default hue, lighter hue, and darker hue respectively.
 // By default, they will be 500, 100 and 700.
-$TinyTask_App-primary: mat.define-palette(mat.$lavender-palette, 100, 300, 800);
+
+$lavender-palette: (
+  50: #dbe2ef,
+  100: #a5b7d6,
+  200: #6988b8,
+  300: #1e5d9d,
+  400: #00408d,
+  500: #00267c,
+  600: #002175,
+  700: #001a6b,
+  800: #000f60,
+  900: #000056,
+  A100: #c2e4ff,
+  A200: #addcff,
+  A400: #1f9eff,
+  A700: #00518f,
+  contrast: (50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $dark-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  )
+);
+
+$TinyTask_App-primary: mat.define-palette($lavender-palette, 100, 300, 800);
 $TinyTask_App-accent: mat.define-palette(mat.$indigo-palette, 600, 200, 400);
 
 // The warn palette is optional (defaults to red).
