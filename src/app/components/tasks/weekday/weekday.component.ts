@@ -9,12 +9,21 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './weekday.component.scss',
 })
 export class WeekdayComponent implements OnInit {
+  // Variables
   userLang = navigator.language;
   fullDate = new Date();
   currentDate = this.fullDate.getDate();
-
+  dayName = '';
   @Input() day = 0;
 
+  // Constructores
+  constructor() {}
+  ngOnInit(): void {
+    this.dayName = this.customFormat(this.fullDate, this.userLang);
+    this.goToActualDay();
+  }
+
+  // Métodos
   customFormat = (date: Date, locale: string) => {
     let dia = this.day;
     let mes = date.getMonth();
@@ -28,11 +37,11 @@ export class WeekdayComponent implements OnInit {
     return `${longdate}`;
   };
 
-  dayName = '';
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
-    this.dayName = this.customFormat(this.fullDate, this.userLang);
+  goToActualDay() {
+    document.getElementById('center')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'center',
+    });
   }
 }

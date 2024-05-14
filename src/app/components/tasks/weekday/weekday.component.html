@@ -1,6 +1,6 @@
 <div class="weekday-container">
     <div class="weekday" [ngClass]="{'center': this.day == this.currentDate}"
-        ng-attr-id="{'center': this.day == this.currentDate}">
+        [attr.id]=" this.day == this.currentDate ? 'center': ''">
         <div class="day">
             {{dayName}}
         </div>
