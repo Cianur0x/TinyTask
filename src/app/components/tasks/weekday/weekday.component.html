@@ -1,13 +1,16 @@
-<div class="weekday">
-    <div class="day">
-        {{dayName}}
-    </div>
-    <div class="add-task">
-        + Add Task
-    </div>
-    <div class="all-tasks">
-        <div class="task">
-            || Task
+<div class="weekday-container">
+    <div class="weekday" [ngClass]="{'center': this.day == this.currentDate}"
+        ng-attr-id="{'center': this.day == this.currentDate}">
+        <div class="day">
+            {{dayName}}
+        </div>
+        <div class="add-task">
+            + Add Task
+        </div>
+        <div class="all-tasks">
+            <div class="task">
+                || Task
+            </div>
         </div>
     </div>
 </div>

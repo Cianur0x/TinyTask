@@ -6,6 +6,9 @@
             <fa-icon [icon]="faAngleRight" size="xl"></fa-icon>
         </div>
     </div>
-
-    <app-weekday></app-weekday>
+    <div class="tareitas">
+        <div id="tasks-view" *ngFor="let item of items; let i = index">
+            <app-weekday [day]=i+1></app-weekday>
+        </div>
+    </div>
 </div>

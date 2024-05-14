@@ -16,4 +16,15 @@
             }
         }
     }
+
+    .tareitas {
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+        // overflow: hidden;
+
+        #tasks-view {
+            background-color: rebeccapurple;
+        }
+    }
 }
