@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -22,9 +22,13 @@ import { NgFor } from '@angular/common';
   styleUrl: './inicio-general.component.scss',
 })
 export class InicioGeneralComponent implements OnInit {
+  // FontAwesome Icons
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
 
+  // Variables
+  currentDate = 0;
+  dayAsCenter = 0;
   userLang = navigator.language;
   isLoggedIn = false;
   roles: string[] = [];
@@ -36,22 +40,18 @@ export class InicioGeneralComponent implements OnInit {
     this.date.getMonth() + 1,
     0
   ).getDate();
-
   items = Array(this.numDays);
 
-  offsetWidth: any;
-  numWeekdays: any;
+  @ViewChildren('weekday') weekdays?: QueryList<WeekdayComponent>;
 
+  // Constructores
   constructor(private storageService: StorageService, private router: Router) {
     this.month = this.capitalizeFirstLetter(this.month);
     console.log(this.numDays);
   }
 
-  capitalizeFirstLetter(mes: string): string {
-    return mes.charAt(0).toUpperCase() + mes.slice(1);
-  }
-
   ngOnInit(): void {
+    // Se comprueba que el usuario este logeado
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
@@ -59,8 +59,23 @@ export class InicioGeneralComponent implements OnInit {
         console.log('Ya logueado, cargando index.');
       });
     }
+    this.currentDate = this.date.getDate() - 1;
+    this.dayAsCenter = this.currentDate;
+  }
 
-    this.offsetWidth = document.getElementById('tasks-view')?.offsetWidth;
-    this.numWeekdays = this.offsetWidth! > 0 ? this.offsetWidth! / 300 : 0;
+  ngAfterViewInit(): void {
+    // poner el dia al que quiero hacer el scroll
+    this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
+  }
+
+  // Métodos
+  capitalizeFirstLetter(mes: string): string {
+    return mes.charAt(0).toUpperCase() + mes.slice(1);
+  }
+
+  centerDay(day: number) {
+    console.log(day);
+    this.dayAsCenter = day;
+    this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
   }
 }

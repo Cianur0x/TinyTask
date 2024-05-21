@@ -1,5 +1,6 @@
 .main-view {
     margin-left: 90px;
+    position: relative;
 
     .nav-month {
         background-color: #DBE2EF;
@@ -25,6 +26,22 @@
 
         #tasks-view {
             background-color: rebeccapurple;
+        }
+    }
+
+    .example-button-row {
+        position: absolute;
+        bottom: 10px;
+        right: 0;
+        z-index: 100;
+    }
+
+    .example-button-row button,
+    .example-button-row a {
+        margin-right: 10px;
+
+        mat-icon {
+            font-weight: bold;
         }
     }
 }

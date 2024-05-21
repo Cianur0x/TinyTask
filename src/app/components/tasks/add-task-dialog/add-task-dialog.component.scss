@@ -1,0 +1,60 @@
+mat-dialog-content {
+    form {
+        #headerTask {
+            display: flex;
+            flex-grow: 1;
+
+            mat-checkbox {
+                padding-top: 12px;
+            }
+
+            mat-form-field {
+                flex-grow: 1;
+            }
+        }
+
+        div {
+            label {
+                display: inline-block;
+                width: 120px;
+                padding: 15px;
+            }
+        }
+
+        .time {
+            display: flex;
+            align-items: center;
+
+            input {
+                padding: 10px;
+                font-size: 15px;
+            }
+        }
+
+        .description {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

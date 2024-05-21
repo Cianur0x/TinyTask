@@ -1,18 +1,14 @@
 $menuBreakpoint: 768px;
 
 .weekday-container {
-    // .center {}
 
     .weekday {
-
-
         display: flex;
         flex-direction: column;
         width: 300px;
         background-color: #DBE2EF;
         background: lightgrey;
         min-height: calc(100vh - 44px); // tamaño de la barra nav-mes
-
 
         .day {
             display: flex;
@@ -32,9 +28,5 @@ $menuBreakpoint: 768px;
             border-top: 0;
             background-color: #DBE2EF;
         }
-
-        // .all-tasks {
-        //     .task {}
-        // }
     }
 }

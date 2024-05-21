@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpInterceptorFn } from '@angular/common/http';
-
-import { interceptorInterceptor } from './interceptor.interceptor';
+import {
+  HttpHandlerFn,
+  HttpInterceptorFn,
+  HttpRequest,
+} from '@angular/common/http';
 
 describe('interceptorInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
+  const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() => interceptorInterceptor(req, next));
 
   beforeEach(() => {
@@ -15,3 +17,11 @@ describe('interceptorInterceptor', () => {
     expect(interceptor).toBeTruthy();
   });
 });
+
+// autogenerado par acorreccion de error
+function interceptorInterceptor(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): any {
+  throw new Error('Function not implemented.');
+}

@@ -1,10 +1,9 @@
 <div class="weekday-container">
-    <div class="weekday" [ngClass]="{'center': this.day == this.currentDate}"
-        [attr.id]=" this.day == this.currentDate ? 'center': ''">
+    <div class="weekday" #target>
         <div class="day">
             {{dayName}}
         </div>
-        <div class="add-task">
+        <div class="add-task" (click)="openDialog()">
             + Add Task
         </div>
         <div class="all-tasks">

@@ -8,7 +8,21 @@
     </div>
     <div class="tareitas">
         <div id="tasks-view" *ngFor="let item of items; let i = index">
-            <app-weekday [day]=i+1></app-weekday>
+            <app-weekday #weekday [day]=i+1></app-weekday>
         </div>
+    </div>
+    <div class="example-button-row">
+        <button mat-fab matTooltip="Accent" (click)="centerDay(this.dayAsCenter - 1)" color="accent"
+            aria-label="Example fab with a heart icon">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-fab matTooltip="Primary" (click)="centerDay(this.currentDate)" color="primary"
+            aria-label="Example fab with a heart icon">
+            <mat-icon>location_on</mat-icon>
+        </button>
+        <button mat-fab matTooltip="Accent" (click)="centerDay(this.dayAsCenter + 1)" color="accent"
+            aria-label="Example fab with a heart icon">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
     </div>
 </div>

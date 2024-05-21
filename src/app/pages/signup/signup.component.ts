@@ -1,23 +1,22 @@
+import { NgIf, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgOptimizedImage } from '@angular/common';
 import {
-  Validators,
+  FormBuilder,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  FormGroup,
-  FormBuilder,
+  Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { FooterComponent } from '../../components/main-view/footer/footer.component';
+import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { NgIf, CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
+import { FooterComponent } from '../../components/main-view/footer/footer.component';
+import { AuthService } from '../../services/auth/auth.service';
 import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
@@ -37,7 +36,6 @@ import { StorageService } from '../../services/storage/storage.service';
     MatInputModule,
     MatRadioModule,
     NgIf,
-    CommonModule,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
