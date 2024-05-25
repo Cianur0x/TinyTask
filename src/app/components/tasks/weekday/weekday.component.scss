@@ -9,6 +9,7 @@ $menuBreakpoint: 768px;
         background-color: #DBE2EF;
         background: lightgrey;
         min-height: calc(100vh - 44px); // tamaño de la barra nav-mes
+        // minHeigh le da el tamaño al contenedor, donde se encutran las tareas
 
         .day {
             display: flex;

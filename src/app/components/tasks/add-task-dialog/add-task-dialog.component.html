@@ -1,10 +1,10 @@
-<mat-dialog-content>
-    <form [formGroup]="taskForm" class="formulario">
+<form [formGroup]="taskForm" class="formulario" (ngSubmit)="addTask()">
+    <mat-dialog-content>
         <div id="headerTask">
             <mat-checkbox class="example-margin" formControlName="isDone"></mat-checkbox>
-            <mat-form-field>
+            <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
                 <mat-label class="label">To do...</mat-label>
-                <textarea matInput formControlName="taskName" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                <textarea matInput formControlName="title" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                     cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
             </mat-form-field>
         </div>
@@ -12,9 +12,9 @@
             <label for="firstname">Tag </label>
             <mat-form-field>
                 <mat-select formControlName="tag">
-                    <mat-option value="1">Primary</mat-option>
-                    <mat-option value="2">Accent</mat-option>
-                    <mat-option value="3">Warn</mat-option>
+                    @for (tag of allTags; track tag) {
+                    <mat-option [value]="tag.id">{{tag.name}}</mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
         </div>
@@ -55,10 +55,12 @@
                     cdkAutosizeMaxRows="10" rows="10" id="description" formControlName="taskDescription"></textarea>
             </mat-form-field>
         </div>
-    </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <!-- <button mat-button (click)="deleteTask()">Delete Task</button> -->
-    <button mat-button type="submit" color="primary" [disabled]="!taskForm.valid" (click)="addTask()">Save</button>
-</mat-dialog-actions>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <!-- <button mat-button (click)="deleteTask()">Delete Task</button>-->
+        <button mat-flat-button color="primary" type="submit" color="primary" [mat-dialog-close]="true"
+            [disabled]="!taskForm.valid">Save</button>
+    </mat-dialog-actions>
+</form>

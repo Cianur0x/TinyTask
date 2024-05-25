@@ -3,19 +3,23 @@ export interface ITask {
   taskDone: boolean;
   taskDuration: string;
   deadLine: string;
+  startTime: string;
+  endingTime: string;
   description: string;
-  // startTime: Date;
-  // endingTime: Date;
 
-  // idTag: number;
+  tag: {
+    id: number;
+  };
+
   user: {
     id: number;
   };
+
+  //viewers: [];
 }
 
 export interface ITag {
-  title: string;
-  taskDone: boolean;
-  taskDuration: string;
-  user: number;
+  id: number;
+  name: string;
+  labelColor: string;
 }

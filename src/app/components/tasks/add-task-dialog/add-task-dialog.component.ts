@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -28,10 +29,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TaskService } from '../../../services/task/task.service';
+import { ITag, ITask } from '../../../models/task.models';
+import { TagService } from '../../../services/tag/tag.service';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  currentDay: 0;
 }
 @Component({
   selector: 'app-add-task-dialog',
@@ -60,23 +62,29 @@ export interface DialogData {
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ],
 })
-export class AddTaskDialogComponent {
+export class AddTaskDialogComponent implements OnInit {
+  hideRequiredControl = new FormControl('');
   taskForm!: FormGroup;
-
+  allTags: ITag[] = [];
+  aviso = '';
+  date = new Date();
+  day = 0;
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _formBuilder: FormBuilder,
     private _storageService: StorageService,
-    private _taskService: TaskService
+    private _taskService: TaskService,
+    private _tagService: TagService
   ) {
-    dialogRef.disableClose = true;
-
+    this.day = data.currentDay;
+    dialogRef.disableClose = true; // para que al dar click fuera del dialogo no se cierre
+    this.getTags(); // se cargan las etiquetas
     this.taskForm = this._formBuilder.group({
-      taskName: ['', Validators.required],
-      date: [this.getAtualDateFormat(), Validators.required],
+      title: ['', Validators.required],
+      date: [this.date, Validators.required],
       isDone: [false, Validators.required],
-      tag: ['', Validators.required],
+      tag: [1, Validators.required],
       duration: ['', Validators.required],
       time: this._formBuilder.group({
         startTime: ['', Validators.required],
@@ -86,50 +94,79 @@ export class AddTaskDialogComponent {
     });
   }
 
+  ngOnInit(): void {}
+
   /**
    * se llama al backend para añadir una tarea
    */
   addTask() {
-    this.dialogRef.close();
     console.log(this.taskForm.value);
+    let userID = this._storageService.getUser().id;
 
-    // // "yyyy-MM-dd@HH:mm:ss"
+    const formValues = this.taskForm.value;
 
-    // let userID = this._storageService.getUser().id;
-    // let task: ITask = {
-    //   title: 'string',
-    //   taskDone: false,
-    //   taskDuration: 'string',
-    //   deadLine: deadline,
-    //   description: 'string',
-    //   user: {
-    //     id: userID,
-    //   },
-    // };
+    const task: ITask = {
+      title: formValues.title,
+      taskDone: formValues.isDone,
+      taskDuration: formValues.duration,
+      deadLine: this.getCurrentDateFormat(formValues.date),
+      startTime: formValues.time.startTime,
+      endingTime: formValues.time.endingTime,
+      description: formValues.taskDescription,
+      tag: {
+        id: +formValues.tag,
+      },
 
-    // this._taskService.postTask(task).subscribe({
-    //   next: (data) => {
-    //     console.log('se ha agragado');
-    //   },
-    //   error: (err) => {
-    //     console.log('ERROR');
-    //   },
-    // });
+      user: {
+        id: userID,
+      },
+    };
+
+    this._taskService.postTask(task).subscribe({
+      next: (data) => {
+        console.log('task enviada', task);
+        console.log('se ha agregado');
+      },
+      error: (err) => {
+        console.log('ERROR');
+      },
+    });
+
+    this.dialogRef.close();
   }
+
   deleteTask() {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  getCurrentDateFormat(date: Date) {
+    let dia = this.day;
+    let mes = date.getUTCMonth();
+    let year = date.getUTCFullYear();
+    let fecha = new Date(Date.UTC(year, mes, dia));
+    console.log(dia);
+    let deadline = fecha.toLocaleDateString('en-CA', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+    });
+
+    console.log('get actual date format para deadeline', deadline);
+    return deadline;
   }
 
-  getAtualDateFormat() {
-    let date = new Date();
-    let year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
-    let month = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(
-      date
-    );
-    let day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-    let deadline = `${year}-${month}-${day}@${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    return deadline;
+  getTags() {
+    let id = this._storageService.getUser().id;
+    this._tagService.getAllTags(id).subscribe({
+      next: (data) => {
+        this.allTags = data as ITag[];
+      },
+      error: (error) => {
+        this.setAviso('Error de conexión al servidor.');
+      },
+    });
+  }
+
+  setAviso(texto: string) {
+    this.aviso = texto;
+    setTimeout(() => (this.aviso = ''), 2000);
   }
 }

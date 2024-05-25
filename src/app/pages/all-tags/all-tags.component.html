@@ -1,0 +1,21 @@
+<div class="main-view">
+    <div class="nav-month">
+        <div class="content">
+            <div class="text">Tags</div>
+        </div>
+    </div>
+    <div class="all-tags">
+        <div class="add-tag">
+            + Add Task
+        </div>
+        <div class="filters">
+            <mat-checkbox>To do</mat-checkbox>
+            <mat-checkbox>Done</mat-checkbox>
+        </div>
+        <div class="tags">
+            <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags">
+                {{tag.name}}
+            </div>
+        </div>
+    </div>
+</div>

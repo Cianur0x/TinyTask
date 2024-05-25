@@ -47,7 +47,7 @@ export class InicioGeneralComponent implements OnInit {
   // Constructores
   constructor(private storageService: StorageService, private router: Router) {
     this.month = this.capitalizeFirstLetter(this.month);
-    console.log(this.numDays);
+    console.log('dias desde inicio', this.numDays);
   }
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class InicioGeneralComponent implements OnInit {
         console.log('Ya logueado, cargando index.');
       });
     }
-    this.currentDate = this.date.getDate() - 1;
+    this.currentDate = this.date.getDate() - 1; // no recuerdo pq le restabamos 1
     this.dayAsCenter = this.currentDate;
   }
 
@@ -74,7 +74,7 @@ export class InicioGeneralComponent implements OnInit {
   }
 
   centerDay(day: number) {
-    console.log(day);
+    console.log('inicio centerday', day);
     this.dayAsCenter = day;
     this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
   }

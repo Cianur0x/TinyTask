@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { StorageService } from '../storage/storage.service';
-import { ITag, ITask } from '../../models/task.models';
+import { ITask } from '../../models/task.models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private addTaskURL = 'http://localhost:8080/v1/api/tasks/';
+  private taskURL = 'http://localhost:8080/v1/api/tasks/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -15,18 +15,28 @@ export class TaskService {
     }),
   };
 
-  constructor(
-    private httpClient: HttpClient,
-    private storageService: StorageService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
-  postTask(task: ITask) {
-    return this.httpClient.post(
-      this.addTaskURL,
-      JSON.stringify(task),
-      this.httpOptions
-    );
+  getTasksByDeadline(deadline: string, userId: number): Observable<Object> {
+    const url = `${this.taskURL}?deadline=${deadline}&userId=${userId}`;
+    return this.httpClient.get(url);
   }
 
-  postTag(task: ITag) {}
+  getAllByIsChecked(
+    isDone: boolean,
+    tagId: number,
+    userId: number
+  ): Observable<Object> {
+    const url = `${this.taskURL}?isChecked=${isDone}&tagId=${tagId}&userId=${userId}`;
+    return this.httpClient.get(url);
+  }
+
+  getAllByTagId(tagId: number, userId: number): Observable<Object> {
+    const url = `${this.taskURL}?tagId=${tagId}&userId=${userId}`;
+    return this.httpClient.get(url);
+  }
+
+  postTask(task: ITask): Observable<Object> {
+    return this.httpClient.post(this.taskURL, task, this.httpOptions);
+  }
 }
