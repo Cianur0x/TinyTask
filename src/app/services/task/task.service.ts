@@ -17,8 +17,12 @@ export class TaskService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getTasksByDeadline(deadline: string, userId: number): Observable<Object> {
-    const url = `${this.taskURL}?deadline=${deadline}&userId=${userId}`;
+  getTasksByMonth(
+    start: string,
+    end: string,
+    userId: number
+  ): Observable<Object> {
+    const url = `${this.taskURL}?start=${start}&end=${end}&id=${userId}`;
     return this.httpClient.get(url);
   }
 

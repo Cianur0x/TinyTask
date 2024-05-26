@@ -8,7 +8,9 @@
         </div>
         <div class="all-tasks">
             <div class="task">
-                {{numTasks}}
+                <div *ngFor="let item of todayTasks">
+                    <app-little-task></app-little-task>
+                </div>
             </div>
         </div>
     </div>

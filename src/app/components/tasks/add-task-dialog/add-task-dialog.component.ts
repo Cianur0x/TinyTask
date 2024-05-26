@@ -31,6 +31,7 @@ import { StorageService } from '../../../services/storage/storage.service';
 import { TaskService } from '../../../services/task/task.service';
 import { ITag, ITask } from '../../../models/task.models';
 import { TagService } from '../../../services/tag/tag.service';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   currentDay: 0;
@@ -69,26 +70,30 @@ export class AddTaskDialogComponent implements OnInit {
   aviso = '';
   date = new Date();
   day = 0;
+  currentTime = this.date.toString().substring(16, 21);
+  currentTimePlus = this.addHours(1);
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _formBuilder: FormBuilder,
     private _storageService: StorageService,
     private _taskService: TaskService,
-    private _tagService: TagService
+    private _tagService: TagService,
+    private _router: Router
   ) {
-    this.day = data.currentDay;
     dialogRef.disableClose = true; // para que al dar click fuera del dialogo no se cierre
+    this.day = data.currentDay;
     this.getTags(); // se cargan las etiquetas
     this.taskForm = this._formBuilder.group({
+      // se inicializa la tarea en el formulario
       title: ['', Validators.required],
       date: [this.date, Validators.required],
       isDone: [false, Validators.required],
       tag: [1, Validators.required],
       duration: ['', Validators.required],
       time: this._formBuilder.group({
-        startTime: ['', Validators.required],
-        endingTime: ['', Validators.required],
+        startTime: [this.currentTime, Validators.required],
+        endingTime: [this.currentTimePlus, Validators.required],
       }),
       taskDescription: ['', Validators.required],
     });
@@ -104,7 +109,7 @@ export class AddTaskDialogComponent implements OnInit {
     let userID = this._storageService.getUser().id;
 
     const formValues = this.taskForm.value;
-
+    console.log('formValue date ', formValues.date);
     const task: ITask = {
       title: formValues.title,
       taskDone: formValues.isDone,
@@ -125,24 +130,21 @@ export class AddTaskDialogComponent implements OnInit {
     this._taskService.postTask(task).subscribe({
       next: (data) => {
         console.log('task enviada', task);
-        console.log('se ha agregado');
+        this.redirectTo();
       },
       error: (err) => {
-        console.log('ERROR');
+        console.log('task NO enviada');
       },
     });
-
-    this.dialogRef.close();
   }
 
   deleteTask() {}
 
-  getCurrentDateFormat(date: Date) {
-    let dia = this.day;
-    let mes = date.getUTCMonth();
-    let year = date.getUTCFullYear();
-    let fecha = new Date(Date.UTC(year, mes, dia));
-    console.log(dia);
+  getCurrentDateFormat(fechaRecibida: Date) {
+    let dia = fechaRecibida.getDate();
+    let mes = fechaRecibida.getMonth();
+    let year = fechaRecibida.getFullYear();
+    let fecha = new Date(year, mes, dia);
     let deadline = fecha.toLocaleDateString('en-CA', {
       month: '2-digit',
       day: '2-digit',
@@ -168,5 +170,20 @@ export class AddTaskDialogComponent implements OnInit {
   setAviso(texto: string) {
     this.aviso = texto;
     setTimeout(() => (this.aviso = ''), 2000);
+  }
+
+  addHours(h: number) {
+    let milliseconds = this.date.setTime(
+      this.date.getTime() + h * 60 * 60 * 1000
+    );
+    let later = new Date(milliseconds);
+    return later.toString().substring(16, 21);
+  }
+
+  redirectTo(): void {
+    // When skipLocationChange true, navigates without pushing a new state into history.
+    this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this._router.navigate(['inicio']);
+    });
   }
 }

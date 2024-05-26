@@ -6,7 +6,9 @@ import { WeekdayComponent } from '../../components/tasks/weekday/weekday.compone
 import { StorageService } from '../../services/storage/storage.service';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { TaskService } from '../../services/task/task.service';
+import { ITask } from '../../models/task.models';
 
 @Component({
   selector: 'app-inicio-general',
@@ -17,6 +19,7 @@ import { NgFor } from '@angular/common';
     MatIcon,
     WeekdayComponent,
     FontAwesomeModule,
+    NgIf,
   ],
   templateUrl: './inicio-general.component.html',
   styleUrl: './inicio-general.component.scss',
@@ -27,11 +30,13 @@ export class InicioGeneralComponent implements OnInit {
   faAngleRight = faAngleRight;
 
   // Variables
+  user = 0;
   currentDate = 0;
   dayAsCenter = 0;
   userLang = navigator.language;
   isLoggedIn = false;
   roles: string[] = [];
+  allTasks!: ITask[];
   date = new Date();
   month: any = this.date.toLocaleString(this.userLang, { month: 'long' });
   year = this.date.getFullYear();
@@ -41,26 +46,32 @@ export class InicioGeneralComponent implements OnInit {
     0
   ).getDate();
   items = Array(this.numDays);
+  tasksByDay?: ITask[];
 
   @ViewChildren('weekday') weekdays?: QueryList<WeekdayComponent>;
 
   // Constructores
-  constructor(private storageService: StorageService, private router: Router) {
+  constructor(
+    private _storageService: StorageService,
+    private _taskService: TaskService,
+    private _router: Router
+  ) {
     this.month = this.capitalizeFirstLetter(this.month);
-    console.log('dias desde inicio', this.numDays);
   }
 
   ngOnInit(): void {
     // Se comprueba que el usuario este logeado
-    if (this.storageService.isLoggedIn()) {
+    if (this._storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      this.router.navigateByUrl('inicio').then(() => {
-        console.log('Ya logueado, cargando index.');
+      this.roles = this._storageService.getUser().roles;
+      this._router.navigateByUrl('inicio').then(() => {
+        // console.log('Ya logueado, cargando index.');
       });
     }
     this.currentDate = this.date.getDate() - 1; // no recuerdo pq le restabamos 1
     this.dayAsCenter = this.currentDate;
+    this.user = this._storageService.getUser().id;
+    this.getTaskByMonthDay(2024, 4);
   }
 
   ngAfterViewInit(): void {
@@ -77,5 +88,39 @@ export class InicioGeneralComponent implements OnInit {
     console.log('inicio centerday', day);
     this.dayAsCenter = day;
     this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
+  }
+
+  getTaskByMonthDay(year: number, month: number) {
+    var firstDay = new Date(year, month, 1);
+    var lastDay = new Date(year, month + 1, 0);
+    var start = this.customFormatToDB(firstDay);
+    var end = this.customFormatToDB(lastDay);
+
+    this._taskService.getTasksByMonth(start, end, this.user).subscribe({
+      next: (data) => {
+        this.allTasks = data as ITask[];
+        console.log('total tasks', this.allTasks.length);
+      },
+      error: (error) => {
+        console.log('Error de conexión al servidor.');
+      },
+    });
+  }
+
+  customFormatToDB(date: Date): string {
+    let fecha = date.toLocaleDateString('en-CA', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+    });
+
+    return fecha;
+  }
+
+  filterByDay(day: number): ITask[] {
+    let tasks = this.allTasks?.filter(
+      (task) => task.deadLine.substring(8, 10) == day + ''
+    );
+    return tasks;
   }
 }
