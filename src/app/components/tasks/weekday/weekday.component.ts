@@ -2,10 +2,10 @@ import { NgClass, NgFor } from '@angular/common';
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
-  OnChanges,
   OnInit,
-  SimpleChanges,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,11 @@ import { MatInputModule } from '@angular/material/input';
 import { ITask } from '../../../models/task.models';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { LittleTaskComponent } from '../little-task/little-task.component';
+
+export interface toEmit {
+  task: ITask;
+  operation: string;
+}
 
 @Component({
   selector: 'app-weekday',
@@ -44,6 +49,10 @@ export class WeekdayComponent implements OnInit {
   @Input() day = 0;
   @ViewChild('target', { static: true }) target?: ElementRef;
   mytasks?: ITask[];
+  info!: toEmit;
+  @Output() addTask = new EventEmitter<toEmit>();
+  @Output() updateTask = new EventEmitter<toEmit>();
+  @Output() deleteTask = new EventEmitter<toEmit>();
 
   // Constructores
   constructor(public dialog: MatDialog) {}
@@ -87,10 +96,25 @@ export class WeekdayComponent implements OnInit {
    * función para abrir el diálogo donde se creará la tarea
    */
   openDialog(): void {
-    this.dialog.open(AddTaskDialogComponent, {
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       data: {
         currentDay: this.day,
       },
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.info = result;
+      if (!!this.info) {
+        this.addTask.emit(this.info);
+      }
+    });
+  }
+
+  updateTaskParent(info: toEmit) {
+    this.updateTask.emit(info);
+  }
+
+  deleteTaskParent(info: toEmit) {
+    this.deleteTask.emit(info);
   }
 }

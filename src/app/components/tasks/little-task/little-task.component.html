@@ -1,1 +1,7 @@
-<p>little-task works!</p>
+<div class="task" (click)="openDialog()">
+    <div class="header">
+        <mat-checkbox [(ngModel)]="task.taskDone"></mat-checkbox>
+        <mat-label class="label" [ngClass]="{'done': task.taskDone}">{{task.title}}</mat-label>
+    </div>
+    <div class="tag" [style.backgroundColor]="task.tag.labelColor">{{task.tag.name}}</div>
+</div>

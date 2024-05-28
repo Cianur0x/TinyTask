@@ -122,11 +122,8 @@ $menuBreakpoint: 768px;
     display: flex;
     justify-content: center;
 
-    @media (max-width: $menuBreakpoint),
-    (max-height: 620px) {
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .side-nav-container {
         display: flex;
@@ -165,4 +162,24 @@ $menuBreakpoint: 768px;
             }
         }
     }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

@@ -2,7 +2,10 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { WeekdayComponent } from '../../components/tasks/weekday/weekday.component';
+import {
+  WeekdayComponent,
+  toEmit,
+} from '../../components/tasks/weekday/weekday.component';
 import { StorageService } from '../../services/storage/storage.service';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -99,7 +102,6 @@ export class InicioGeneralComponent implements OnInit {
     this._taskService.getTasksByMonth(start, end, this.user).subscribe({
       next: (data) => {
         this.allTasks = data as ITask[];
-        console.log('total tasks', this.allTasks.length);
       },
       error: (error) => {
         console.log('Error de conexión al servidor.');
@@ -121,6 +123,25 @@ export class InicioGeneralComponent implements OnInit {
     let tasks = this.allTasks?.filter(
       (task) => task.deadLine.substring(8, 10) == day + ''
     );
+
     return tasks;
+  }
+
+  addTaskToArray(info: toEmit) {
+    this.allTasks.push(info.task);
+  }
+
+  updateTask(info: toEmit) {
+    let index = this.allTasks.findIndex((x) => x.id == info.task.id);
+    if (index > -1) {
+      this.allTasks[index] = info.task;
+    }
+  }
+
+  deleteTask(info: toEmit) {
+    let index = this.allTasks.findIndex((x) => x.id == info.task.id);
+    if (index > -1) {
+      this.allTasks.splice(index, 1);
+    }
   }
 }

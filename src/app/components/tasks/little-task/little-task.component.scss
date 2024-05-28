@@ -1,0 +1,56 @@
+.task {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid lightgrey;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    font-weight: 500;
+
+    .header {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+
+        .label {
+            font-weight: 600;
+        }
+    }
+
+    .done {
+        text-decoration: line-through;
+        color: #707070;
+    }
+
+    .tag {
+        width: 125px;
+        align-self: flex-end;
+        border: 1px solid black;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-weight: 600;
+        font-size: smaller;
+        text-align: center;
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

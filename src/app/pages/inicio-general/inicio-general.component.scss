@@ -1,11 +1,12 @@
 .main-view {
     margin-left: 90px;
     position: relative;
+    height: calc(100vh - 40px);
 
     .nav-month {
         background-color: #DBE2EF;
 
-        .content {
+        .month {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -23,15 +24,16 @@
         flex-direction: row;
         column-gap: 10px;
         overflow: hidden;
+        height: calc(100% - 4px);
 
         #tasks-view {
-            background-color: rebeccapurple;
+            background-color: #DBE2EF;
         }
     }
 
     .example-button-row {
         position: absolute;
-        bottom: 10px;
+        bottom: -25px;
         right: 0;
         z-index: 100;
     }

@@ -9,7 +9,8 @@
         <div class="all-tasks">
             <div class="task">
                 <div *ngFor="let item of todayTasks">
-                    <app-little-task></app-little-task>
+                    <app-little-task [task]=item (updateTask)="updateTaskParent($event)"
+                        (deleteTask)="deleteTaskParent($event)"></app-little-task>
                 </div>
             </div>
         </div>

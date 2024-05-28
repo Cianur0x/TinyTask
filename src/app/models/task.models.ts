@@ -1,4 +1,5 @@
 export interface ITask {
+  id: number;
   title: string;
   taskDone: boolean;
   taskDuration: string;
@@ -9,6 +10,8 @@ export interface ITask {
 
   tag: {
     id: number;
+    name: string;
+    labelColor: string;
   };
 
   user: {

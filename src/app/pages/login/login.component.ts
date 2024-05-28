@@ -73,15 +73,10 @@ export class LoginComponent {
       next: (data) => {
         this.storageService.clean();
         this.storageService.saveUser(data);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        console.log('isLoggedIn = ' + this.isLoggedIn);
         this.roles = this.storageService.getUser().roles;
         this.reloadPage();
-        // this.router.navigate(['index']).then(
-        //   () => {console.log('Login OK, cargando index.')}
-        // )
       },
       error: (err) => {
         this.errorMessage = err.error.message;
