@@ -6,7 +6,7 @@ $menuBreakpoint: 768px;
         display: flex;
         flex-direction: column;
         width: 300px;
-        // max-height: calc(100vh - 44px); // tamaño de la barra nav-mes
+        max-height: calc(100vh - 44px); // tamaño de la barra nav-mes
         // minHeigh le da el tamaño al contenedor, donde se encutran las tareas
 
         .day {

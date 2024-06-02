@@ -10,34 +10,23 @@
         </div>
         <div class="form" *ngIf="show">
             <form [formGroup]="searchUserForm" (ngSubmit)="onSubmit()">
-                <mat-form-field>
-                    <mat-label i18n>Username</mat-label>
+                <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
+                    <mat-label>Username</mat-label>
                     <input matInput type="text" formControlName="username">
-                    <mat-error i18n
-                        *ngIf="searchUserForm.get('username')?.invalid && searchUserForm.get('username')?.touched">
-                        Username is required
+                    <mat-error *ngIf="userAdded && searchUserForm.get('username')?.touched">
+                        User added!
                     </mat-error>
                 </mat-form-field>
                 <div class="button">
-                    <button i18n mat-raised-button color="primary" type="submit"
+                    <button mat-raised-button color="primary" type="submit"
                         [disabled]="searchUserForm.invalid">Add<mat-icon aria-hidden="false"
                             aria-label="Example home icon" fontIcon="send"></mat-icon>
                     </button>
                 </div>
             </form>
         </div>
-
-        <ul>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-            <li>adsasdsa</li>
-        </ul>
+        <div class="list" *ngFor="let item of friendList">
+            <app-friend [friend]="item"></app-friend>
+        </div>
     </div>
 </div>

@@ -1,7 +1,8 @@
-import { NgIf } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -9,12 +10,13 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
-import { MatInputModule } from '@angular/material/input';
-import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../../services/user/user.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { IFriend } from '../../models/friend.models';
 import { StorageService } from '../../services/storage/storage.service';
-import { IUser } from '../../models/auth.models';
+import { UserService } from '../../services/user/user.service';
+import { FriendComponent } from '../../components/friends/friend/friend.component';
 
 @Component({
   selector: 'app-friends-list',
@@ -28,15 +30,19 @@ import { IUser } from '../../models/auth.models';
     NgIf,
     MatSidenavModule,
     MatIconModule,
+    NgFor,
+    FriendComponent,
   ],
   templateUrl: './friends-list.component.html',
   styleUrl: './friends-list.component.scss',
 })
 export class FriendsListComponent {
+  hideRequiredControl = new FormControl('');
   searchUserForm!: FormGroup;
   show = false;
   user = 0;
-  friendList: IUser[] = [];
+  friendList: IFriend[] = [];
+  userAdded: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +50,7 @@ export class FriendsListComponent {
     private _storageService: StorageService
   ) {
     this.user = this._storageService.getUser().id;
+    this.getFriendsList();
   }
 
   ngOnInit(): void {
@@ -55,16 +62,31 @@ export class FriendsListComponent {
   open() {
     this.show = !this.show;
   }
+
   onSubmit(): void {
     let username: string = this.searchUserForm.value.username;
     const us = username.trim();
 
     this._userService.addFriends(us, this.user).subscribe({
       next: (data) => {
-        this.friendList = data as IUser[];
-        console.log(this.friendList);
+        if (data != null) {
+          const newUser = data as IFriend;
+          this.friendList.push(newUser);
+          this.userAdded = true;
+        }
       },
       error: (error) => {},
+    });
+  }
+
+  getFriendsList() {
+    this._userService.getFriendsList(this.user).subscribe({
+      next: (data) => {
+        this.friendList = data as IFriend[];
+      },
+      error: (error) => {
+        console.error(error);
+      },
     });
   }
 }

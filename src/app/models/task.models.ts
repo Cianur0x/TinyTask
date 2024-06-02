@@ -1,3 +1,5 @@
+import { IFriend } from './friend.models';
+
 export interface ITask {
   id: number;
   title: string;
@@ -18,7 +20,7 @@ export interface ITask {
     id: number;
   };
 
-  //viewers: [];
+  viewers: IFriend[];
 }
 
 export interface ITag {

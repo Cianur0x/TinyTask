@@ -20,4 +20,9 @@ export class UserService {
     const url = `${this.userURL}?friend=${friend}&id=${userId}`;
     return this.httpClient.get(url);
   }
+
+  getFriendsList(id: number) {
+    const url = `${this.userURL}/friendlist?id=${id}`;
+    return this.httpClient.get(url);
+  }
 }

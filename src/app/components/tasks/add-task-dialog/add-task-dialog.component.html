@@ -55,7 +55,13 @@
                     cdkAutosizeMaxRows="10" rows="10" id="description" formControlName="taskDescription"></textarea>
             </mat-form-field>
         </div>
-
+        <div>
+            <form>
+                <button mat-flat-button color="primary"><fa-icon [icon]="faShare" size="xl"></fa-icon>
+                    Share with
+                    Friends</button>
+            </form>
+        </div>
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-button mat-dialog-close>Cancel</button>
@@ -63,4 +69,5 @@
         <button mat-flat-button color="primary" type="submit" color="primary" [mat-dialog-close]="true"
             [disabled]="!taskForm.valid">Save</button>
     </mat-dialog-actions>
+
 </form>

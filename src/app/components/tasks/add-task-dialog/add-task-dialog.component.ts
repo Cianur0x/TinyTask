@@ -32,6 +32,8 @@ import { StorageService } from '../../../services/storage/storage.service';
 import { TagService } from '../../../services/tag/tag.service';
 import { TaskService } from '../../../services/task/task.service';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 export interface DialogData {
   currentDay: number;
   task: ITask;
@@ -56,6 +58,7 @@ export interface DialogData {
     MatIconModule,
     MatSelectModule,
     MatDatepickerModule,
+    FontAwesomeModule,
   ],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
@@ -75,6 +78,7 @@ export class AddTaskDialogComponent implements OnInit {
   currentTimePlus = this.addHours(1);
   currentTask!: ITask;
   deleteTask: boolean = false;
+  faShare = faUserPlus;
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
@@ -143,10 +147,11 @@ export class AddTaskDialogComponent implements OnInit {
         name: tag.name,
         labelColor: tag.labelColor,
       },
-
       user: {
         id: userID,
       },
+
+      viewers: [],
     };
 
     this._taskService.postTask(task).subscribe({
@@ -203,6 +208,8 @@ export class AddTaskDialogComponent implements OnInit {
       user: {
         id: userID,
       },
+
+      viewers: [],
     };
 
     this._taskService.updateTask(task).subscribe({
