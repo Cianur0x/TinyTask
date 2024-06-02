@@ -116,7 +116,7 @@ export class InicioGeneralComponent implements OnInit {
         console.log(this.allTasks);
       },
       error: (error) => {
-        console.log('Error de conexión al servidor.');
+        console.log('Error de conexión al servidor.', error);
       },
     });
   }

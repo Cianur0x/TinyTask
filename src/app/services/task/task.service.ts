@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { ITask } from '../../models/task.models';
 import { Observable, catchError, throwError } from 'rxjs';
+import { IFriendToInvite } from '../../components/tasks/add-friend-dialog/add-friend-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +64,11 @@ export class TaskService {
     return this.httpClient
       .delete(url, this.httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  addViewers(viewers: IFriendToInvite[], taskId: number): Observable<Object> {
+    const url = `${this.taskURL}viewers?id=${taskId}`;
+    return this.httpClient.put(url, viewers, this.httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {

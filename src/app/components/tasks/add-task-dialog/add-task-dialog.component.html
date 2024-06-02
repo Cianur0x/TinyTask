@@ -55,19 +55,35 @@
                     cdkAutosizeMaxRows="10" rows="10" id="description" formControlName="taskDescription"></textarea>
             </mat-form-field>
         </div>
-        <div>
+        <div class="viewers-list">
+            <label for="viewers">Viewers List</label>
+            <div *ngFor="let item of viewersList">
+                <div class="user">
+                    <fa-icon [icon]="faUser" size="2x"></fa-icon>
+                    <div class="info">
+                        <div>
+                            {{item.username}}
+                        </div>
+                        <div>
+                            state
+                        </div>
+                    </div>
+                    <fa-icon [icon]="faDelete"></fa-icon>
+                </div>
+            </div>
+        </div>
+        <div class="add-viewers">
             <form>
-                <button mat-flat-button color="primary"><fa-icon [icon]="faShare" size="xl"></fa-icon>
-                    Share with
-                    Friends</button>
+                <button mat-flat-button color="primary" (click)="openDialog3()">
+                    <fa-icon [icon]="faShare" size="xl"></fa-icon>
+                    Share with Friends
+                </button>
             </form>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-button mat-dialog-close>Cancel</button>
         <button mat-button (click)="deleteTask = true" [disabled]="!currentTask">Delete Task</button>
-        <button mat-flat-button color="primary" type="submit" color="primary" [mat-dialog-close]="true"
-            [disabled]="!taskForm.valid">Save</button>
+        <button mat-flat-button color="primary" type="submit" color="primary" [disabled]="!taskForm.valid">Save</button>
     </mat-dialog-actions>
-
 </form>

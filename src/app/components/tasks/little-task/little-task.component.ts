@@ -47,7 +47,7 @@ export class LittleTaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.info = result;
-      console.log(this.info);
+      console.log('to Emit', this.info);
 
       if (!!this.info) {
         if (result.operacion.localeCompare('delete') == 0) {

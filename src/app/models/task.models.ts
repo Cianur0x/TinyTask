@@ -20,7 +20,7 @@ export interface ITask {
     id: number;
   };
 
-  viewers: IFriend[];
+  // viewers: IFriend[];
 }
 
 export interface ITag {

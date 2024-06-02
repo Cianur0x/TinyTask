@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Friend List</h2>
+<mat-dialog-content>
+    <div *ngFor="let item of friendList">
+        <div class="user">
+            <fa-icon [icon]="faUser" size="2x"></fa-icon>
+            <div class="info">
+                <div>
+                    {{item.username}}
+                </div>
+                <div>
+                    state
+                </div>
+            </div>
+            <mat-checkbox [(ngModel)]="item.checked"></mat-checkbox>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" [disabled]="!someChecked()" (click)="onSubmit()">Ok</button>
+</mat-dialog-actions>

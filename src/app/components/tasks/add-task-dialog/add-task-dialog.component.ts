@@ -16,6 +16,7 @@ import {
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MAT_DIALOG_DATA,
+  MatDialog,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -31,9 +32,17 @@ import { ITag, ITask } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TagService } from '../../../services/tag/tag.service';
 import { TaskService } from '../../../services/task/task.service';
-
+import { NgFor } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { IFriend } from '../../../models/friend.models';
+import { UserService } from '../../../services/user/user.service';
+import {
+  AddFriendDialogComponent,
+  IFriendToInvite,
+} from '../add-friend-dialog/add-friend-dialog.component';
+import { faTrashCan, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+
 export interface DialogData {
   currentDay: number;
   task: ITask;
@@ -59,6 +68,7 @@ export interface DialogData {
     MatSelectModule,
     MatDatepickerModule,
     FontAwesomeModule,
+    NgFor,
   ],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
@@ -79,6 +89,11 @@ export class AddTaskDialogComponent implements OnInit {
   currentTask!: ITask;
   deleteTask: boolean = false;
   faShare = faUserPlus;
+  faUser = faUserCircle;
+  faDelete = faTrashCan;
+  friendList!: IFriend[];
+  user = this._storageService.getUser();
+  viewersList!: IFriendToInvite[];
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
@@ -86,12 +101,15 @@ export class AddTaskDialogComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _storageService: StorageService,
     private _taskService: TaskService,
-    private _tagService: TagService
+    private _tagService: TagService,
+    private _userService: UserService,
+    public dialog: MatDialog
   ) {
     dialogRef.disableClose = true; // para que al dar click fuera del dialogo no se cierre
     this.day = data.currentDay;
     this.currentTask = data.task;
     this.getTags(); // se cargan las etiquetas
+    this.getFriendsList(); // se cargan los amigos
     if (!!this.currentTask) {
       this.taskForm = this._formBuilder.group({
         title: [this.currentTask.title, Validators.required],
@@ -129,7 +147,7 @@ export class AddTaskDialogComponent implements OnInit {
    * se llama al backend para añadir una tarea
    */
   addTask() {
-    let userID = this._storageService.getUser().id;
+    let userID = this.user.id;
     const formValues = this.taskForm.value;
     let tag = this.getTagFromID(+formValues.tag);
 
@@ -150,19 +168,32 @@ export class AddTaskDialogComponent implements OnInit {
       user: {
         id: userID,
       },
-
-      viewers: [],
     };
 
     this._taskService.postTask(task).subscribe({
       next: (data) => {
+        console.log('post close');
         this.dialogRef.close({
           task: data,
           operacion: 'post',
         });
+
+        let tarea = data as ITask;
+        this._taskService.addViewers(this.viewersList, tarea.id).subscribe({
+          next: (data) => {
+            console.log('addviewers data', data);
+            // this.dialogRef.close({
+            //   task: data,
+            //   operacion: 'put',
+            // });
+          },
+          error: (err) => {
+            console.log('task NO actualizada');
+          },
+        });
       },
       error: (err) => {
-        console.log('task NO enviada');
+        console.log('task NO enviada', err);
       },
     });
   }
@@ -185,7 +216,7 @@ export class AddTaskDialogComponent implements OnInit {
   }
 
   updateTask(form: FormGroup) {
-    let userID = this._storageService.getUser().id;
+    let userID = this.user.id;
     const formValues = form.value;
 
     let tag = this.getTagFromID(+formValues.tag);
@@ -208,15 +239,27 @@ export class AddTaskDialogComponent implements OnInit {
       user: {
         id: userID,
       },
-
-      viewers: [],
     };
 
     this._taskService.updateTask(task).subscribe({
       next: (data) => {
+        console.log('before close update:', data);
         this.dialogRef.close({
           task: data,
           operacion: 'put',
+        });
+
+        this._taskService.addViewers(this.viewersList, task.id).subscribe({
+          next: (data) => {
+            console.log('addviewers data', data);
+            // this.dialogRef.close({
+            //   task: data,
+            //   operacion: 'put',
+            // });
+          },
+          error: (err) => {
+            console.log('task NO actualizada');
+          },
         });
       },
       error: (err) => {
@@ -242,6 +285,7 @@ export class AddTaskDialogComponent implements OnInit {
   removeTask() {
     this._taskService.deleteTask(this.currentTask.id).subscribe({
       next: () => {
+        console.log('delete close');
         this.dialogRef.close({
           task: this.currentTask,
           operacion: 'delete',
@@ -254,20 +298,15 @@ export class AddTaskDialogComponent implements OnInit {
   }
 
   getTags() {
-    let id = this._storageService.getUser().id;
+    let id = this.user.id;
     this._tagService.getAllTags(id).subscribe({
       next: (data) => {
         this.allTags = data as ITag[];
       },
       error: (error) => {
-        this.setAviso('Error de conexión al servidor.');
+        console.error('Error de conexión al servidor.', error);
       },
     });
-  }
-
-  setAviso(texto: string) {
-    this.aviso = texto;
-    setTimeout(() => (this.aviso = ''), 2000);
   }
 
   addHours(h: number) {
@@ -282,5 +321,32 @@ export class AddTaskDialogComponent implements OnInit {
   getTagFromID(id: number) {
     let soloTag = this.allTags.filter((x) => x.id == id);
     return soloTag[0];
+  }
+
+  getFriendsList() {
+    this._userService.getFriendsList(this.user.id).subscribe({
+      next: (data) => {
+        this.friendList = data as IFriend[];
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  /**
+   * función para abrir el diálogo donde se creará la tarea
+   */
+  openDialog3(): void {
+    const dialogRef = this.dialog.open(AddFriendDialogComponent, {
+      data: { friendList: this.friendList },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!!result) {
+        this.viewersList = result.friendList as IFriendToInvite[];
+        this.viewersList = this.viewersList.filter((x) => x.checked);
+      }
+    });
   }
 }

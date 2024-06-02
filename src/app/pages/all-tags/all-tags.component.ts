@@ -133,17 +133,12 @@ export class AllTagsComponent {
         this.allTags = data as ITag[];
       },
       error: (error) => {
-        this.setAviso('Error de conexión al servidor.');
+        console.error('Error de conexión al servidor.', error);
       },
     });
   }
 
   filterTaskByTag(id: number) {
     this.allTasks = this.origin.filter((x) => x.tag.id == id);
-  }
-
-  setAviso(texto: string) {
-    this.aviso = texto;
-    setTimeout(() => (this.aviso = ''), 2000);
   }
 }
