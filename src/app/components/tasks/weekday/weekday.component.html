@@ -1,12 +1,12 @@
 <div class="weekday-container">
     <div class="weekday" #target>
-        <div class="day">
+        <div class="day mat-app-background">
             {{dayName}}
         </div>
-        <div class="add-task" (click)="openDialog()">
+        <div class="add-task mat-app-background" (click)="openDialog()">
             + Add Task
         </div>
-        <div class="all-tasks">
+        <div class="all-tasks ">
             <div class="task">
                 <div *ngFor="let item of todayTasks">
                     <app-little-task [task]=item (updateTask)="updateTaskParent($event)"

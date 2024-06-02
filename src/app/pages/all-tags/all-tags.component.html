@@ -1,20 +1,45 @@
 <div class="main-view">
-    <div class="nav-month">
+    <div class="nav-month mat-app-background">
         <div class="content">
             <div class="text">Tags</div>
         </div>
     </div>
-    <div class="all-tags">
-        <div class="add-tag">
-            + Add Task
+    <div class="container">
+        <div class="all-tags">
+            <div class="add-tag mat-app-background">
+                + Add Tag
+            </div>
+            <section class="filters">
+                <span class="all-filter">
+                    <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
+                        [indeterminate]="someComplete()" (change)="setAll($event.checked)">
+                        {{task.name}}
+                    </mat-checkbox>
+                </span>
+                <mat-divider [vertical]="true"></mat-divider>
+                <span class="todo-filter">
+                    <ul>
+                        @for (subtask of task.subtasks; track subtask) {
+                        <li>
+                            <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
+                                (ngModelChange)="updateAllComplete()">
+                                {{subtask.name}}
+                            </mat-checkbox>
+                        </li>
+                        }
+                    </ul>
+                </span>
+            </section>
+            <div class="tags">
+                <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags"
+                    (click)="filterTaskByTag(tag.id)">
+                    {{tag.name}}
+                </div>
+            </div>
         </div>
-        <div class="filters">
-            <mat-checkbox>To do</mat-checkbox>
-            <mat-checkbox>Done</mat-checkbox>
-        </div>
-        <div class="tags">
-            <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags">
-                {{tag.name}}
+        <div class="view-task">
+            <div class="tasks" *ngFor="let item of filterTasks()">
+                <app-little-task [task]="item"></app-little-task>
             </div>
         </div>
     </div>

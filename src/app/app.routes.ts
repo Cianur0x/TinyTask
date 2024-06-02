@@ -6,6 +6,7 @@ import { InicioGeneralComponent } from './pages/inicio-general/inicio-general.co
 import { canActivate } from './services/security/authguard';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AllTagsComponent } from './pages/all-tags/all-tags.component';
+import { FriendsListComponent } from './pages/friends-list/friends-list.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -20,6 +21,11 @@ export const routes: Routes = [
   {
     path: 'tags',
     component: AllTagsComponent,
+    canActivate: [canActivate],
+  },
+  {
+    path: 'friends',
+    component: FriendsListComponent,
     canActivate: [canActivate],
   },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },

@@ -3,5 +3,8 @@
         <mat-checkbox [(ngModel)]="task.taskDone"></mat-checkbox>
         <mat-label class="label" [ngClass]="{'done': task.taskDone}">{{task.title}}</mat-label>
     </div>
-    <div class="tag" [style.backgroundColor]="task.tag.labelColor">{{task.tag.name}}</div>
+    <div class="body">
+        <div class="date">{{task.deadLine}}</div>
+        <div class="tag" [style.backgroundColor]="task.tag.labelColor">{{task.tag.name}}</div>
+    </div>
 </div>

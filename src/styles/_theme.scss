@@ -1,0 +1,231 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+// the default hue, lighter hue, and darker hue respectively.
+// By default, they will be 500, 100 and 700.
+
+$dark-primary-text: rgba(black, 0.87);
+$lavender-palette: (
+    50: #dbe2ef,
+    100: #a5b7d6,
+    200: #6988b8,
+    300: #1e5d9d,
+    400: #00408d,
+    500: #00267c,
+    600: #002175,
+    700: #001a6b,
+    800: #000f60,
+    900: #000056,
+    A100: #c2e4ff,
+    A200: #addcff,
+    A400: #1f9eff,
+    A700: #00518f,
+    contrast: (50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $dark-primary-text,
+        400: $dark-primary-text,
+        500: $dark-primary-text,
+        600: $dark-primary-text,
+        700: $dark-primary-text,
+        800: $dark-primary-text,
+        900: $dark-primary-text,
+        A100: $dark-primary-text,
+        A200: $dark-primary-text,
+        A400: $dark-primary-text,
+        A700: $dark-primary-text,
+    )
+);
+
+$md-custom1: (
+    50 : #ede2e7,
+    100 : #d1b6c2,
+    200 : #b38699,
+    300 : #945670,
+    400 : #7d3152,
+    500 : #660d33,
+    600 : #5e0b2e,
+    700 : #530927,
+    800 : #490720,
+    900 : #380314,
+    A100 : #ff6e93,
+    A200 : #ff3b6c,
+    A400 : #ff0846,
+    A700 : #ee003b,
+    contrast: (50 : #ff0000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$md-custom2: (
+    50 : #e9e5ed,
+    100 : #c8bfd2,
+    200 : #a395b4,
+    300 : #7e6a95,
+    400 : #624a7f,
+    500 : #462a68,
+    600 : #3f2560,
+    700 : #371f55,
+    800 : #2f194b,
+    900 : #200f3a,
+    A100 : #a775ff,
+    A200 : #8642ff,
+    A400 : #660fff,
+    A700 : #5800f5,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-custom3: (
+    50 : #ebf7f8,
+    100 : #ceeaec,
+    200 : #addce0,
+    300 : #8cced4,
+    400 : #73c4ca,
+    500 : #5ab9c1,
+    600 : #52b2bb,
+    700 : #48aab3,
+    800 : #3fa2ab,
+    900 : #2e939e,
+    A100 : #e3fcff,
+    A200 : #b0f7ff,
+    A400 : #7df1ff,
+    A700 : #63efff,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-custom4: (
+    50 : #f0f5fc,
+    100 : #dae6f9,
+    200 : #c2d6f5,
+    300 : #a9c6f0,
+    400 : #96b9ed,
+    500 : #84adea,
+    600 : #7ca6e7,
+    700 : #719ce4,
+    800 : #6793e1,
+    900 : #5483db,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #d6e4ff,
+    A700 : #bdd3ff,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-custom5: (
+    50 : #fffbec,
+    100 : #fff5ce,
+    200 : #ffefae,
+    300 : #ffe88e,
+    400 : #ffe375,
+    500 : #ffde5d,
+    600 : #ffda55,
+    700 : #ffd54b,
+    800 : #ffd141,
+    900 : #ffc830,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #fff5db,
+    A700 : #ffeec2,
+    contrast: (50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// .custom1 {
+
+//     $app-primary: mat.define-palette(mat.$red-palette, 100, 300, 700);
+//     $app-accent: mat.define-palette(mat.$pink-palette, 600, 200, 400);
+
+//     $other-theme: mat.define-light-theme((color: (primary: $app-primary, accent: $app-accent ),
+//                 typography: mat.define-typography-config($font-family: 'Sono'),
+//                 density: 0));
+//     $theme: mat-set-background($other-theme, #ffbccd);
+//     @include mat.all-component-themes($theme);
+// }
+
+// @include mat.all-component-themes($theme);
+
+
+// /* Manipulate initial background color*/
+// .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+//     background-color: transparent !important;
+// }
+
+// /*Manipulate background color on hover and focus*/
+// .mat-mdc-form-field-focus-overlay {
+//     background-color: transparent !important;
+// }

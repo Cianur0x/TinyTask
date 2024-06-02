@@ -3,7 +3,6 @@ $menuBreakpoint: 768px;
 
 // nabvar general
 .bg-nav {
-    background-color: #DBE2EF;
     position: fixed;
     top: 0;
     width: 100%;
@@ -64,7 +63,6 @@ $menuBreakpoint: 768px;
                     right: 0;
                     top: 100%;
                     width: 100%;
-                    background-color: #DBE2EF;
                     padding-bottom: 15px;
                     z-index: 1;
                 }
@@ -134,7 +132,7 @@ $menuBreakpoint: 768px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #112D4E;
+            // color: #112D4E;
             justify-content: space-between;
 
             .first {

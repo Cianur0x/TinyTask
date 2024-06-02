@@ -1,9 +1,9 @@
 .main-view {
     margin-left: 90px;
 
-    .nav-month {
-        background-color: #DBE2EF;
+    height: calc(100vh - 42px);
 
+    .nav-month {
         .content {
             display: flex;
             align-items: center;
@@ -17,49 +17,108 @@
         }
     }
 
-    .all-tags {
-        width: 300px;
-        min-height: calc(100vh - 42px); // tamaño de la barra nav-mes
-        border: 1px solid black;
+    .container {
+        display: flex;
+        flex-wrap: wrap;
 
-        .filters {
-            display: flex;
-            justify-content: center;
-            margin: 15px 0;
+        .all-tags {
+            height: calc(100vh - 41px);
+            overflow: auto;
+            border: 1px solid black;
+            border-bottom: 0;
+            flex: 0 0 300px;
 
-            ::ng-deep .mdc-label {
-                font-size: large;
-                font-weight: 500;
+
+            .filters {
+                display: flex;
+                justify-content: center;
+                padding: 15px 10px;
+
+                .all-filter {
+                    flex-grow: 1;
+                    padding-right: 10px;
+                }
+
+                .todo-filter {
+                    flex-grow: 1;
+
+                    ul {
+                        display: flex;
+                    }
+                }
+
+                ::ng-deep .mdc-label {
+                    font-size: medium;
+                    font-weight: 600;
+                }
+
+                .example-margin {
+                    font-weight: bold;
+                }
+
+                ul {
+                    list-style: none;
+                }
             }
 
-            .example-margin {
-                font-weight: bold;
+            .add-tag {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 15px 0;
+                border-bottom: 1px solid black;
+            }
+
+            .tags {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .tag {
+                    background-color: aquamarine;
+                    border: 1px solid black;
+                    width: 200px;
+                    text-align: center;
+                    margin-bottom: 15px;
+                    padding: 10px;
+                    font-weight: 500;
+                }
             }
         }
 
-        .add-tag {
+        .view-task {
+            flex: 1;
+            height: calc(100vh - 42px);
+            overflow: auto;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 0;
-            border-bottom: 1px solid black;
-            background-color: #DBE2EF;
-        }
+            flex-wrap: wrap;
+            align-items: stretch;
+            /* Asegurar que todos los elementos tengan la misma altura */
 
-        .tags {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .tag {
-                background-color: aquamarine;
-                border: 1px solid black;
-                width: 200px;
-                text-align: center;
-                margin-bottom: 15px;
-                padding: 10px;
-                font-weight: 500;
+            .tasks {
+                flex: 1 1 300px;
+                padding: 25px;
             }
         }
     }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

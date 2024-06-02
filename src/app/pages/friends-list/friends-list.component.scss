@@ -1,0 +1,58 @@
+.main-view {
+    margin-left: 90px;
+
+    .nav-month {
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+
+            .text {
+                padding: 0 20px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .friends-list {
+        width: 300px;
+        height: calc(100vh - 41px); // tamaño de la barra nav-mes
+        border: 1px solid black;
+        border-bottom: 0;
+        overflow: auto;
+
+        .add-tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 0;
+            border-bottom: 1px solid black;
+            overflow: hidden;
+        }
+
+        .form {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            padding: 5px;
+
+            form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                mat-form-field {
+                    width: 60%;
+                }
+            }
+
+            .button {
+                padding-bottom: 15px;
+                margin-left: 5px;
+            }
+        }
+    }
+}

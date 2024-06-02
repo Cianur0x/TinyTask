@@ -35,6 +35,8 @@ export class InicioGeneralComponent implements OnInit {
   // Variables
   user = 0;
   currentDate = 0;
+  currentMonth = 0;
+  currentYear = 0;
   dayAsCenter = 0;
   userLang = navigator.language;
   isLoggedIn = false;
@@ -74,7 +76,12 @@ export class InicioGeneralComponent implements OnInit {
     this.currentDate = this.date.getDate() - 1; // no recuerdo pq le restabamos 1
     this.dayAsCenter = this.currentDate;
     this.user = this._storageService.getUser().id;
-    this.getTaskByMonthDay(2024, 4);
+
+    // se calcula el año y el mes actuales
+    this.currentMonth = this.date.getMonth();
+    this.currentYear = this.date.getFullYear();
+    console.log(this.currentMonth, this.currentYear);
+    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
   }
 
   ngAfterViewInit(): void {
@@ -91,6 +98,8 @@ export class InicioGeneralComponent implements OnInit {
     console.log('inicio centerday', day);
     this.dayAsCenter = day;
     this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
+    if (this.dayAsCenter == 0) {
+    }
   }
 
   getTaskByMonthDay(year: number, month: number) {
@@ -98,10 +107,13 @@ export class InicioGeneralComponent implements OnInit {
     var lastDay = new Date(year, month + 1, 0);
     var start = this.customFormatToDB(firstDay);
     var end = this.customFormatToDB(lastDay);
+    console.log('firstDay', firstDay);
+    console.log('lastDay', lastDay);
 
     this._taskService.getTasksByMonth(start, end, this.user).subscribe({
       next: (data) => {
         this.allTasks = data as ITask[];
+        console.log(this.allTasks);
       },
       error: (error) => {
         console.log('Error de conexión al servidor.');
@@ -115,13 +127,18 @@ export class InicioGeneralComponent implements OnInit {
       day: '2-digit',
       year: 'numeric',
     });
-
+    console.log('fecha', fecha);
     return fecha;
   }
 
   filterByDay(day: number): ITask[] {
     let tasks = this.allTasks?.filter(
-      (task) => task.deadLine.substring(8, 10) == day + ''
+      (task) =>
+        task.deadLine.substring(8, 10) ==
+        day.toLocaleString('en-US', {
+          minimumIntegerDigits: 2,
+          useGrouping: false,
+        })
     );
 
     return tasks;
@@ -143,5 +160,10 @@ export class InicioGeneralComponent implements OnInit {
     if (index > -1) {
       this.allTasks.splice(index, 1);
     }
+  }
+
+  otherTheme: boolean = false;
+  changeTheme() {
+    this.otherTheme = !this.otherTheme;
   }
 }

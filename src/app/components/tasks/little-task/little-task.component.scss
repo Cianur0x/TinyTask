@@ -23,15 +23,27 @@
         color: #707070;
     }
 
-    .tag {
-        width: 125px;
-        align-self: flex-end;
-        border: 1px solid black;
-        margin-bottom: 15px;
-        padding: 10px;
-        font-weight: 600;
-        font-size: smaller;
-        text-align: center;
+    .body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 15px;
+
+        .date {
+            font-size: small;
+            font-weight: 600;
+        }
+
+        .tag {
+            width: 125px;
+            align-self: flex-end;
+            border: 1px solid black;
+            padding: 10px;
+            font-weight: 600;
+            font-size: smaller;
+            text-align: center;
+        }
     }
 }
 

@@ -1,0 +1,43 @@
+<div class="main-view">
+    <div class="nav-month mat-app-background">
+        <div class="content">
+            <div class="text">Friends</div>
+        </div>
+    </div>
+    <div class="friends-list">
+        <div class="add-tag mat-app-background" (click)="open()">
+            + Add Friends
+        </div>
+        <div class="form" *ngIf="show">
+            <form [formGroup]="searchUserForm" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                    <mat-label i18n>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                    <mat-error i18n
+                        *ngIf="searchUserForm.get('username')?.invalid && searchUserForm.get('username')?.touched">
+                        Username is required
+                    </mat-error>
+                </mat-form-field>
+                <div class="button">
+                    <button i18n mat-raised-button color="primary" type="submit"
+                        [disabled]="searchUserForm.invalid">Add<mat-icon aria-hidden="false"
+                            aria-label="Example home icon" fontIcon="send"></mat-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <ul>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+            <li>adsasdsa</li>
+        </ul>
+    </div>
+</div>

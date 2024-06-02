@@ -30,17 +30,22 @@ export class TaskService {
     return this.httpClient.get(url);
   }
 
-  getAllByIsChecked(
+  getAllByIsCheckedAndTag(
     isDone: boolean,
     tagId: number,
     userId: number
   ): Observable<Object> {
-    const url = `${this.taskURL}?isChecked=${isDone}&tagId=${tagId}&userId=${userId}`;
+    const url = `${this.taskURL}?isChecked=${isDone}&tagId=${tagId}&id=${userId}`;
+    return this.httpClient.get(url);
+  }
+
+  getAllByIsChecked(isDone: boolean, userId: number): Observable<Object> {
+    const url = `${this.taskURL}?isChecked=${isDone}&id=${userId}`;
     return this.httpClient.get(url);
   }
 
   getAllByTagId(tagId: number, userId: number): Observable<Object> {
-    const url = `${this.taskURL}?tagId=${tagId}&userId=${userId}`;
+    const url = `${this.taskURL}?tagId=${tagId}&id=${userId}`;
     return this.httpClient.get(url);
   }
 

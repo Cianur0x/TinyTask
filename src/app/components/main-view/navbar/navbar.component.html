@@ -1,4 +1,4 @@
-<div class="bg-nav" *ngIf="!isLoggedIn">
+<div class="bg-nav mat-app-background" *ngIf="!isLoggedIn">
     <nav id="my-first">
         <ul>
             <li class="logotype">
@@ -8,7 +8,7 @@
             <li class="burger" (click)="toggleMenu()">
                 <i class="material-icons">{{ isMenuOpen ? "close" : "menu" }}</i>
             </li>
-            <li class="menu" [class.is-open]="isMenuOpen">
+            <li class="menu mat-app-background" [class.is-open]="isMenuOpen">
                 <a i18n routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page"
                     class="menu-item item">Home</a>
                 <a i18n routerLink="/about" routerLinkActive="active" ariaCurrentWhenActive="page"
@@ -27,7 +27,7 @@
     </nav>
 </div>
 
-<div class="side-nav" *ngIf="isLoggedIn && !switchProfile">
+<div class="side-nav mat-app-background" *ngIf="isLoggedIn && !switchProfile">
     <div class="side-nav-container">
         <ul class="icons">
             <li class="first"><fa-icon [icon]="faUser" size="4x"></fa-icon></li>
@@ -39,8 +39,10 @@
                     </li>
                     <li routerLink="/tags" routerLinkActive="active" ariaCurrentWhenActive="page"><fa-icon
                             [icon]="faTags" size="2x"></fa-icon></li>
-                    <li><fa-icon [icon]="faFriends" size="2x"></fa-icon></li>
-                    <li><fa-icon [icon]="faNoti" size="2x"></fa-icon>
+                    <li routerLink="/friends" routerLinkActive="active" ariaCurrentWhenActive="page"><fa-icon
+                            [icon]="faFriends" size="2x"></fa-icon></li>
+                    <li routerLink="/notifications" routerLinkActive="active" ariaCurrentWhenActive="page"><fa-icon
+                            [icon]="faNoti" size="2x"></fa-icon>
                         <p matBadge="4" matBadgeOverlap="false"></p>
                     </li>
                     <li *ngIf="isAdmin" (click)="changeProfile()"><fa-icon [icon]="faAdmin" size="2x"></fa-icon></li>
@@ -52,7 +54,7 @@
     </div>
 </div>
 
-<div class="side-nav" *ngIf="isLoggedIn && switchProfile">
+<div class="side-nav mat-app-background" *ngIf="isLoggedIn && switchProfile">
     <div class="side-nav-container">
         <ul class="icons">
             <li class="first"><fa-icon [icon]="faUserTie" size="4x"></fa-icon></li>
