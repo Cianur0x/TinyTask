@@ -178,19 +178,21 @@ export class AddTaskDialogComponent implements OnInit {
           operacion: 'post',
         });
 
-        let tarea = data as ITask;
-        this._taskService.addViewers(this.viewersList, tarea.id).subscribe({
-          next: (data) => {
-            console.log('addviewers data', data);
-            // this.dialogRef.close({
-            //   task: data,
-            //   operacion: 'put',
-            // });
-          },
-          error: (err) => {
-            console.log('task NO actualizada');
-          },
-        });
+        if (this.friendList.length > 0 && this.viewersList.length > 0) {
+          let tarea = data as ITask;
+          this._taskService.addViewers(this.viewersList, tarea.id).subscribe({
+            next: (data) => {
+              console.log('addviewers data', data);
+              // this.dialogRef.close({
+              //   task: data,
+              //   operacion: 'put',
+              // });
+            },
+            error: (err) => {
+              console.log('task NO actualizada');
+            },
+          });
+        }
       },
       error: (err) => {
         console.log('task NO enviada', err);
@@ -249,18 +251,20 @@ export class AddTaskDialogComponent implements OnInit {
           operacion: 'put',
         });
 
-        this._taskService.addViewers(this.viewersList, task.id).subscribe({
-          next: (data) => {
-            console.log('addviewers data', data);
-            // this.dialogRef.close({
-            //   task: data,
-            //   operacion: 'put',
-            // });
-          },
-          error: (err) => {
-            console.log('task NO actualizada');
-          },
-        });
+        if (this.friendList.length > 0 && this.viewersList.length > 0) {
+          this._taskService.addViewers(this.viewersList, task.id).subscribe({
+            next: (data) => {
+              console.log('addviewers data', data);
+              // this.dialogRef.close({
+              //   task: data,
+              //   operacion: 'put',
+              // });
+            },
+            error: (err) => {
+              console.log('task NO actualizada');
+            },
+          });
+        }
       },
       error: (err) => {
         console.log('task NO actualizada');

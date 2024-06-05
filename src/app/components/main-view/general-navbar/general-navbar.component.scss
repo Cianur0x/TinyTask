@@ -1,0 +1,111 @@
+@import "../../../../styles/_variables.scss";
+$menuBreakpoint: 768px;
+
+
+// nabvar general
+.bg-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+
+    #my-first {
+        margin: 0 auto;
+        max-width: 1200px;
+
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            list-style-type: none;
+            position: relative;
+            padding: 15px 0;
+        }
+
+        .logotype {
+            display: flex;
+            align-items: center;
+
+            a {
+                padding: 0 8px;
+                font-size: 1.4rem;
+                text-decoration: none;
+                color: black;
+                font-weight: 800;
+            }
+        }
+
+        .burger {
+            padding: 0 10px;
+            display: none;
+            cursor: pointer;
+
+            i {
+                color: black;
+            }
+
+            @media (max-width: $menuBreakpoint) {
+                display: block;
+            }
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            @media (max-width: $menuBreakpoint) {
+                display: none;
+
+                &.is-open {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    right: 0;
+                    top: 100%;
+                    width: 100%;
+                    padding-bottom: 15px;
+                    z-index: 1;
+                }
+
+                .btns {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+            }
+
+            .item {
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .menu-item {
+                padding: 0 10px;
+                color: #454545;
+            }
+
+            .btns {
+                display: flex;
+                gap: 10px;
+
+                .btn-login {
+                    margin-left: 10px;
+                    color: black;
+                    border: 2px black solid;
+                    padding: 8px 10px;
+                    border-radius: 5px;
+                }
+
+                .btn-register {
+                    margin: 0 10px;
+                    color: white;
+                    background-color: #112D4E;
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+}

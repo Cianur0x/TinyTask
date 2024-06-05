@@ -17,20 +17,22 @@ import {
   faCircleUser,
   faGear,
   faListCheck,
-  faTags,
-  faUserLock,
-  faRightFromBracket,
-  faUserTie,
-  faTicket,
   faNewspaper,
+  faRightFromBracket,
+  faTags,
+  faTicket,
+  faUserLock,
+  faUserTie,
   faUsersGear,
   faWandMagicSparkles,
 } from '@fortawesome/free-solid-svg-icons';
 import { StorageService } from '../../../services/storage/storage.service';
-
 import { MatBadgeModule } from '@angular/material/badge';
 import { MessageResponse } from '../../../models/auth.models';
 import { PruebaService } from '../../../services/prueba/prueba.service';
+import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
+import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
+import { GeneralNavbarComponent } from '../general-navbar/general-navbar.component';
 
 @Component({
   selector: 'app-navbar',
@@ -46,27 +48,14 @@ import { PruebaService } from '../../../services/prueba/prueba.service';
     FontAwesomeModule,
     MatIconModule,
     MatBadgeModule,
+    NavbarAdminComponent,
+    NavbarUserComponent,
+    GeneralNavbarComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
-  // Icons
-  faUser = faCircleUser;
-  faTodo = faListCheck;
-  faTags = faTags;
-  faFriends = faAddressBook;
-  faNoti = faBell;
-  faconfig = faGear;
-  faAdmin = faUserLock;
-  faExit = faRightFromBracket;
-  faUserTie = faUserTie;
-  faTicket = faTicket;
-  faNewspaper = faNewspaper;
-  faUsersGear = faUsersGear;
-  faWandMagicSparkles = faWandMagicSparkles;
-  // Variables
-  isMenuOpen = false;
   isLoggedIn = false;
   isAdmin!: boolean;
   switchProfile = false;
@@ -78,13 +67,6 @@ export class NavbarComponent implements OnInit {
     public pruebaService: PruebaService
   ) {}
 
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
-  messageResponse!: MessageResponse;
-  tipo!: string;
-
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
     if (this.isLoggedIn) {
@@ -94,7 +76,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.storageService.clean();
-    this.isLoggedIn = false;
+    this.isLoggedIn = this.storageService.isLoggedIn();
     this.router.navigate(['/login']).then(() => {
       console.log('Logout OK, cargando login...');
     });

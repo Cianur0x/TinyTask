@@ -1,17 +1,17 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import {
   WeekdayComponent,
   toEmit,
 } from '../../components/tasks/weekday/weekday.component';
-import { StorageService } from '../../services/storage/storage.service';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgFor, NgIf } from '@angular/common';
-import { TaskService } from '../../services/task/task.service';
 import { ITask } from '../../models/task.models';
+import { StorageService } from '../../services/storage/storage.service';
+import { TaskService } from '../../services/task/task.service';
 
 @Component({
   selector: 'app-inicio-general',
@@ -99,6 +99,7 @@ export class InicioGeneralComponent implements OnInit {
     this.dayAsCenter = day;
     this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
     if (this.dayAsCenter == 0) {
+      // TODO hay que comprobar que hacer con los extremos
     }
   }
 

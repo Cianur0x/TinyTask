@@ -1,0 +1,35 @@
+<div class="side-nav mat-app-background">
+    <div class="side-nav-container">
+        <ul class="icons">
+            <li class="first" matTooltip="manage users" [matTooltipPosition]="'right'">
+                <fa-icon [icon]="faUserTie" size="4x"></fa-icon>
+            </li>
+            <li class="more-icons">
+                <ul>
+                    <li routerLink="/create-news" routerLinkActive="active" ariaCurrentWhenActive="page"
+                        matTooltip="Create News" [matTooltipPosition]="'right'">
+                        <fa-icon [icon]="faNewspaper" size="2x"></fa-icon>
+                    </li>
+                    <li routerLink="/manage-users" routerLinkActive="active" ariaCurrentWhenActive="page"
+                        matTooltip="Manage users" [matTooltipPosition]="'right'">
+                        <fa-icon [icon]="faUsersGear" size="2x"></fa-icon>
+                    </li>
+                    <li routerLink="/manage-roles" routerLinkActive="active" ariaCurrentWhenActive="page"
+                        matTooltip="Manage roles" [matTooltipPosition]="'right'">
+                        <fa-icon [icon]="faWandMagicSparkles" size="2x"></fa-icon>
+                        <p matBadge="4" matBadgeOverlap="false"></p>
+                    </li>
+                    <li matTooltip="Change profile" [matTooltipPosition]="'right'" *ngIf="isAdmin"
+                        (click)="changeProfile()"><fa-icon [icon]="faAdmin" size="2x"></fa-icon></li>
+                    <li matTooltip="Logout" [matTooltipPosition]="'right'" (click)="logout()"><fa-icon [icon]="faExit"
+                            size="2x"></fa-icon>
+                    </li>
+                    <li routerLink="/edit-profile" routerLinkActive="active" ariaCurrentWhenActive="page"
+                        matTooltip="Edit Profile" [matTooltipPosition]="'right'">
+                        <fa-icon [icon]="faconfig" size="2x"></fa-icon>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

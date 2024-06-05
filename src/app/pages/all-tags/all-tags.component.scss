@@ -1,6 +1,6 @@
 .main-view {
     margin-left: 90px;
-
+    position: relative;
     height: calc(100vh - 42px);
 
     .nav-month {
@@ -17,6 +17,11 @@
         }
     }
 
+    ::ng-deep .mdc-label {
+        font-size: medium;
+        font-weight: 600;
+    }
+
     .container {
         display: flex;
         flex-wrap: wrap;
@@ -27,7 +32,9 @@
             border: 1px solid black;
             border-bottom: 0;
             flex: 0 0 300px;
-
+            position: absolute;
+            z-index: 100;
+            background-color: #f1f1f1;
 
             .filters {
                 display: flex;
@@ -45,11 +52,6 @@
                     ul {
                         display: flex;
                     }
-                }
-
-                ::ng-deep .mdc-label {
-                    font-size: medium;
-                    font-weight: 600;
                 }
 
                 .example-margin {
@@ -88,16 +90,39 @@
 
         .view-task {
             flex: 1;
-            height: calc(100vh - 42px);
+            height: calc(100vh - 40px);
             overflow: auto;
             display: flex;
             flex-wrap: wrap;
             align-items: stretch;
+
             /* Asegurar que todos los elementos tengan la misma altura */
+            .tareitas {
+                display: flex;
+                flex-direction: row;
+                column-gap: 30px;
+                overflow: hidden;
+            }
 
             .tasks {
                 flex: 1 1 300px;
                 padding: 25px;
+            }
+        }
+
+        .example-button-row {
+            position: absolute;
+            bottom: -25px;
+            right: 0;
+            z-index: 100;
+        }
+
+        .example-button-row button,
+        .example-button-row a {
+            margin-right: 10px;
+
+            mat-icon {
+                font-weight: bold;
             }
         }
     }

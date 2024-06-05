@@ -1,0 +1,68 @@
+// sidenav after logging
+.side-nav {
+    height: 100%;
+    background-color: #F9F7F7;
+    width: 90px; // para aque ocupe todo 
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .side-nav-container {
+        display: flex;
+
+        .icons {
+            padding: 30px 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // color: #112D4E;
+            justify-content: space-between;
+
+            .first {
+                padding-bottom: 1rem;
+            }
+
+            .more-icons {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                padding: 1rem 0;
+
+                li {
+                    display: flex;
+                    padding: 1.15rem 0;
+                }
+
+                .material-icons.md-48 {
+                    font-size: 48px;
+                }
+            }
+
+            .last {
+                padding: 1rem 0;
+            }
+        }
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
