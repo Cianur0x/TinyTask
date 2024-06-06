@@ -1,130 +1,88 @@
 .main-view {
     margin-left: 90px;
-    position: relative;
-    height: calc(100vh - 42px);
+    display: flex;
 
-    .nav-month {
-        .content {
+    .all-tags {
+        background-color: white;
+        border: 1px solid black;
+        border-width: 0 1px;
+
+        .nav-month {
+            .content {
+                display: flex;
+                justify-content: center;
+                padding: 12px 0;
+                border-bottom: 1px solid black;
+
+                .text {
+
+                    padding: 0 20px;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            padding: 15px 10px;
+
+            .all-filter {
+                flex-grow: 1;
+                padding-right: 10px;
+            }
+
+            .todo-filter {
+                flex-grow: 1;
+
+                ul {
+                    display: flex;
+                }
+            }
+
+            ::ng-deep .mdc-label {
+                font-size: medium;
+                font-weight: 600;
+            }
+
+            .example-margin {
+                font-weight: bold;
+            }
+
+            ul {
+                list-style: none;
+            }
+        }
+
+        .add-tag {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 0;
-
-            .text {
-                padding: 0 20px;
-                font-weight: 600;
-            }
-        }
-    }
-
-    ::ng-deep .mdc-label {
-        font-size: medium;
-        font-weight: 600;
-    }
-
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-
-        .all-tags {
-            height: calc(100vh - 41px);
-            overflow: auto;
-            border: 1px solid black;
-            border-bottom: 0;
-            flex: 0 0 300px;
-            position: absolute;
-            z-index: 100;
-            background-color: #f1f1f1;
-
-            .filters {
-                display: flex;
-                justify-content: center;
-                padding: 15px 10px;
-
-                .all-filter {
-                    flex-grow: 1;
-                    padding-right: 10px;
-                }
-
-                .todo-filter {
-                    flex-grow: 1;
-
-                    ul {
-                        display: flex;
-                    }
-                }
-
-                .example-margin {
-                    font-weight: bold;
-                }
-
-                ul {
-                    list-style: none;
-                }
-            }
-
-            .add-tag {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 15px 0;
-                border-bottom: 1px solid black;
-            }
-
-            .tags {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                .tag {
-                    background-color: aquamarine;
-                    border: 1px solid black;
-                    width: 200px;
-                    text-align: center;
-                    margin-bottom: 15px;
-                    padding: 10px;
-                    font-weight: 500;
-                }
-            }
+            padding: 15px 0;
+            border-bottom: 1px solid black;
         }
 
-        .view-task {
-            flex: 1;
-            height: calc(100vh - 40px);
-            overflow: auto;
+        .tags {
             display: flex;
-            flex-wrap: wrap;
-            align-items: stretch;
+            flex-direction: column;
+            align-items: center;
 
-            /* Asegurar que todos los elementos tengan la misma altura */
-            .tareitas {
-                display: flex;
-                flex-direction: row;
-                column-gap: 30px;
-                overflow: hidden;
-            }
-
-            .tasks {
-                flex: 1 1 300px;
-                padding: 25px;
+            .tag {
+                background-color: aquamarine;
+                border: 1px solid black;
+                width: 200px;
+                text-align: center;
+                margin-bottom: 15px;
+                padding: 10px;
+                font-weight: 500;
             }
         }
+    }
 
-        .example-button-row {
-            position: absolute;
-            bottom: -25px;
-            right: 0;
-            z-index: 100;
-        }
-
-        .example-button-row button,
-        .example-button-row a {
-            margin-right: 10px;
-
-            mat-icon {
-                font-weight: bold;
-            }
-        }
+    .view-task {
+        height: 100vh;
+        margin-left: -90px;
+        overflow: auto;
     }
 }
 

@@ -1,63 +1,42 @@
 <div class="main-view">
-    <div class="nav-month mat-app-background">
-        <div class="content">
-            <div class="text">Tags</div>
+    <div class="all-tags">
+        <div class="nav-month mat-app-background">
+            <div class="content">
+                <div class="text">Tags</div>
+            </div>
+        </div>
+        <div class="add-tag mat-app-background">
+            + Add Tag
+        </div>
+        <section class="filters">
+            <span class="all-filter">
+                <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
+                    [indeterminate]="someComplete()" (change)="setAll($event.checked)">
+                    {{task.name}}
+                </mat-checkbox>
+            </span>
+            <mat-divider [vertical]="true"></mat-divider>
+            <span class="todo-filter">
+                <ul>
+                    @for (subtask of task.subtasks; track subtask) {
+                    <li>
+                        <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
+                            (ngModelChange)="updateAllComplete()">
+                            {{subtask.name}}
+                        </mat-checkbox>
+                    </li>
+                    }
+                </ul>
+            </span>
+        </section>
+        <div class="tags">
+            <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags"
+                (click)="filterTaskByTag(tag.id)">
+                {{tag.name}}
+            </div>
         </div>
     </div>
-    <div class="container">
-        <div class="all-tags">
-            <div class="add-tag mat-app-background">
-                + Add Tag
-            </div>
-            <section class="filters">
-                <span class="all-filter">
-                    <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
-                        [indeterminate]="someComplete()" (change)="setAll($event.checked)">
-                        {{task.name}}
-                    </mat-checkbox>
-                </span>
-                <mat-divider [vertical]="true"></mat-divider>
-                <span class="todo-filter">
-                    <ul>
-                        @for (subtask of task.subtasks; track subtask) {
-                        <li>
-                            <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
-                                (ngModelChange)="updateAllComplete()">
-                                {{subtask.name}}
-                            </mat-checkbox>
-                        </li>
-                        }
-                    </ul>
-                </span>
-            </section>
-            <div class="tags">
-                <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags"
-                    (click)="filterTaskByTag(tag.id)">
-                    {{tag.name}}
-                </div>
-            </div>
-        </div>
-        <div class="view-task">
-            <div class="tareitas">
-                <div id="tasks-view" class="mat-app-background" *ngFor="let item of items; let i = index">
-                    <app-weekday #weekday [day]=i+1 [todayTasks]=filterByDay(i+1) (addTask)="addTaskToArray($event)"
-                        (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)"></app-weekday>
-                </div>
-            </div>
-        </div>
-        <div class="example-button-row">
-            <button mat-fab matTooltip="Accent" (click)="centerDay(this.dayAsCenter - 1)" color="accent"
-                aria-label="Example fab with a heart icon">
-                <mat-icon>arrow_back</mat-icon>
-            </button>
-            <button mat-fab matTooltip="Primary" (click)="centerDay(this.currentDate)" color="primary"
-                aria-label="Example fab with a heart icon">
-                <mat-icon>location_on</mat-icon>
-            </button>
-            <button mat-fab matTooltip="Accent" (click)="centerDay(this.dayAsCenter + 1)" color="accent"
-                aria-label="Example fab with a heart icon">
-                <mat-icon>arrow_forward</mat-icon>
-            </button>
-        </div>
+    <div class="view-task">
+        <app-inicio-general></app-inicio-general>
     </div>
 </div>

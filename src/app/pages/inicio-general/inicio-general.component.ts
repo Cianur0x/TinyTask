@@ -2,7 +2,6 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -58,8 +57,7 @@ export class InicioGeneralComponent implements OnInit {
   // Constructores
   constructor(
     private _storageService: StorageService,
-    private _taskService: TaskService,
-    private _router: Router
+    private _taskService: TaskService
   ) {
     this.month = this.capitalizeFirstLetter(this.month);
   }
@@ -69,9 +67,6 @@ export class InicioGeneralComponent implements OnInit {
     if (this._storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this._storageService.getUser().roles;
-      this._router.navigateByUrl('inicio').then(() => {
-        // console.log('Ya logueado, cargando index.');
-      });
     }
     this.currentDate = this.date.getDate() - 1; // no recuerdo pq le restabamos 1
     this.dayAsCenter = this.currentDate;
