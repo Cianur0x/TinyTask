@@ -1,1 +1,16 @@
-<p>add-tag-dialog works!</p>
+<form [formGroup]="tagForm" class="formulario" (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+        <ngx-colors ngx-colors-trigger style="display: inline-block; margin:5px;"
+            formControlName="tagColor"></ngx-colors>
+        <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
+            <mat-label class="label">Tag Name</mat-label>
+            <textarea matInput formControlName="tagName" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button (click)="deleteTag = true" [disabled]="!currentTag">Delete Task</button>
+        <button mat-flat-button color="primary" type="submit" color="primary" [disabled]="!tagForm.valid">Save</button>
+    </mat-dialog-actions>
+</form>

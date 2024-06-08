@@ -13,6 +13,8 @@ import { InicioGeneralComponent } from '../inicio-general/inicio-general.compone
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTagDialogComponent } from '../../components/tags/add-tag-dialog/add-tag-dialog.component';
 export interface checkBox {
   name: string;
   completed: boolean;
@@ -127,7 +129,8 @@ export class AllTagsComponent {
   constructor(
     private _storageService: StorageService,
     private _tagService: TagService,
-    private _taskService: TaskService
+    private _taskService: TaskService,
+    public _dialog: MatDialog
   ) {
     this.userId = this._storageService.getUser().id;
     this.getTags();
@@ -138,6 +141,7 @@ export class AllTagsComponent {
     this._tagService.getAllTags(this.userId).subscribe({
       next: (data) => {
         this.allTags = data as ITag[];
+        console.log(data);
       },
       error: (error) => {
         console.error('Error de conexión al servidor.', error);
@@ -149,6 +153,16 @@ export class AllTagsComponent {
     this.allTasks = this.origin.filter((x) => x.tag.id == id);
   }
 
-  updateTask() {}
-  deleteTask() {}
+  openDialog(): void {
+    const dialogRef = this._dialog.open(AddTagDialogComponent, {
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // this.info = result;
+      // if (!!this.info) {
+      //   this.addTask.emit(this.info);
+      // }
+    });
+  }
 }

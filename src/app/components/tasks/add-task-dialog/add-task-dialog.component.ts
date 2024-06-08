@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -28,20 +29,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faTrashCan,
+  faUserCircle,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import { IFriend } from '../../../models/friend.models';
 import { ITag, ITask } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TagService } from '../../../services/tag/tag.service';
 import { TaskService } from '../../../services/task/task.service';
-import { NgFor } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { IFriend } from '../../../models/friend.models';
 import { UserService } from '../../../services/user/user.service';
 import {
   AddFriendDialogComponent,
   IFriendToInvite,
 } from '../add-friend-dialog/add-friend-dialog.component';
-import { faTrashCan, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 export interface DialogData {
   currentDay: number;
@@ -81,7 +84,6 @@ export class AddTaskDialogComponent implements OnInit {
   hideRequiredControl = new FormControl('');
   taskForm!: FormGroup;
   allTags: ITag[] = [];
-  aviso = '';
   date = new Date();
   day = 0;
   currentTime = this.date.toString().substring(16, 21);

@@ -1,6 +1,8 @@
 .main-view {
     margin-left: 90px;
     display: flex;
+    height: 100vh;
+    overflow-y: hidden;
 
     .all-tags {
         background-color: white;
@@ -15,11 +17,16 @@
                 border-bottom: 1px solid black;
 
                 .text {
-
-                    padding: 0 20px;
                     font-weight: 600;
                 }
             }
+        }
+
+        .add-tag {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            border-bottom: 1px solid black;
         }
 
         .filters {
@@ -27,54 +34,40 @@
             justify-content: center;
             padding: 15px 10px;
 
-            .all-filter {
-                flex-grow: 1;
-                padding-right: 10px;
-            }
-
-            .todo-filter {
-                flex-grow: 1;
-
-                ul {
-                    display: flex;
-                }
-            }
-
             ::ng-deep .mdc-label {
                 font-size: medium;
                 font-weight: 600;
             }
 
-            .example-margin {
-                font-weight: bold;
+            .all-filter {
+                padding-right: 10px;
             }
 
-            ul {
-                list-style: none;
+            .todo-filter {
+                ul {
+                    display: flex;
+                    list-style: none;
+                }
             }
-        }
-
-        .add-tag {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 0;
-            border-bottom: 1px solid black;
         }
 
         .tags {
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 0 50px;
 
             .tag {
-                background-color: aquamarine;
                 border: 1px solid black;
-                width: 200px;
-                text-align: center;
+                width: 190px;
                 margin-bottom: 15px;
-                padding: 10px;
+                padding: 10px 15px;
                 font-weight: 500;
+                // text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
             }
         }
     }
