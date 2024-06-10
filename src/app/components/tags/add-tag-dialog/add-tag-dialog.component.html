@@ -4,8 +4,13 @@
             formControlName="tagColor"></ngx-colors>
         <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
             <mat-label class="label">Tag Name</mat-label>
-            <textarea matInput formControlName="tagName" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
+            <input matInput placeholder="Ex. Study" value="" formControlName="tagName">
+            @if (tagForm.get('tagName')?.hasError('required')) {
+            <mat-error>Tag's name is required</mat-error>
+            }
+            @if (tagForm.get('tagName')?.hasError('maxlength')) {
+            <mat-error>Max. length 15</mat-error>
+            }
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>

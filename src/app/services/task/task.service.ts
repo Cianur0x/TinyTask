@@ -4,9 +4,9 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ITask } from '../../models/task.models';
 import { Observable, catchError, throwError } from 'rxjs';
 import { IFriendToInvite } from '../../components/tasks/add-friend-dialog/add-friend-dialog.component';
+import { ITask } from '../../models/task.models';
 
 @Injectable({
   providedIn: 'root',

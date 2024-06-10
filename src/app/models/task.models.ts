@@ -25,3 +25,12 @@ export interface ITag {
   labelColor: string;
   userId: number;
 }
+
+export interface ITagBack {
+  id: number;
+  name: string;
+  labelColor: string;
+  user: {
+    id: number;
+  };
+}

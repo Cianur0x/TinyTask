@@ -1,20 +1,20 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ThemePalette } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddTagDialogComponent } from '../../components/tags/add-tag-dialog/add-tag-dialog.component';
 import { LittleTaskComponent } from '../../components/tasks/little-task/little-task.component';
 import { ITag, ITask } from '../../models/task.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { TagService } from '../../services/tag/tag.service';
 import { TaskService } from '../../services/task/task.service';
 import { InicioGeneralComponent } from '../inicio-general/inicio-general.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
-import { AddTagDialogComponent } from '../../components/tags/add-tag-dialog/add-tag-dialog.component';
 export interface checkBox {
   name: string;
   completed: boolean;
@@ -37,6 +37,7 @@ export interface checkBox {
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,
+    NgClass,
   ],
   templateUrl: './all-tags.component.html',
   styleUrl: './all-tags.component.scss',
@@ -53,6 +54,7 @@ export class AllTagsComponent {
   date = new Date();
   currentMonth = this.date.getMonth();
   currentYear = this.date.getFullYear();
+  info: any;
 
   task: checkBox = {
     name: 'All',
@@ -153,16 +155,75 @@ export class AllTagsComponent {
     this.allTasks = this.origin.filter((x) => x.tag.id == id);
   }
 
-  openDialog(): void {
+  openDialog(tag: ITag): void {
     const dialogRef = this._dialog.open(AddTagDialogComponent, {
-      data: {},
+      data: {
+        tag: tag,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // this.info = result;
-      // if (!!this.info) {
-      //   this.addTask.emit(this.info);
-      // }
+      this.info = result;
+      if (!!this.info) {
+        if (this.info.operacion.localeCompare('delete') == 0) {
+          this.removeTag(this.info);
+        } else if (this.info.operacion.localeCompare('put') == 0) {
+          this.updateTag(this.info);
+        } else {
+          console.log('info', this.info);
+        }
+      }
     });
+  }
+
+  openDialog2(): void {
+    const dialogRef = this._dialog.open(AddTagDialogComponent, {
+      data: {}, // data vacia ª
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.info = result;
+      if (!!this.info) {
+        if (this.info.operacion.localeCompare('post') == 0) {
+          this.addTag(this.info);
+        } else {
+          console.log('info', this.info);
+        }
+      }
+    });
+  }
+
+  addTag(info: any) {
+    const tag: ITag = {
+      id: info.tag.id,
+      labelColor: info.tag.labelColor,
+      name: info.tag.name,
+      userId: info.tag.userId,
+    };
+
+    this.allTags.push(tag);
+  }
+
+  updateTag(info: any) {
+    let index = this.allTags.findIndex((x) => x.id == info.tag.id);
+
+    if (index > -1) {
+      const tag: ITag = {
+        id: info.tag.id,
+        labelColor: info.tag.labelColor,
+        name: info.tag.name,
+        userId: info.tag.userId,
+      };
+
+      this.allTags[index] = tag;
+    }
+  }
+
+  removeTag(info: any) {
+    let index = this.allTags.findIndex((x) => x.id == info.tag.id);
+
+    if (index > -1) {
+      this.allTags.splice(index, 1);
+    }
   }
 }

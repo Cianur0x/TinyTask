@@ -5,7 +5,7 @@
                 <div class="text">Tags</div>
             </div>
         </div>
-        <div class="add-tag mat-app-background" (click)="openDialog()">
+        <div class="add-tag mat-app-background" (click)="openDialog2()">
             + Add Tag
         </div>
         <section class="filters">
@@ -31,10 +31,11 @@
         </section>
         <div class="tags">
             <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags"
-                (click)="filterTaskByTag(tag.id)">
-                <p>111---{{tag.userId}}--1111</p>
-                <button mat-icon-button matTooltip="Accent" color="accent"
-                    aria-label="Example icon-button with a heart icon" [hidden]="tag.userId == null">
+                (click)="filterTaskByTag(tag.id)" [ngClass]="{'with-btn' : tag.userId != null}">
+                <p>{{tag.name}}</p>
+                <button mat-icon-button matTooltip="Edit" color="primary"
+                    aria-label="Example icon-button with a heart icon" [hidden]="tag.userId == null"
+                    (click)="openDialog(tag)">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>

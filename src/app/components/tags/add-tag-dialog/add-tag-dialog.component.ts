@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
@@ -27,7 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxColorsModule } from 'ngx-colors';
-import { ITag } from '../../../models/task.models';
+import { ITag, ITagBack } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TagService } from '../../../services/tag/tag.service';
 import { TaskService } from '../../../services/task/task.service';
@@ -55,6 +55,7 @@ import { UserService } from '../../../services/user/user.service';
     FontAwesomeModule,
     NgFor,
     NgxColorsModule,
+    NgIf,
   ],
   templateUrl: './add-tag-dialog.component.html',
   styleUrl: './add-tag-dialog.component.scss',
@@ -64,7 +65,10 @@ export class AddTagDialogComponent {
   allTags: ITag[] = [];
   deleteTag = false;
   currentTag!: ITag;
-  tagForm!: FormGroup;
+  tagForm: FormGroup = this._formBuilder.group({
+    tagColor: '',
+    tagName: '',
+  });
   user = this._storageService.getUser();
 
   constructor(
@@ -82,12 +86,15 @@ export class AddTagDialogComponent {
     if (!!this.currentTag) {
       this.tagForm = this._formBuilder.group({
         tagColor: [this.currentTag.labelColor, Validators.required],
-        tagName: [this.currentTag.name],
+        tagName: [
+          this.currentTag.name,
+          [Validators.required, Validators.maxLength(15)],
+        ],
       });
     } else {
       this.tagForm = this._formBuilder.group({
         tagColor: ['#D81B60', Validators.required],
-        tagName: ['', Validators.required],
+        tagName: ['', [Validators.required, Validators.maxLength(15)]],
       });
     }
   }
@@ -107,17 +114,65 @@ export class AddTagDialogComponent {
     let userID = this.user.id;
     const formValues = this.tagForm.value;
 
-    const tag: ITag = {
+    const tag: ITagBack = {
       id: 0,
       labelColor: formValues.tagColor,
       name: formValues.tagName,
-      userId: userID,
+      user: {
+        id: userID,
+      },
     };
 
-    // todo postTag
+    this._tagService.postTask(tag).subscribe({
+      next: (data) => {
+        this.dialogRef.close({
+          tag: data,
+          operacion: 'post',
+        });
+      },
+      error: (err) => {
+        console.log('tag NO enviada', err);
+      },
+    });
   }
 
-  updateTag(tagForm: FormGroup<any>) {}
+  updateTag(tagForm: FormGroup<any>) {
+    let userID = this.user.id;
+    const formValues = tagForm.value;
 
-  removeTag() {}
+    const tag: ITagBack = {
+      id: this.currentTag.id,
+      labelColor: formValues.tagColor,
+      name: formValues.tagName,
+      user: {
+        id: userID,
+      },
+    };
+
+    this._tagService.updateTask(tag).subscribe({
+      next: (data) => {
+        this.dialogRef.close({
+          tag: data,
+          operacion: 'put',
+        });
+      },
+      error: (err) => {
+        console.log('tag NO actualizada', err);
+      },
+    });
+  }
+
+  removeTag() {
+    this._tagService.deleteTag(this.currentTag.id).subscribe({
+      next: () => {
+        this.dialogRef.close({
+          tag: this.currentTag,
+          operacion: 'delete',
+        });
+      },
+      error: (err) => {
+        console.log('task NO borrada', err);
+      },
+    });
+  }
 }
