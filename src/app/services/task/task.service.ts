@@ -2,6 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -31,25 +32,6 @@ export class TaskService {
     return this.httpClient.get(url);
   }
 
-  getAllByIsCheckedAndTag(
-    isDone: boolean,
-    tagId: number,
-    userId: number
-  ): Observable<Object> {
-    const url = `${this.taskURL}?isChecked=${isDone}&tagId=${tagId}&id=${userId}`;
-    return this.httpClient.get(url);
-  }
-
-  getAllByIsChecked(isDone: boolean, userId: number): Observable<Object> {
-    const url = `${this.taskURL}?isChecked=${isDone}&id=${userId}`;
-    return this.httpClient.get(url);
-  }
-
-  getAllByTagId(tagId: number, userId: number): Observable<Object> {
-    const url = `${this.taskURL}?tagId=${tagId}&id=${userId}`;
-    return this.httpClient.get(url);
-  }
-
   postTask(task: ITask): Observable<Object> {
     return this.httpClient.post(this.taskURL, task, this.httpOptions);
   }
@@ -69,6 +51,25 @@ export class TaskService {
   addViewers(viewers: IFriendToInvite[], taskId: number): Observable<Object> {
     const url = `${this.taskURL}viewers?id=${taskId}`;
     return this.httpClient.put(url, viewers, this.httpOptions);
+  }
+
+  getMap(
+    start: string,
+    end: string,
+    userId: number
+  ): Observable<{
+    totalTasks: Map<number, number>;
+    completedTasks: Map<number, number>;
+  }> {
+    let params = new HttpParams()
+      .set('start', start)
+      .set('end', end)
+      .set('id', userId.toString());
+
+    return this.httpClient.get<{
+      totalTasks: Map<number, number>;
+      completedTasks: Map<number, number>;
+    }>(this.taskURL + 'getmap', { params });
   }
 
   private handleError(error: HttpErrorResponse) {

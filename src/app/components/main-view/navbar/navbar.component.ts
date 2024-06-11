@@ -1,5 +1,6 @@
 import { NgIf, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -11,28 +12,11 @@ import {
   RouterModule,
 } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faAddressBook,
-  faBell,
-  faCircleUser,
-  faGear,
-  faListCheck,
-  faNewspaper,
-  faRightFromBracket,
-  faTags,
-  faTicket,
-  faUserLock,
-  faUserTie,
-  faUsersGear,
-  faWandMagicSparkles,
-} from '@fortawesome/free-solid-svg-icons';
-import { StorageService } from '../../../services/storage/storage.service';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MessageResponse } from '../../../models/auth.models';
 import { PruebaService } from '../../../services/prueba/prueba.service';
+import { StorageService } from '../../../services/storage/storage.service';
+import { GeneralNavbarComponent } from '../general-navbar/general-navbar.component';
 import { NavbarAdminComponent } from '../navbar-admin/navbar-admin.component';
 import { NavbarUserComponent } from '../navbar-user/navbar-user.component';
-import { GeneralNavbarComponent } from '../general-navbar/general-navbar.component';
 
 @Component({
   selector: 'app-navbar',

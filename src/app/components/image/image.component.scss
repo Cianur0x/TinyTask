@@ -1,0 +1,13 @@
+.container {
+    margin-left: 100px;
+
+    #form {
+        display: flex;
+        flex-direction: column;
+
+        .example-full-width {
+            // width: 100%;
+            height: max-content;
+        }
+    }
+}

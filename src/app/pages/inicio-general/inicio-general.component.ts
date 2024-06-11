@@ -1,5 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  QueryList,
+  SimpleChanges,
+  ViewChildren,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -53,6 +60,7 @@ export class InicioGeneralComponent implements OnInit {
   tasksByDay?: ITask[];
 
   @ViewChildren('weekday') weekdays?: QueryList<WeekdayComponent>;
+  @Input() tasksByTag?: ITask[];
 
   // Constructores
   constructor(
@@ -60,6 +68,16 @@ export class InicioGeneralComponent implements OnInit {
     private _taskService: TaskService
   ) {
     this.month = this.capitalizeFirstLetter(this.month);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log('simplechange inicio-general', changes);
+    if (!!this.tasksByTag) {
+      this.allTasks = this.tasksByTag;
+      console.log('a', this.tasksByTag);
+    }
   }
 
   ngOnInit(): void {
@@ -103,8 +121,6 @@ export class InicioGeneralComponent implements OnInit {
     var lastDay = new Date(year, month + 1, 0);
     var start = this.customFormatToDB(firstDay);
     var end = this.customFormatToDB(lastDay);
-    console.log('firstDay', firstDay);
-    console.log('lastDay', lastDay);
 
     this._taskService.getTasksByMonth(start, end, this.user).subscribe({
       next: (data) => {

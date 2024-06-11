@@ -9,6 +9,12 @@
             + Add Tag
         </div>
         <section class="filters">
+            <span>
+                <button mat-icon-button matTooltip="Reset Tasks" [matTooltipPosition]="'above'" color="accent"
+                    aria-label="Example icon-button with a heart icon" [hidden]="" (click)="resetTasks()">
+                    <fa-icon [icon]="reset"></fa-icon>
+                </button>
+            </span>
             <span class="all-filter">
                 <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
                     [indeterminate]="someComplete()" (change)="setAll($event.checked)">
@@ -21,7 +27,7 @@
                     @for (subtask of task.subtasks; track subtask) {
                     <li>
                         <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
-                            (ngModelChange)="updateAllComplete()">
+                            (ngModelChange)="updateAllComplete()" (change)="filterTasks()">
                             {{subtask.name}}
                         </mat-checkbox>
                     </li>
@@ -42,6 +48,6 @@
         </div>
     </div>
     <div class="view-task">
-        <app-inicio-general></app-inicio-general>
+        <app-inicio-general [tasksByTag]="filterTasks()"></app-inicio-general>
     </div>
 </div>

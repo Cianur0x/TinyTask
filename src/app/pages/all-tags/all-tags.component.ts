@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { AddTagDialogComponent } from '../../components/tags/add-tag-dialog/add-tag-dialog.component';
 import { LittleTaskComponent } from '../../components/tasks/little-task/little-task.component';
 import { ITag, ITask } from '../../models/task.models';
@@ -15,6 +17,7 @@ import { StorageService } from '../../services/storage/storage.service';
 import { TagService } from '../../services/tag/tag.service';
 import { TaskService } from '../../services/task/task.service';
 import { InicioGeneralComponent } from '../inicio-general/inicio-general.component';
+
 export interface checkBox {
   name: string;
   completed: boolean;
@@ -38,6 +41,7 @@ export interface checkBox {
     MatTooltipModule,
     MatButtonModule,
     NgClass,
+    FontAwesomeModule,
   ],
   templateUrl: './all-tags.component.html',
   styleUrl: './all-tags.component.scss',
@@ -55,6 +59,7 @@ export class AllTagsComponent {
   currentMonth = this.date.getMonth();
   currentYear = this.date.getFullYear();
   info: any;
+  reset = faClockRotateLeft;
 
   task: checkBox = {
     name: 'All',
@@ -95,6 +100,7 @@ export class AllTagsComponent {
   filterTasks() {
     const ifDone = this.task.subtasks?.find((t) => t.done)?.completed;
     const ifTodo = this.task.subtasks?.find((t) => !t.done)?.completed;
+
     return this.allTasks.filter(
       (x) => (x.taskDone && ifDone) || (!x.taskDone && ifTodo)
     );
@@ -136,7 +142,7 @@ export class AllTagsComponent {
   ) {
     this.userId = this._storageService.getUser().id;
     this.getTags();
-    this.getTaskByMonthDay(2024, 4);
+    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
   }
 
   getTags() {
@@ -216,6 +222,12 @@ export class AllTagsComponent {
       };
 
       this.allTags[index] = tag;
+
+      this.allTasks.forEach((element) => {
+        element.tag.id = tag.id;
+        element.tag.labelColor = tag.labelColor;
+        element.tag.name = tag.name;
+      });
     }
   }
 
@@ -225,5 +237,9 @@ export class AllTagsComponent {
     if (index > -1) {
       this.allTags.splice(index, 1);
     }
+  }
+
+  resetTasks() {
+    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
   }
 }

@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgIf, NgOptimizedImage } from '@angular/common';
+import { Component } from '@angular/core';
 import {
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
   FormBuilder,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -41,22 +41,22 @@ export class LoginComponent {
   roles: string[] = [];
 
   constructor(
-    private authService: AuthService,
-    private storageService: StorageService,
-    private router: Router,
-    private formBuilder: FormBuilder
+    private _authService: AuthService,
+    private _storageService: StorageService,
+    private _router: Router,
+    private _formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = this._formBuilder.group({
       username: [null, Validators.required],
       password: [null, Validators.required],
     });
 
-    if (this.storageService.isLoggedIn()) {
+    if (this._storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
-      this.router.navigateByUrl('inicio').then(() => {
+      this.roles = this._storageService.getUser().roles;
+      this._router.navigateByUrl('inicio').then(() => {
         console.log('Ya logueado, cargando index.');
       });
     }
@@ -69,13 +69,13 @@ export class LoginComponent {
 
     const { username, password } = this.loginForm.value;
 
-    this.authService.login(username, password).subscribe({
+    this._authService.login(username, password).subscribe({
       next: (data) => {
-        this.storageService.clean();
-        this.storageService.saveUser(data);
+        this._storageService.clean();
+        this._storageService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
+        this.roles = this._storageService.getUser().roles;
         this.reloadPage();
       },
       error: (err) => {

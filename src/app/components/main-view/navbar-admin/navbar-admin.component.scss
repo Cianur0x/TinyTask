@@ -17,7 +17,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            // color: #112D4E;
+            color: #112D4E;
             justify-content: space-between;
 
             .first {
@@ -32,16 +32,12 @@
 
                 li {
                     display: flex;
-                    padding: 1.15rem 0;
+                    padding: 2rem 0;
                 }
 
                 .material-icons.md-48 {
                     font-size: 48px;
                 }
-            }
-
-            .last {
-                padding: 1rem 0;
             }
         }
     }

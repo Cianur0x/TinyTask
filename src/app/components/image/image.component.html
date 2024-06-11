@@ -1,0 +1,77 @@
+<div class="container">
+    <h2>Profile</h2>
+    <div class="content">
+        <mat-divider [vertical]="true"></mat-divider>
+        <div id="form">
+            <form [formGroup]="profileForm" (ngSubmit)="onUpload()">
+                <!-- <div>
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="state" value="">
+                            @for (status of state; track status) {
+                            <mat-option [value]="status.value">{{status.viewValue}}</mat-option>
+                            }
+                        </mat-select>
+                        @if (profileForm.get('state')?.hasError('required')) {
+                        <mat-error>State is required</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+
+                <div id="headerTask">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Bio</mat-label>
+                        <textarea matInput placeholder="Let's do it! ✨"></textarea>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input matInput type="text" formControlName="username">
+                        @if (profileForm.get('username')?.hasError('required')) {
+                        <mat-error>Tag's name is required</mat-error>
+                        }
+                        @if (profileForm.get('username')?.hasError('minlength')) {
+                        <mat-error>Min. length 4</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                        @if (profileForm.get('password')?.hasError('required')) {
+                        <mat-error>Password is required</mat-error>
+                        }
+                        @if (profileForm.get('password')?.hasError('maxlength')) {
+                        <mat-error>Max. length 15</mat-error>
+                        }
+
+                        @if (profileForm.get('password')?.hasError('minlength')) {
+                        <mat-error>Min. length 6</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email">
+                        @if (profileForm.get('email')?.hasError('required')) {
+                        <mat-error>Password is required</mat-error>
+                        }@if (profileForm.get('email')?.hasError('email')) {
+                        <mat-error>Wrong email format</mat-error>
+                        }
+                    </mat-form-field>
+                </div> -->
+                <div>
+                    <input class="form-control" type="file" (change)="onChange($event)"
+                        formControlName="profile_picture">
+                </div>
+                <div>
+                    <button mat-raised-button color="primary" type="submit">Edit
+                        Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

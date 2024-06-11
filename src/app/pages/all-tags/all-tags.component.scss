@@ -9,6 +9,7 @@
         border-width: 0 1px;
         overflow: auto;
         min-width: max-content;
+        z-index: 102;
 
         .nav-month {
             .content {
@@ -42,9 +43,12 @@
 
             .all-filter {
                 padding-right: 10px;
+                align-self: center;
             }
 
             .todo-filter {
+                align-self: center;
+
                 ul {
                     display: flex;
                     list-style: none;

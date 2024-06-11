@@ -31,7 +31,7 @@
                         <input matInput type="email" formControlName="email">
                         <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
                             <span i18n *ngIf="registerForm.get('email')?.hasError('required')">Email is required</span>
-                            <span i18n *ngIf="registerForm.get('password')?.hasError('email')">Please enter a valid
+                            <span i18n *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid
                                 email address</span>
                         </mat-error>
                     </mat-form-field>
