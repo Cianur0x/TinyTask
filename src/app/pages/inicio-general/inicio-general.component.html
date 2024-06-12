@@ -1,27 +1,28 @@
 <div class="main-view" [class.custom1]="otherTheme">
     <div class="nav-month mat-app-background">
         <div class="month">
-            <fa-icon [icon]="faAngleLeft" size="xl"></fa-icon>
+            <fa-icon [icon]="faAngleLeft" size="xl" (click)="previousMonth()"></fa-icon>
             <div class="text">{{month + ' ' + year}}</div>
-            <fa-icon [icon]="faAngleRight" size="xl"></fa-icon>
+            <fa-icon [icon]="faAngleRight" size="xl" (click)="nextMonth()"></fa-icon>
         </div>
     </div>
     <div class="tareitas">
         <div id="tasks-view" class="mat-app-background" *ngFor="let item of items; let i = index">
-            <app-weekday #weekday [day]=i+1 [todayTasks]=filterByDay(i+1) (addTask)="addTaskToArray($event)"
-                (updateTask)="updateTask($event)" (deleteTask)="deleteTask($event)"></app-weekday>
+            <app-weekday #weekday [day]=i+1 [month]="this.currentMonth" [year]="this.currentYear"
+                [todayTasks]=filterByDay(i+1) (addTask)="addTaskToArray($event)" (updateTask)="updateTask($event)"
+                (deleteTask)="deleteTask($event)" [highlight]="this.dayAsCenter == i"></app-weekday>
         </div>
     </div>
     <div class="example-button-row">
-        <button mat-fab matTooltip="Accent" (click)="centerDay(this.dayAsCenter - 1)" color="accent"
+        <button mat-fab matTooltip="Accent" (click)="centerPreviousDay()" color="accent"
             aria-label="Example fab with a heart icon">
             <mat-icon>arrow_back</mat-icon>
         </button>
-        <button mat-fab matTooltip="Primary" (click)="centerDay(this.currentDate)" color="primary"
+        <button mat-fab matTooltip="Primary" (click)="centerCurrentDay()" color="primary"
             aria-label="Example fab with a heart icon">
             <mat-icon>location_on</mat-icon>
         </button>
-        <button mat-fab matTooltip="Accent" (click)="centerDay(this.dayAsCenter + 1)" color="accent"
+        <button mat-fab matTooltip="Accent" (click)="centerNextDay()" color="accent"
             aria-label="Example fab with a heart icon">
             <mat-icon>arrow_forward</mat-icon>
         </button>

@@ -42,11 +42,12 @@ export interface toEmit {
 export class WeekdayComponent implements OnInit {
   // Variables
   userLang = navigator.language;
-  fullDate = new Date();
-  dayName = '';
   user = 0;
+  @Input() highlight: boolean = false;
   @Input() todayTasks?: ITask[];
   @Input() day = 0;
+  @Input() month = 0;
+  @Input() year = 0;
   @ViewChild('target', { static: true }) target?: ElementRef;
   mytasks?: ITask[];
   info!: toEmit;
@@ -57,9 +58,7 @@ export class WeekdayComponent implements OnInit {
   // Constructores
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.dayName = this.customFormat(this.fullDate, this.userLang);
-  }
+  ngOnInit(): void {}
   // Métodos
 
   /**
@@ -68,12 +67,9 @@ export class WeekdayComponent implements OnInit {
    * @param locale el local donde se encuentra el usuario
    * @returns string de fecha con el formato indicado
    */
-  customFormat = (date: Date, locale: string) => {
-    let dia = this.day;
-    let mes = date.getMonth();
-    let year = date.getFullYear();
-    let fecha = new Date(year, mes, dia);
-    let longdate = fecha.toLocaleDateString(locale, {
+  customFormat = (locale: string) => {
+    const fecha = new Date(this.year, this.month, this.day);
+    const longdate = fecha.toLocaleDateString(locale, {
       day: '2-digit',
       weekday: 'long',
     });

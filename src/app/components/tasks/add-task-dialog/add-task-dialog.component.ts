@@ -177,7 +177,7 @@ export class AddTaskDialogComponent implements OnInit {
         console.log('post close');
         this.dialogRef.close({
           task: data,
-          operacion: 'post',
+          operation: 'post',
         });
 
         if (this.friendList.length > 0 && this.viewersList.length > 0) {
@@ -187,7 +187,7 @@ export class AddTaskDialogComponent implements OnInit {
               console.log('addviewers data', data);
               // this.dialogRef.close({
               //   task: data,
-              //   operacion: 'put',
+              //   operation: 'put',
               // });
             },
             error: (err) => {
@@ -250,7 +250,7 @@ export class AddTaskDialogComponent implements OnInit {
         console.log('before close update:', data);
         this.dialogRef.close({
           task: data,
-          operacion: 'put',
+          operation: 'put',
         });
 
         if (this.friendList.length > 0 && this.viewersList.length > 0) {
@@ -259,7 +259,7 @@ export class AddTaskDialogComponent implements OnInit {
               console.log('addviewers data', data);
               // this.dialogRef.close({
               //   task: data,
-              //   operacion: 'put',
+              //   operation: 'put',
               // });
             },
             error: (err) => {
@@ -294,7 +294,7 @@ export class AddTaskDialogComponent implements OnInit {
         console.log('delete close');
         this.dialogRef.close({
           task: this.currentTask,
-          operacion: 'delete',
+          operation: 'delete',
         });
       },
       error: (err) => {

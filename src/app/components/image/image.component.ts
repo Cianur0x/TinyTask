@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UserService } from '../../services/user/user.service';
+import { IUserPut } from '../../models/user.models';
 
 interface Status {
   value: string;
@@ -42,6 +43,7 @@ interface Status {
 })
 export class ImageComponent {
   hideRequiredControl = new FormControl('');
+  currentUser!: IUserPut;
   // maxSizeInBytes: number = 4 * 1024 * 1024; // 4 MB
   profileForm!: FormGroup;
   state: Status[] = [
@@ -88,5 +90,6 @@ export class ImageComponent {
       },
     });
   }
+
   onSubmit() {}
 }

@@ -1,7 +1,7 @@
 <div class="weekday-container">
-    <div class="weekday" #target>
+    <div class="weekday" #target [ngClass]="{'highlight': this.highlight}">
         <div class="day mat-app-background">
-            {{dayName}}
+            {{this.customFormat(this.userLang)}}
         </div>
         <div class="add-task mat-app-background" (click)="openDialog()">
             + Add Task

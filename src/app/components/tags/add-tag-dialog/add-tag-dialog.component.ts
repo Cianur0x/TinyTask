@@ -127,7 +127,7 @@ export class AddTagDialogComponent {
       next: (data) => {
         this.dialogRef.close({
           tag: data,
-          operacion: 'post',
+          operation: 'post',
         });
       },
       error: (err) => {
@@ -153,7 +153,7 @@ export class AddTagDialogComponent {
       next: (data) => {
         this.dialogRef.close({
           tag: data,
-          operacion: 'put',
+          operation: 'put',
         });
       },
       error: (err) => {
@@ -167,7 +167,7 @@ export class AddTagDialogComponent {
       next: () => {
         this.dialogRef.close({
           tag: this.currentTag,
-          operacion: 'delete',
+          operation: 'delete',
         });
       },
       error: (err) => {

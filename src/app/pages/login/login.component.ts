@@ -79,7 +79,7 @@ export class LoginComponent {
         this.reloadPage();
       },
       error: (err) => {
-        this.errorMessage = err.error.message;
+        console.log(err);
         this.isLoginFailed = true;
       },
     });

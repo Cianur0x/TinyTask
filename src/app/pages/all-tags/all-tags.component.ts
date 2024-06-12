@@ -171,9 +171,9 @@ export class AllTagsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       this.info = result;
       if (!!this.info) {
-        if (this.info.operacion.localeCompare('delete') == 0) {
+        if (this.info.operation.localeCompare('delete') == 0) {
           this.removeTag(this.info);
-        } else if (this.info.operacion.localeCompare('put') == 0) {
+        } else if (this.info.operation.localeCompare('put') == 0) {
           this.updateTag(this.info);
         } else {
           console.log('info', this.info);
@@ -190,7 +190,7 @@ export class AllTagsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       this.info = result;
       if (!!this.info) {
-        if (this.info.operacion.localeCompare('post') == 0) {
+        if (this.info.operation.localeCompare('post') == 0) {
           this.addTag(this.info);
         } else {
           console.log('info', this.info);

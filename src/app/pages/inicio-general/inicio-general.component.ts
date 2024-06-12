@@ -49,8 +49,8 @@ export class InicioGeneralComponent implements OnInit {
   roles: string[] = [];
   allTasks!: ITask[];
   date = new Date();
-  month: any = this.date.toLocaleString(this.userLang, { month: 'long' });
   year = this.date.getFullYear();
+  month: any = this.getMonthName(this.date.getMonth());
   numDays = new Date(
     this.date.getFullYear(),
     this.date.getMonth() + 1,
@@ -66,9 +66,7 @@ export class InicioGeneralComponent implements OnInit {
   constructor(
     private _storageService: StorageService,
     private _taskService: TaskService
-  ) {
-    this.month = this.capitalizeFirstLetter(this.month);
-  }
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
@@ -86,15 +84,9 @@ export class InicioGeneralComponent implements OnInit {
       this.isLoggedIn = true;
       this.roles = this._storageService.getUser().roles;
     }
-    this.currentDate = this.date.getDate() - 1; // no recuerdo pq le restabamos 1
-    this.dayAsCenter = this.currentDate;
     this.user = this._storageService.getUser().id;
-
-    // se calcula el año y el mes actuales
-    this.currentMonth = this.date.getMonth();
-    this.currentYear = this.date.getFullYear();
+    this.updateDate();
     console.log(this.currentMonth, this.currentYear);
-    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
   }
 
   ngAfterViewInit(): void {
@@ -111,9 +103,71 @@ export class InicioGeneralComponent implements OnInit {
     console.log('inicio centerday', day);
     this.dayAsCenter = day;
     this.weekdays?.get(this.dayAsCenter)?.scrollIntoView();
+  }
+
+  centerPreviousDay() {
     if (this.dayAsCenter == 0) {
-      // TODO hay que comprobar que hacer con los extremos
+      this.previousMonth();
+    } else {
+      this.centerDay(this.dayAsCenter - 1);
     }
+  }
+
+  centerNextDay() {
+    if (this.dayAsCenter == this.numDays - 1) {
+      this.nextMonth();
+    } else {
+      this.centerDay(this.dayAsCenter + 1);
+    }
+  }
+
+  centerCurrentDay() {
+    const today = new Date();
+    if (
+      this.currentMonth == today.getMonth() &&
+      this.currentYear == today.getFullYear()
+    ) {
+      this.centerDay(today.getDate() - 1);
+    } else {
+      this.date = today;
+      this.updateDate();
+    }
+  }
+
+  getMonthName(month: number) {
+    const monthDate = new Date(this.year, month, 1);
+    return this.capitalizeFirstLetter(
+      monthDate.toLocaleString(this.userLang, { month: 'long' })
+    );
+  }
+
+  updateDate() {
+    this.currentYear = this.date.getFullYear();
+    this.currentMonth = this.date.getMonth();
+    this.currentDate = this.date.getDate() - 1;
+
+    this.year = this.currentYear;
+    this.month = this.getMonthName(this.currentMonth);
+    this.numDays = new Date(
+      this.currentYear,
+      this.currentMonth + 1,
+      0
+    ).getDate();
+    this.items = Array(this.numDays);
+
+    this.allTasks = [];
+    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
+    setTimeout(() => this.centerDay(this.currentDate), 1); // para que pueda refrescar y que existe el último diá, problema de pasar de un mes de 30 dias a uno de 31
+  }
+
+  previousMonth() {
+    this.date = new Date(this.currentYear, this.currentMonth, 0);
+    this.updateDate();
+  }
+
+  nextMonth() {
+    this.date = new Date(this.currentYear, this.currentMonth + 1, 1);
+    this.updateDate();
   }
 
   getTaskByMonthDay(year: number, month: number) {

@@ -1,10 +1,10 @@
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { inject, Injectable } from '@angular/core';
 import { StorageService } from '../storage/storage.service';
 
 export const canActivate: CanActivateFn = (

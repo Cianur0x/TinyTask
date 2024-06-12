@@ -8,6 +8,8 @@ import { NgClass, NgIf } from '@angular/common';
 import { AddTaskDialogComponent } from '../add-task-dialog/add-task-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { toEmit } from '../weekday/weekday.component';
+import { TaskService } from '../../../services/task/task.service';
+import { StorageService } from '../../../services/storage/storage.service';
 
 @Component({
   selector: 'app-little-task',
@@ -31,10 +33,38 @@ export class LittleTaskComponent implements OnInit {
   info!: toEmit;
   @Output() updateTask = new EventEmitter<toEmit>();
   @Output() deleteTask = new EventEmitter<toEmit>();
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private _taskService: TaskService,
+    private _storageService: StorageService
+  ) {}
 
   ngOnInit(): void {}
 
+  toggleDone($event: MouseEvent) {
+    const user = this._storageService.getUser();
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.info = {
+      task: {
+        ...this.task,
+        taskDone: !this.task.taskDone,
+        user: {
+          id: user.id,
+        },
+      },
+      operation: 'put',
+    };
+    this._taskService.updateTask(this.info.task).subscribe({
+      next: (data) => {
+        console.log('checkbox update:', data);
+        this.updateTask.emit(this.info);
+      },
+      error: (err) => {
+        console.log('task NO actualizada');
+      },
+    });
+  }
   /**
    * función para abrir el diálogo donde se creará la tarea
    */
@@ -50,9 +80,9 @@ export class LittleTaskComponent implements OnInit {
       console.log('to Emit', this.info);
 
       if (!!this.info) {
-        if (result.operacion.localeCompare('delete') == 0) {
+        if (result.operation.localeCompare('delete') == 0) {
           this.deleteTask.emit(this.info);
-        } else if (result.operacion.localeCompare('put') == 0) {
+        } else if (result.operation.localeCompare('put') == 0) {
           this.updateTask.emit(this.info);
         } else {
           console.log('info', this.info);

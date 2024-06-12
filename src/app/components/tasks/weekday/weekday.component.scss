@@ -17,12 +17,21 @@ $menuBreakpoint: 768px;
             border: 1px solid #707070;
         }
 
+        &.highlight .day {
+            border: 2px solid #202020;
+        }
+
         .add-task {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 15px 0;
             border: 1px solid #707070;
+            border-top: 0;
+        }
+
+        &.highlight .add-task {
+            border: 2px solid #202020;
             border-top: 0;
         }
 

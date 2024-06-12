@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IUserPut } from '../../models/user.models';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +42,18 @@ export class UserService {
     );
   }
 
-  obtenerImagen(usuarioId: number): Observable<Blob> {
-    return this.httpClient.get(`${this.imageURL}/${usuarioId}/image`, {
+  obtenerImagen(usuarioId: number): Observable<any> {
+    return this.httpClient.get(`${this.imageURL}/${usuarioId}/userimage`, {
       responseType: 'blob',
     });
+  }
+
+  postUser(user: IUserPut): Observable<Object> {
+    return this.httpClient.post(this.userURL, user, this.httpOptions);
+  }
+
+  updateUser(user: IUserPut): Observable<Object> {
+    const url = `${this.userURL}/edituser`;
+    return this.httpClient.put<IUserPut>(url, user, this.httpOptions);
   }
 }
