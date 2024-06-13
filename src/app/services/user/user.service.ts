@@ -23,7 +23,7 @@ export class UserService {
     return this.httpClient.get(url);
   }
 
-  getFriendsList(id: number) {
+  getFriendsList(id: number): Observable<Object> {
     const url = `${this.userURL}/friendlist?id=${id}`;
     return this.httpClient.get(url);
   }
@@ -55,5 +55,20 @@ export class UserService {
   updateUser(user: IUserPut): Observable<Object> {
     const url = `${this.userURL}/edituser`;
     return this.httpClient.put<IUserPut>(url, user, this.httpOptions);
+  }
+
+  updateBio(bio: string): Observable<Object> {
+    const url = `${this.userURL}/editbio`;
+    return this.httpClient.put<IUserPut>(url, bio, this.httpOptions);
+  }
+
+  updateState(state: string): Observable<Object> {
+    const url = `${this.userURL}/editstate`;
+    return this.httpClient.put<IUserPut>(url, state, this.httpOptions);
+  }
+
+  getUser(id: number): Observable<Object> {
+    const url = `${this.userURL}/${id}`;
+    return this.httpClient.get(url);
   }
 }

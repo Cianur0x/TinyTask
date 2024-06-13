@@ -1,85 +1,116 @@
-<div>
-    <img [src]="imageToShow" alt="Place image title" *ngIf="!isImageLoading; else noImageFound">
-    <ng-template #noImageFound>
-        <mat-spinner></mat-spinner>
-    </ng-template>
-</div>
-
-
 <div class="container">
-    <h2>Profile</h2>
-    <div class="content">
-        <mat-divider [vertical]="true"></mat-divider>
-        <div id="form">
-            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <h1>Profile</h1>
+    <div id="profile-image">
+        <div class="circulo">
+            <div class="profile-pic">
+                <img [src]="imageToShow" alt="user profile image" *ngIf="!isImageLoading; else noImageFound">
+                <!-- <span class="dot" [ngStyle]="{'background-color': currentColorState}"></span> -->
+            </div>
+            <ng-template #noImageFound>
+                <mat-spinner></mat-spinner>
+            </ng-template>
+        </div>
+        <div class="content">
+            <div id="form">
+                <form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+                    <div>
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="state" (selectionChange)="changeColorState($event.value)">
+                                @for (status of state; track status) {
+                                <mat-option [value]="status.value">{{status.viewValue}}</mat-option>
+                                }
+                            </mat-select>
+                            @if (statusForm.get('state')?.hasError('required')) {
+                            <mat-error>State is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </form>
+                <form [formGroup]="bioForm" (ngSubmit)="changeBio(bioForm.get('bio')?.value)">
+                    <div>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Bio</mat-label>
+                            <textarea matInput placeholder="Let's do it! ✨" formControlName="bio"></textarea>
+                        </mat-form-field>
+                    </div>
+                    @if (true) {
+                    <button mat-raised-button color="primary" type="submit" [disabled]="bioForm.invalid">Submit
+                        Bio</button>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="user-data">
+        <div id="user-form">
+            <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">
+                <h3>Edit User Data</h3>
                 <div>
                     <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
-                        <mat-label>Status</mat-label>
-                        <mat-select formControlName="state" value="">
-                            @for (status of state; track status) {
-                            <mat-option [value]="status.value">{{status.viewValue}}</mat-option>
-                            }
-                        </mat-select>
-                        @if (profileForm.get('state')?.hasError('required')) {
-                        <mat-error>State is required</mat-error>
-                        }
-                    </mat-form-field>
-                </div>
-
-                <div id="headerTask">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Bio</mat-label>
-                        <textarea matInput placeholder="Let's do it! ✨" formControlName="bio"></textarea>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-form-field appearance="outline">
                         <mat-label>Username</mat-label>
                         <input matInput type="text" formControlName="username">
-                        @if (profileForm.get('username')?.hasError('required')) {
-                        <mat-error>Tag's name is required</mat-error>
+                        @if (userDataForm.get('username')?.hasError('required')) {
+                        <mat-error>Username is required</mat-error>
                         }
-                        @if (profileForm.get('username')?.hasError('minlength')) {
+                        @if (userDataForm.get('username')?.hasError('minlength')) {
                         <mat-error>Min. length 4</mat-error>
                         }
                     </mat-form-field>
                 </div>
                 <div>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Password</mat-label>
-                        <input matInput type="password" formControlName="password">
-                        @if (profileForm.get('password')?.hasError('required')) {
-                        <mat-error>Password is required</mat-error>
-                        }
-                        @if (profileForm.get('password')?.hasError('maxlength')) {
-                        <mat-error>Max. length 15</mat-error>
-                        }
-
-                        @if (profileForm.get('password')?.hasError('minlength')) {
-                        <mat-error>Min. length 6</mat-error>
-                        }
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
                         <mat-label>Email</mat-label>
                         <input matInput type="email" formControlName="email">
-                        @if (profileForm.get('email')?.hasError('required')) {
-                        <mat-error>Password is required</mat-error>
-                        }@if (profileForm.get('email')?.hasError('email')) {
+                        @if (userDataForm.get('email')?.hasError('required')) {
+                        <mat-error>Email is required</mat-error>
+                        }@if (userDataForm.get('email')?.hasError('email')) {
                         <mat-error>Wrong email format</mat-error>
                         }
                     </mat-form-field>
                 </div>
                 <div>
-                    <input class="form-control" type="file" (change)="onChange($event)"
-                        formControlName="profile_picture">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+
+                        @if (userDataForm.get('password')?.hasError('required')) {
+                        <mat-error>Password is required</mat-error>
+                        }
+
+                        @if (userDataForm.get('password')?.hasError('maxlength')) {
+                        <mat-error>Max. length 15</mat-error>
+                        }
+
+                        @if (userDataForm.get('password')?.hasError('minlength')) {
+                        <mat-error>Min. length 6</mat-error>
+                        }
+                    </mat-form-field>
                 </div>
                 <div>
-                    <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">Edit
+                    <button mat-raised-button color="primary" type="submit" [disabled]="userDataForm.invalid">Edit
                         Profile</button>
                 </div>
             </form>
+        </div>
+        <div id="image-form">
+            <h3>Upload Proile Photo</h3>
+            <form [formGroup]="imageForm" (ngSubmit)="onUpload()">
+                <div class="input-image">
+                    <label for="file-upload" class="custom-file-upload">Select file</label>
+                    <input id="file-upload" type="file" (change)="onChange($event)" formControlName="profile_picture">
+                    <p class="filename" *ngIf="!!file">{{file.name}}</p>
+
+                </div>
+                <div class="btn">
+                    <button mat-raised-button color="accent" type="submit">Upload Photo</button>
+                </div>
+            </form>
+
+            <div class="btn">
+                <button mat-raised-button color="accent">Remove Photo</button>
+            </div>
         </div>
     </div>
 </div>

@@ -48,6 +48,8 @@ import {
 
 export interface DialogData {
   currentDay: number;
+  currentMonth: number;
+  currentYear: number;
   task: ITask;
 }
 
@@ -96,6 +98,7 @@ export class AddTaskDialogComponent implements OnInit {
   friendList!: IFriend[];
   user = this._storageService.getUser();
   viewersList!: IFriendToInvite[];
+  weekdayDate!: Date;
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
@@ -109,6 +112,11 @@ export class AddTaskDialogComponent implements OnInit {
   ) {
     dialogRef.disableClose = true; // para que al dar click fuera del dialogo no se cierre
     this.day = data.currentDay;
+    this.weekdayDate = new Date(
+      data.currentYear,
+      data.currentMonth,
+      data.currentDay
+    );
     this.currentTask = data.task;
     this.getTags(); // se cargan las etiquetas
     this.getFriendsList(); // se cargan los amigos
@@ -130,7 +138,7 @@ export class AddTaskDialogComponent implements OnInit {
       this.taskForm = this._formBuilder.group({
         // se inicializa la tarea en el formulario
         title: ['', Validators.required],
-        date: [this.date, Validators.required],
+        date: [this.weekdayDate, Validators.required],
         isDone: [false, Validators.required],
         tag: [1, Validators.required],
         duration: ['', Validators.required],

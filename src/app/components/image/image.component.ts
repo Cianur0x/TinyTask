@@ -81,7 +81,7 @@ export class ImageComponent {
   file!: File;
   onUpload() {
     console.log(this.file);
-    this._userService.subirImagen(1, this.file).subscribe({
+    this._userService.subirImagen(3, this.file).subscribe({
       next: (data) => {
         console.log(data);
       },

@@ -1,5 +1,5 @@
 import { NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -23,6 +23,7 @@ import { UserService } from '../../services/user/user.service';
 interface Status {
   value: string;
   viewValue: string;
+  color: string;
 }
 
 @Component({
@@ -45,9 +46,29 @@ interface Status {
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit, OnChanges {
   isImageLoading: boolean = false;
   user = this._storageService.getUser();
+  state: Status[] = [
+    { value: 'ACTIVE', viewValue: 'Active', color: '#3AE25B' },
+    { value: 'BUSY', viewValue: 'Busy', color: '#FF3030' },
+    { value: 'AWAY', viewValue: 'Away', color: '#FFAF26' },
+    { value: 'OFFLINE', viewValue: 'Offline', color: '#9E9E9E' },
+  ];
+  currentColorState = this.state[0].color;
+  hideRequiredControl = new FormControl('');
+  currentUser!: any;
+  maxSizeInBytes: number = 4 * 1024 * 1024; // 4 MB
+  userDataForm!: FormGroup;
+  bioForm!: FormGroup;
+  statusForm!: FormGroup;
+  imageForm!: FormGroup;
+  file!: File;
+  imageToShow: any;
+
+  isLoggedIn = false;
+  isLoginFailed = false;
+  roles: string[] = [];
 
   constructor(
     private _userService: UserService,
@@ -56,11 +77,55 @@ export class EditProfileComponent {
     private _authService: AuthService
   ) {
     this.getImageFromService();
-    this.profileForm = this._formBuilder.group({
-      state: [this.state[0].value, Validators.required],
-      bio: [null, [Validators.maxLength(250)]],
-      username: [null, [Validators.required, Validators.minLength(4)]],
-      email: [null, [Validators.required, Validators.email]],
+    this.getCurretUser();
+
+    this.imageForm = this._formBuilder.group({
+      profile_picture: [null],
+    });
+    if (!!this.currentUser) {
+      this.initForms(this.currentUser);
+    } else {
+      this.statusForm = this._formBuilder.group({
+        state: [this.state[0].value, Validators.required],
+      });
+
+      this.bioForm = this._formBuilder.group({
+        bio: [null, [Validators.maxLength(250)]],
+      });
+
+      this.userDataForm = this._formBuilder.group({
+        username: [null, [Validators.required, Validators.minLength(4)]],
+        email: [null, [Validators.required, Validators.email]],
+        password: [
+          null,
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(15),
+          ],
+        ],
+      });
+    }
+  }
+
+  initForms(userInfo: any) {
+    this.statusForm = this._formBuilder.group({
+      state: [
+        this.state[this.getValueState(userInfo.state)].value,
+        Validators.required,
+      ],
+    });
+
+    this.bioForm = this._formBuilder.group({
+      bio: [userInfo.biography, [Validators.maxLength(250)]],
+    });
+
+    this.userDataForm = this._formBuilder.group({
+      username: [
+        userInfo.username,
+        [Validators.required, Validators.minLength(4)],
+      ],
+      email: [userInfo.email, [Validators.required, Validators.email]],
       password: [
         null,
         [
@@ -69,9 +134,12 @@ export class EditProfileComponent {
           Validators.maxLength(15),
         ],
       ],
-      profile_picture: [null],
     });
   }
+
+  ngOnChanges(changes: SimpleChanges): void {}
+
+  ngOnInit(): void {}
 
   getImageFromService() {
     this.isImageLoading = true;
@@ -88,7 +156,6 @@ export class EditProfileComponent {
     });
   }
 
-  imageToShow: any;
   createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener(
@@ -104,27 +171,14 @@ export class EditProfileComponent {
     }
   }
 
-  hideRequiredControl = new FormControl('');
-  currentUser!: IUserPut;
-  // maxSizeInBytes: number = 4 * 1024 * 1024; // 4 MB
-  profileForm!: FormGroup;
-  state: Status[] = [
-    { value: 'ACTIVE', viewValue: 'Active' },
-    { value: 'BUSY', viewValue: 'Busy' },
-    { value: 'AWAY', viewValue: 'Away' },
-    { value: 'OFFLINE', viewValue: 'Offline' },
-  ];
-
   onChange(event: any) {
     this.file = event.target.files[0];
   }
 
-  file!: File;
   onUpload() {
-    console.log(this.file);
-    this._userService.subirImagen(1, this.file).subscribe({
+    this._userService.subirImagen(this.user.id, this.file).subscribe({
       next: (data) => {
-        console.log(data);
+        this.getImageFromService();
       },
       error: (error) => {
         console.error(error);
@@ -132,19 +186,13 @@ export class EditProfileComponent {
     });
   }
 
-  isLoggedIn = false;
-  isLoginFailed = false;
-  roles: string[] = [];
-
   onSubmit() {
     let userID = this.user.id;
-    const formValues = this.profileForm.value;
+    const formValues = this.userDataForm.value;
     const user: IUserPut = {
       id: userID,
       username: formValues.username,
-      biography: formValues.bio,
       email: formValues.email,
-      state: formValues.state,
       password: formValues.password,
     };
 
@@ -158,7 +206,68 @@ export class EditProfileComponent {
     });
   }
 
-  reloadPage(): void {
-    window.location.reload();
+  changeColorState(state: any) {
+    this.currentUser.state = state;
+
+    this._userService.updateState(this.currentUser).subscribe({
+      next: (data) => {
+        this.currentUser = data as IUserPut;
+        console.log('dataPut state', this.currentUser);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  getValueState(state: string) {
+    let value;
+    switch (state) {
+      case 'ONLINE':
+        value = 0;
+        break;
+      case 'BUSY':
+        value = 1;
+        break;
+      case 'AWAY':
+        value = 2;
+        break;
+      case 'OFFLINE':
+        value = 3;
+        break;
+
+      default:
+        value = 0;
+        break;
+    }
+    return value;
+  }
+
+  getCurretUser() {
+    this._userService.getUser(this.user.id).subscribe({
+      next: (data) => {
+        this.currentUser = data as IUserPut;
+        this.initForms(this.currentUser);
+        console.log('current user data', this.currentUser);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  changeBio(bioForm: any) {
+    let bioTrim = bioForm.trim();
+    this.currentUser.biography = bioTrim;
+
+    this._userService.updateBio(this.currentUser).subscribe({
+      next: (data) => {
+        this.currentUser = data as IUserPut;
+        console.log('dataPut bio', this.currentUser);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }

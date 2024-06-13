@@ -95,6 +95,8 @@ export class WeekdayComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       data: {
         currentDay: this.day,
+        currentMonth: this.month,
+        currentYear: this.year,
       },
     });
 
