@@ -7,8 +7,8 @@ import { IUserPut } from '../../models/user.models';
   providedIn: 'root',
 })
 export class UserService {
-  private userURL = 'http://localhost:8080/v1/api/users';
-  private imageURL = 'http://localhost:8080/v1/api/image';
+  private userURL = 'https://tinytaskweb.onrender.com/v1/api/users';
+  private imageURL = 'https://tinytaskweb.onrender.com/v1/api/image';
 
   httpOptions = {
     headers: new HttpHeaders({
