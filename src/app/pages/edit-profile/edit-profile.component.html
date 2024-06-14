@@ -74,7 +74,6 @@
                     <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
                         <mat-label>Password</mat-label>
                         <input matInput type="password" formControlName="password">
-
                         @if (userDataForm.get('password')?.hasError('required')) {
                         <mat-error>Password is required</mat-error>
                         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, Colors, registerables } from 'chart.js';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TaskService } from '../../../services/task/task.service';
+import { UserService } from '../../../services/user/user.service';
 Chart.register(...registerables);
 Chart.register(Colors);
 
@@ -29,7 +30,7 @@ export class BarChartComponent implements OnInit {
     this._taskService.getMap('2024-01-01', '2024-12-31', userId).subscribe({
       next: (data) => {
         this.separateKeysAndValues(data);
-
+        console.log(this.months);
         this.monthsNames = this.convertToMonthNames(this.months);
         this.createChart();
       },
@@ -105,27 +106,25 @@ export class BarChartComponent implements OnInit {
   convertToMonthNames(arr: number[]) {
     let newArr: string[] = [];
     arr.forEach((x) => {
-      newArr.push(this.monthName(x));
+      newArr.push(this.monthName(x - 1));
     });
 
     return newArr;
   }
 
+  userLang = navigator.language;
+  customFormat = (locale: string) => {
+    const fecha = new Date();
+  };
+
   monthName(mon: number) {
-    var months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return months[mon];
+    var date = new Date(),
+      y = date.getFullYear();
+    var firstDay = new Date(y, mon, 1);
+    const monthName = firstDay.toLocaleDateString(this.userLang, {
+      month: 'long',
+    });
+
+    return monthName;
   }
 }

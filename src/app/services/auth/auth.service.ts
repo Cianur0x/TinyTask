@@ -7,7 +7,8 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiAuthURL = 'https://tinytaskweb.onrender.com/v1/api/auth/';
+  // private apiAuthURL = 'https://tinytaskweb.onrender.com/v1/api/auth/';
+  private apiAuthURL = 'http://localhost:8080/v1/api/auth/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -59,17 +60,5 @@ export class AuthService {
 
   logout() {
     this.storageService.clean();
-  }
-
-  errorHandler(a: any) {
-    //this.storageService.clean();
-
-    let errorMessage = '';
-    if (a.error instanceof ErrorEvent) {
-      errorMessage = a.error.message;
-    } else {
-      errorMessage = `Error Code: ${a.status}\nMessage: ${a.message}`;
-    }
-    return throwError(() => errorMessage);
   }
 }

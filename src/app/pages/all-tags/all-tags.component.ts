@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -60,6 +60,8 @@ export class AllTagsComponent {
   currentYear = this.date.getFullYear();
   info: any;
   reset = faClockRotateLeft;
+  dateFromInicio!: Date;
+  tagId: number = 0;
 
   task: checkBox = {
     name: 'All',
@@ -71,6 +73,16 @@ export class AllTagsComponent {
       { name: 'Done', completed: false, color: 'primary', done: true },
     ],
   };
+
+  @ViewChild(InicioGeneralComponent) inicioComponent?: InicioGeneralComponent;
+
+  tagClikeado(id: number) {
+    if (this.tagId == id) {
+      this.tagId = 0;
+    } else {
+      this.tagId = id;
+    }
+  }
 
   updateAllComplete() {
     console.log('update all');
@@ -97,42 +109,6 @@ export class AllTagsComponent {
     this.task.subtasks.forEach((t) => (t.completed = completed));
   }
 
-  filterTasks() {
-    const ifDone = this.task.subtasks?.find((t) => t.done)?.completed;
-    const ifTodo = this.task.subtasks?.find((t) => !t.done)?.completed;
-
-    return this.allTasks.filter(
-      (x) => (x.taskDone && ifDone) || (!x.taskDone && ifTodo)
-    );
-  }
-
-  getTaskByMonthDay(year: number, month: number) {
-    var firstDay = new Date(year, month, 1);
-    var lastDay = new Date(year, month + 1, 0);
-    var start = this.customFormatToDB(firstDay);
-    var end = this.customFormatToDB(lastDay);
-
-    this._taskService.getTasksByMonth(start, end, this.userId).subscribe({
-      next: (data) => {
-        this.allTasks = data as ITask[];
-        this.origin = data as ITask[];
-      },
-      error: (error) => {
-        console.log('Error de conexión al servidor.');
-      },
-    });
-  }
-
-  customFormatToDB(date: Date): string {
-    let fecha = date.toLocaleDateString('en-CA', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric',
-    });
-
-    return fecha;
-  }
-
   ///////
   constructor(
     private _storageService: StorageService,
@@ -142,7 +118,7 @@ export class AllTagsComponent {
   ) {
     this.userId = this._storageService.getUser().id;
     this.getTags();
-    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
+    this.setAll(true);
   }
 
   getTags() {
@@ -155,10 +131,6 @@ export class AllTagsComponent {
         console.error('Error de conexión al servidor.', error);
       },
     });
-  }
-
-  filterTaskByTag(id: number) {
-    this.allTasks = this.origin.filter((x) => x.tag.id == id);
   }
 
   openDialog(tag: ITag): void {
@@ -222,12 +194,7 @@ export class AllTagsComponent {
       };
 
       this.allTags[index] = tag;
-
-      this.allTasks.forEach((element) => {
-        element.tag.id = tag.id;
-        element.tag.labelColor = tag.labelColor;
-        element.tag.name = tag.name;
-      });
+      this.inicioComponent?.updateTag(tag);
     }
   }
 
@@ -236,10 +203,8 @@ export class AllTagsComponent {
 
     if (index > -1) {
       this.allTags.splice(index, 1);
-    }
-  }
 
-  resetTasks() {
-    this.getTaskByMonthDay(this.currentYear, this.currentMonth);
+      this.inicioComponent?.removeTag(info.tag.id, this.allTags[0]);
+    }
   }
 }

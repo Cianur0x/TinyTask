@@ -10,31 +10,43 @@
     }
 
     .content {
-        display: flex;
+        display: grid;
+        grid-template-columns: 60% 40%;
+        align-items: center;
         justify-content: center;
 
+        @media only screen and (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+            align-items: normal;
+
+            #form {
+                form {
+                    .form-group {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
         img {
-            width: 30%;
+            width: 100%;
             height: auto;
         }
 
-        .mat-divider {
-            height: 350px;
-            --mat-divider-width: 5px;
-        }
-
         #form {
-            border: 1px solid red;
-            margin-left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            .form-group {
+                margin: 10px 0;
+                width: 60%;
+            }
+
+            .error {
+                color: #d50000;
+                margin-left: 10px;
+                width: 100%;
+                font-style: italic;
+                font-size: small;
+            }
         }
     }
-}
-
-.footer-fixed {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }

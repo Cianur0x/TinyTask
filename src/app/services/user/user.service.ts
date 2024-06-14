@@ -1,14 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IUserPut } from '../../models/user.models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private userURL = 'https://tinytaskweb.onrender.com/v1/api/users';
-  private imageURL = 'https://tinytaskweb.onrender.com/v1/api/image';
+  // private userURL = 'https://tinytaskweb.onrender.com/v1/api/users';
+  // private imageURL = 'https://tinytaskweb.onrender.com/v1/api/image';
+  private userURL = 'http://localhost:8080/v1/api/users';
+  private imageURL = 'http://localhost:8080/v1/api/image';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -30,20 +32,16 @@ export class UserService {
 
   subirImagen(usuarioId: number, file: File): Observable<any> {
     const formData: FormData = new FormData();
-    formData.append('imagefile', file);
 
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
+    formData.append('image', file);
 
-    return this.httpClient.post(
-      `${this.imageURL}/${usuarioId}/image`,
-      formData,
-      { headers }
-    );
+    return this.httpClient.post(`${this.imageURL}/${usuarioId}`, formData, {
+      responseType: 'json',
+    });
   }
 
   obtenerImagen(usuarioId: number): Observable<any> {
-    return this.httpClient.get(`${this.imageURL}/${usuarioId}/userimage`, {
+    return this.httpClient.get(`${this.imageURL}/${usuarioId}`, {
       responseType: 'blob',
     });
   }

@@ -1,8 +1,10 @@
 import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   QueryList,
   SimpleChanges,
   ViewChildren,
@@ -15,9 +17,10 @@ import {
   WeekdayComponent,
   toEmit,
 } from '../../components/tasks/weekday/weekday.component';
-import { ITask } from '../../models/task.models';
+import { ITag, ITask } from '../../models/task.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { TaskService } from '../../services/task/task.service';
+import { checkBox } from '../all-tags/all-tags.component';
 
 @Component({
   selector: 'app-inicio-general',
@@ -60,7 +63,8 @@ export class InicioGeneralComponent implements OnInit {
   tasksByDay?: ITask[];
 
   @ViewChildren('weekday') weekdays?: QueryList<WeekdayComponent>;
-  @Input() tasksByTag?: ITask[];
+  @Input() tagId?: number;
+  @Input() task?: checkBox;
 
   // Constructores
   constructor(
@@ -68,15 +72,7 @@ export class InicioGeneralComponent implements OnInit {
     private _taskService: TaskService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    console.log('simplechange inicio-general', changes);
-    if (!!this.tasksByTag) {
-      this.allTasks = this.tasksByTag;
-      console.log('a', this.tasksByTag);
-    }
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     // Se comprueba que el usuario este logeado
@@ -198,7 +194,7 @@ export class InicioGeneralComponent implements OnInit {
   }
 
   filterByDay(day: number): ITask[] {
-    let tasks = this.allTasks?.filter(
+    let tasks = this.allTasks.filter(
       (task) =>
         task.deadLine.substring(8, 10) ==
         day.toLocaleString('en-US', {
@@ -206,6 +202,16 @@ export class InicioGeneralComponent implements OnInit {
           useGrouping: false,
         })
     );
+
+    if (!!this.task && !!this.tagId) {
+      const ifDone = this.task?.subtasks?.find((t) => t.done)?.completed;
+      const ifTodo = this.task?.subtasks?.find((t) => !t.done)?.completed;
+
+      tasks = tasks
+        .filter((x) => (x.taskDone && ifDone) || (!x.taskDone && ifTodo))
+        .filter((x) => x.tag.id == this.tagId);
+      console.log('a');
+    }
 
     return tasks;
   }
@@ -226,6 +232,26 @@ export class InicioGeneralComponent implements OnInit {
     if (index > -1) {
       this.allTasks.splice(index, 1);
     }
+  }
+
+  updateTag(tag: ITag) {
+    this.allTasks.forEach((element) => {
+      if (element.tag.id == tag.id) {
+        element.tag.id = tag.id;
+        element.tag.labelColor = tag.labelColor;
+        element.tag.name = tag.name;
+      }
+    });
+  }
+
+  removeTag(idBorrado: number, tagRemplazo: ITag) {
+    this.allTasks.forEach((element) => {
+      if (element.tag.id == idBorrado) {
+        element.tag.id = tagRemplazo.id;
+        element.tag.labelColor = tagRemplazo.labelColor;
+        element.tag.name = tagRemplazo.name;
+      }
+    });
   }
 
   otherTheme: boolean = false;

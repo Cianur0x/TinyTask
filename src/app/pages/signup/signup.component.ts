@@ -52,16 +52,23 @@ export class SignupComponent implements OnInit {
     private storageService: StorageService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(15),
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
-      rol: ['', Validators.required],
+      rol: ['user', Validators.required],
     });
   }
+
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.registerForm.invalid) {

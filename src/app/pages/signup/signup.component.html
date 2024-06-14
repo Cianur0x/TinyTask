@@ -1,54 +1,56 @@
 <div class="container">
     <div class="main">
-        <h1 i18n>Sign Up</h1>
+        <h1>Sign Up</h1>
         <div class="content">
-            <img i18n-alt ngSrc="assets/imgs/bwink_ppl_21.jpg" width="300" height="300" alt="" priority>
-            <mat-divider [vertical]="true"></mat-divider>
+            <img ngSrc="assets/imgs/bwink_ppl_21.jpg" width="330" height="330" alt="Sign Up Image" priority>
             <div id="form">
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                    <mat-form-field class="form-group">
-                        <mat-label i18n>Username</mat-label>
-                        <input matInput type="text" formControlName="username">
-                        <mat-error i18n
-                            *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
-                            Username is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="form-group">
-                        <mat-label i18n>Password</mat-label>
-                        <input matInput type="password" formControlName="password">
-                        <mat-error
-                            *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-                            <span i18n *ngIf="registerForm.get('password')?.hasError('required')">Password is
-                                required</span>
-                            <span i18n *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at
-                                least 6 characters</span>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="form-group">
-                        <mat-label>Email</mat-label>
-                        <input matInput type="email" formControlName="email">
-                        <mat-error *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-                            <span i18n *ngIf="registerForm.get('email')?.hasError('required')">Email is required</span>
-                            <span i18n *ngIf="registerForm.get('email')?.hasError('email')">Please enter a valid
-                                email address</span>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="form-group">
-                        <mat-label i18n>Rol</mat-label>
-                        <mat-select formControlName="rol">
-                            <mat-option i18n value="user">User</mat-option>
-                            <mat-option i18n value="admin">Admin</mat-option>
-                        </mat-select>
-                        <mat-error i18n *ngIf="registerForm.get('rol')?.invalid && registerForm.get('rol')?.touched">
-                            Rol is required
-                        </mat-error>
-                    </mat-form-field>
-
+                    <div>
+                        <mat-form-field class="form-group">
+                            <mat-label>Username</mat-label>
+                            <input matInput type="text" formControlName="username">
+                            @if (registerForm.get('username')?.hasError('required')) {
+                            <mat-error>Username is required</mat-error>
+                            }
+                            @if (registerForm.get('username')?.hasError('minlength')) {
+                            <mat-error>Min. length 4</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="form-group">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="password">
+                            @if (registerForm.get('password')?.hasError('required')) {
+                            <mat-error>Password is required</mat-error>
+                            }
+                            @if (registerForm.get('password')?.hasError('minlength')) {
+                            <mat-error>Min. length 6</mat-error>
+                            }
+                            @if (registerForm.get('password')?.hasError('maxlength')) {
+                            <mat-error>Max. length 15</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="form-group">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email">
+                            @if (registerForm.get('email')?.hasError('required')) {
+                            <mat-error>Email is required</mat-error>
+                            }
+                            @if (registerForm.get('email')?.hasError('email')) {
+                            <mat-error>Wrong email format</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
                     <div class="form-group">
-                        <button i18n mat-raised-button color="primary" type="submit"
+                        <button mat-raised-button color="primary" type="submit"
                             [disabled]="registerForm.invalid">Register</button>
+                    </div>
+                    <div>
+                        <span class="error"
+                            [style.visibility]="isLoginFailed ? 'visible' : 'hidden'">{{errorMessage}}</span>
                     </div>
                 </form>
             </div>

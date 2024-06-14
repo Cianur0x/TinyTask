@@ -9,12 +9,6 @@
             + Add Tag
         </div>
         <section class="filters">
-            <span>
-                <button mat-icon-button matTooltip="Reset Tasks" [matTooltipPosition]="'above'" color="accent"
-                    aria-label="Example icon-button with a heart icon" [hidden]="" (click)="resetTasks()">
-                    <fa-icon [icon]="reset"></fa-icon>
-                </button>
-            </span>
             <span class="all-filter">
                 <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
                     [indeterminate]="someComplete()" (change)="setAll($event.checked)">
@@ -27,7 +21,7 @@
                     @for (subtask of task.subtasks; track subtask) {
                     <li>
                         <mat-checkbox [(ngModel)]="subtask.completed" [color]="subtask.color"
-                            (ngModelChange)="updateAllComplete()" (change)="filterTasks()">
+                            (ngModelChange)="updateAllComplete()">
                             {{subtask.name}}
                         </mat-checkbox>
                     </li>
@@ -37,7 +31,8 @@
         </section>
         <div class="tags">
             <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags"
-                (click)="filterTaskByTag(tag.id)" [ngClass]="{'with-btn' : tag.userId != null}">
+                (click)="tagClikeado(tag.id)"
+                [ngClass]="{'with-btn' : tag.userId != null, 'selected' : tag.id == tagId}">
                 <p>{{tag.name}}</p>
                 <button mat-icon-button matTooltip="Edit" color="primary"
                     aria-label="Example icon-button with a heart icon" [hidden]="tag.userId == null"
@@ -48,6 +43,6 @@
         </div>
     </div>
     <div class="view-task">
-        <app-inicio-general [tasksByTag]="filterTasks()"></app-inicio-general>
+        <app-inicio-general [task]="task" [tagId]="tagId"></app-inicio-general>
     </div>
 </div>

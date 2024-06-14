@@ -58,17 +58,16 @@ export class EditProfileComponent implements OnInit, OnChanges {
   currentColorState = this.state[0].color;
   hideRequiredControl = new FormControl('');
   currentUser!: any;
-  maxSizeInBytes: number = 4 * 1024 * 1024; // 4 MB
   userDataForm!: FormGroup;
   bioForm!: FormGroup;
   statusForm!: FormGroup;
   imageForm!: FormGroup;
   file!: File;
-  imageToShow: any;
-
   isLoggedIn = false;
   isLoginFailed = false;
   roles: string[] = [];
+  i = Math.floor(Math.random() * 5) + 1;
+  imageToShow: any = `assets/imgs/pfp/cat${this.i}.jpg`;
 
   constructor(
     private _userService: UserService,

@@ -1,36 +1,46 @@
 <div class="container">
-    <div>
-        <h1 i18n>Log in</h1>
+    <div class="main">
+        <h1>Log in</h1>
         <div class="content">
-            <img i18n-alt ngSrc="assets/imgs/bwink_ppl_21.jpg" width="300" height="300" alt="" priority>
-            <mat-divider [vertical]="true"></mat-divider>
+            <img ngSrc="assets/imgs/bwink_ppl_21.jpg" width="300" height="300" alt="Login Image" priority>
             <div id="form">
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <mat-form-field>
-                        <mat-label i18n>Username</mat-label>
-                        <input matInput type="text" formControlName="username">
-                        <mat-error i18n
-                            *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
-                            Username is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label i18n>Password</mat-label>
-                        <input matInput type="password" formControlName="password">
-                        <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                            <span i18n *ngIf="loginForm.get('password')?.hasError('required')">Password is
-                                required</span>
-                            <span i18n *ngIf="loginForm.get('password')?.hasError('minlenght')">Password must be at
-                                least 6 characters</span>
-                        </mat-error>
-                    </mat-form-field>
                     <div>
-                        <button i18n mat-raised-button color="primary" type="submit"
+                        <mat-form-field class="form-group">
+                            <mat-label>Username</mat-label>
+                            <input matInput type="text" formControlName="username">
+                            @if (loginForm.get('username')?.hasError('required')) {
+                            <mat-error>Username is required</mat-error>
+                            }
+                            @if (loginForm.get('username')?.hasError('minlength')) {
+                            <mat-error>Min. length 4</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="form-group">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="password">
+                            @if (loginForm.get('password')?.hasError('required')) {
+                            <mat-error>Password is required</mat-error>
+                            }
+                            @if (loginForm.get('password')?.hasError('minlength')) {
+                            <mat-error>Min. length 6</mat-error>
+                            }
+                            @if (loginForm.get('password')?.hasError('maxlength')) {
+                            <mat-error>Max. length 15</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-raised-button color="primary" type="submit"
                             [disabled]="loginForm.invalid">Login</button>
                     </div>
                 </form>
-
+                <div>
+                    <span class="error"
+                        [style.visibility]="isLoginFailed ? 'visible' : 'hidden'">{{errorMessage}}</span>
+                </div>
             </div>
         </div>
     </div>

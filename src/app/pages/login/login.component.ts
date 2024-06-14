@@ -49,15 +49,22 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      username: [null, Validators.required],
-      password: [null, Validators.required],
+      username: [null, [Validators.required, Validators.minLength(4)]],
+      password: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(15),
+        ],
+      ],
     });
 
     if (this._storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this._storageService.getUser().roles;
       this._router.navigateByUrl('inicio').then(() => {
-        console.log('Ya logueado, cargando index.');
+        // console.log('Ya logueado, cargando index.');
       });
     }
   }
@@ -79,7 +86,7 @@ export class LoginComponent {
         this.reloadPage();
       },
       error: (err) => {
-        console.log(err);
+        this.errorMessage = 'hubo un problema';
         this.isLoginFailed = true;
       },
     });

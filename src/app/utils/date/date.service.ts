@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { TaskService } from '../../services/task/task.service';
-import { StorageService } from '../../services/storage/storage.service';
-import { IUser } from '../../models/auth.models';
-import { ITask } from '../../models/task.models';
 import { Observable } from 'rxjs';
+import { IUser } from '../../models/auth.models';
+import { StorageService } from '../../services/storage/storage.service';
+import { TaskService } from '../../services/task/task.service';
 @Injectable({
   providedIn: 'root',
 })
