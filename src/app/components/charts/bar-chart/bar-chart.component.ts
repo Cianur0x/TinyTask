@@ -70,6 +70,7 @@ export class BarChartComponent implements OnInit {
           },
         },
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             stacked: true,

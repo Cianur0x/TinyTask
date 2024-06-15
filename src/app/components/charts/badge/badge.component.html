@@ -1,0 +1,14 @@
+<div class="content">
+    <div class="circulo">
+        <div class="profile-pic">
+            <img [src]="imagePath" alt="Badge Image" *ngIf="!isImageLoading; else noImageFound">
+        </div>
+        <ng-template #noImageFound>
+            <mat-spinner></mat-spinner>
+        </ng-template>
+    </div>
+    <div class="info-message">
+        <h1>{{userBadge.badgeName}}</h1>
+        <p class="message">{{userBadge.defaultText}}</p>
+    </div>
+</div>
