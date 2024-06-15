@@ -88,8 +88,29 @@
                     </mat-form-field>
                 </div>
                 <div>
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredControl.value">
+                        <mat-label>New Password</mat-label>
+                        <input matInput type="password" formControlName="newPass">
+                        @if (userDataForm.get('newPass')?.hasError('required')) {
+                        <mat-error>Password is required</mat-error>
+                        }
+
+                        @if (userDataForm.get('newPass')?.hasError('maxlength')) {
+                        <mat-error>Max. length 15</mat-error>
+                        }
+
+                        @if (userDataForm.get('newPass')?.hasError('minlength')) {
+                        <mat-error>Min. length 6</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div>
                     <button mat-raised-button color="primary" type="submit" [disabled]="userDataForm.invalid">Edit
                         Profile</button>
+                </div>
+                <div>
+                    <span [ngClass]="{error : isLoginFailed, changed : editSuccess}"
+                        [style.visibility]="isLoginFailed || editSuccess ? 'visible' : 'hidden' ">{{message}}</span>
                 </div>
             </form>
         </div>
@@ -108,7 +129,7 @@
             </form>
 
             <div class="btn">
-                <button mat-raised-button color="accent">Remove Photo</button>
+                <button mat-raised-button color="accent" (click)="removePhoto()">Remove Photo</button>
             </div>
         </div>
     </div>

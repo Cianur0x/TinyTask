@@ -86,7 +86,7 @@ export class LoginComponent {
         this.reloadPage();
       },
       error: (err) => {
-        this.errorMessage = 'hubo un problema';
+        this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       },
     });

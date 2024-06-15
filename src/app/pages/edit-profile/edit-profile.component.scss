@@ -20,7 +20,7 @@ $movil: 480px;
     h1 {
         text-align: center;
         font-size: 35px;
-        padding: 25px 0;
+        padding: 10px 0;
     }
 
     #profile-image {
@@ -83,6 +83,7 @@ $movil: 480px;
 
         #user-form {
             align-items: center;
+            margin-bottom: 15px;
 
             mat-form-field {
                 width: 100%;
@@ -122,6 +123,22 @@ $movil: 480px;
             .btn {
                 margin-bottom: 10px;
             }
+        }
+
+        .error {
+            color: #d50000;
+            margin-left: 10px;
+            width: 100%;
+            font-style: italic;
+            font-size: small;
+        }
+
+        .changed {
+            color: rgb(11, 161, 11);
+            margin-left: 10px;
+            width: 100%;
+            font-style: italic;
+            font-size: small;
         }
 
     }

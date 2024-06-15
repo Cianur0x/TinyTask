@@ -122,7 +122,10 @@ export class AddTaskDialogComponent implements OnInit {
     this.getFriendsList(); // se cargan los amigos
     if (!!this.currentTask) {
       this.taskForm = this._formBuilder.group({
-        title: [this.currentTask.title, Validators.required],
+        title: [
+          this.currentTask.title,
+          [Validators.required, Validators.maxLength(90)],
+        ],
         date: [new Date(this.currentTask.deadLine), Validators.required],
         isDone: [this.currentTask.taskDone, Validators.required],
         tag: [this.currentTask.tag.id, Validators.required],
@@ -137,7 +140,7 @@ export class AddTaskDialogComponent implements OnInit {
       //inicializacion del formulario en caso de que no haya objeto
       this.taskForm = this._formBuilder.group({
         // se inicializa la tarea en el formulario
-        title: ['', Validators.required],
+        title: ['', [Validators.required, Validators.maxLength(90)]],
         date: [this.weekdayDate, Validators.required],
         isDone: [false, Validators.required],
         tag: [1, Validators.required],
@@ -193,7 +196,7 @@ export class AddTaskDialogComponent implements OnInit {
           this._taskService.addViewers(this.viewersList, tarea.id).subscribe({
             next: (data) => {
               console.log('addviewers data', data);
-              // this.dialogRef.close({
+              // this.dialogRef.close({ // todo aqui flata toda la operacion de hacer visibles  alos usuarios que vena la tarea
               //   task: data,
               //   operation: 'put',
               // });

@@ -1,4 +1,4 @@
-import { NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
+import { NgClass, NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
@@ -42,6 +42,7 @@ interface Status {
     ReactiveFormsModule,
     MatSelectModule,
     NgStyle,
+    NgClass,
   ],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
@@ -66,8 +67,11 @@ export class EditProfileComponent implements OnInit, OnChanges {
   isLoggedIn = false;
   isLoginFailed = false;
   roles: string[] = [];
-  i = Math.floor(Math.random() * 5) + 1;
-  imageToShow: any = `assets/imgs/pfp/cat${this.i}.jpg`;
+  i = Math.floor(Math.random() * 2) + 1;
+  defaultImage = `assets/imgs/pfp/cat${this.i}.jpg`;
+  imageToShow: any;
+  message: any;
+  editSuccess = false;
 
   constructor(
     private _userService: UserService,
@@ -96,6 +100,14 @@ export class EditProfileComponent implements OnInit, OnChanges {
         username: [null, [Validators.required, Validators.minLength(4)]],
         email: [null, [Validators.required, Validators.email]],
         password: [
+          null,
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(15),
+          ],
+        ],
+        newPass: [
           null,
           [
             Validators.required,
@@ -133,6 +145,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
           Validators.maxLength(15),
         ],
       ],
+      newPass: [null, [Validators.minLength(6), Validators.maxLength(15)]],
     });
   }
 
@@ -150,7 +163,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
       },
       error: (error) => {
         this.isImageLoading = false;
-        console.log(error);
+        this.imageToShow = this.defaultImage;
       },
     });
   }
@@ -193,14 +206,22 @@ export class EditProfileComponent implements OnInit, OnChanges {
       username: formValues.username,
       email: formValues.email,
       password: formValues.password,
+      newPass: formValues.newPass,
+      bio: '',
+      state: '',
     };
 
     this._userService.updateUser(user).subscribe({
       next: (data) => {
-        console.log('dataPut', data);
+        this.currentUser = data;
+        this.isLoginFailed = false;
+        this.editSuccess = true;
+        this.message = 'Data updated correctly!';
       },
       error: (error) => {
-        console.error(error);
+        this.message = error.error.message;
+        this.isLoginFailed = true;
+        this.editSuccess = false;
       },
     });
   }
@@ -211,7 +232,6 @@ export class EditProfileComponent implements OnInit, OnChanges {
     this._userService.updateState(this.currentUser).subscribe({
       next: (data) => {
         this.currentUser = data as IUserPut;
-        console.log('dataPut state', this.currentUser);
       },
       error: (error) => {
         console.error(error);
@@ -247,7 +267,6 @@ export class EditProfileComponent implements OnInit, OnChanges {
       next: (data) => {
         this.currentUser = data as IUserPut;
         this.initForms(this.currentUser);
-        console.log('current user data', this.currentUser);
       },
       error: (error) => {
         console.log(error);
@@ -256,16 +275,31 @@ export class EditProfileComponent implements OnInit, OnChanges {
   }
 
   changeBio(bioForm: any) {
-    let bioTrim = bioForm.trim();
+    let bioTrim = bioForm;
+
+    if (bioForm.lenfth > 0) {
+      bioTrim = bioForm.trim();
+    }
+
     this.currentUser.biography = bioTrim;
 
     this._userService.updateBio(this.currentUser).subscribe({
       next: (data) => {
         this.currentUser = data as IUserPut;
-        console.log('dataPut bio', this.currentUser);
       },
       error: (error) => {
         console.error(error);
+      },
+    });
+  }
+
+  removePhoto() {
+    this._userService.deleteProfileImage(this.currentUser.id).subscribe({
+      next: () => {
+        this.imageToShow = this.defaultImage;
+      },
+      error: (err) => {
+        console.log('imagen no borrada');
       },
     });
   }

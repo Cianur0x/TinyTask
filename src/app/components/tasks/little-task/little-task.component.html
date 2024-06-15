@@ -1,7 +1,7 @@
 <div class="task" (click)="openDialog()">
     <div class="header">
         <mat-checkbox [checked]="this.task.taskDone" (click)="this.toggleDone($event)"></mat-checkbox>
-        <mat-label class="label" [ngClass]="{'done': task.taskDone}">{{task.title}}</mat-label>
+        <div class="label" [ngClass]="{'done': task.taskDone}">{{task.title}}</div>
     </div>
     <div class="body">
         <div class="date">{{task.deadLine}}</div>

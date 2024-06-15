@@ -3,4 +3,7 @@ export interface IUserPut {
   username: string;
   email: string;
   password: string;
+  newPass: string;
+  bio: string;
+  state: string;
 }
