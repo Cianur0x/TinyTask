@@ -7,3 +7,16 @@ export interface IUserPut {
   bio: string;
   state: string;
 }
+
+interface IRol {
+  id: number;
+  roleName: string;
+}
+
+export interface IUserMan {
+  id: number;
+  username: string;
+  email: string;
+  rol: IRol[];
+  lastConnection: string;
+}

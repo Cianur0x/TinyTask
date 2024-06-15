@@ -13,6 +13,17 @@ export const canActivate: CanActivateFn = (
 ) => {
   const storageService = inject(StorageService);
   const router = inject(Router);
+  let currentUser = storageService.getUser();
+
+  if (
+    route.data['roles'] &&
+    route.data['roles'].indexOf(currentUser.roles[0]) === -1
+  ) {
+    console.log(currentUser.role);
+    router.navigate(['/tasks']);
+    return false;
+  }
+
   if (!storageService.isLoggedIn()) {
     router.navigateByUrl('/login').then();
     return false;

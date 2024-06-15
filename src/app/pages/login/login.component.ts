@@ -63,7 +63,7 @@ export class LoginComponent {
     if (this._storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this._storageService.getUser().roles;
-      this._router.navigateByUrl('inicio').then(() => {
+      this._router.navigateByUrl('tasks').then(() => {
         // console.log('Ya logueado, cargando index.');
       });
     }

@@ -7,9 +7,8 @@
             </li>
             <li class="more-icons">
                 <ul>
-                    <li routerLink="/inicio" routerLinkActive="active" ariaCurrentWhenActive="page" matTooltip="Tasks"
+                    <li routerLink="/tasks" routerLinkActive="active" ariaCurrentWhenActive="page" matTooltip="Tasks"
                         [matTooltipPosition]="'right'"><fa-icon [icon]="faTodo" size="2x"></fa-icon>
-                        <p matBadge="4" matBadgeOverlap="false"></p>
                     </li>
                     <li routerLink="/tags" routerLinkActive="active" ariaCurrentWhenActive="page" matTooltip="Tags"
                         [matTooltipPosition]="'right'">
@@ -18,11 +17,6 @@
                     <li routerLink="/friends" routerLinkActive="active" ariaCurrentWhenActive="page"
                         matTooltip="Friends" [matTooltipPosition]="'right'"><fa-icon [icon]="faFriends"
                             size="2x"></fa-icon></li>
-                    <li routerLink="/news" routerLinkActive="active" ariaCurrentWhenActive="page" matTooltip="News"
-                        [matTooltipPosition]="'right'">
-                        <fa-icon [icon]="faNoti" size="2x"></fa-icon>
-                        <p matBadge="4" matBadgeOverlap="false"></p>
-                    </li>
                     <li *ngIf="isAdmin" (click)="changeProfile()" matTooltip="Change profile"
                         [matTooltipPosition]="'right'">
                         <fa-icon [icon]="faAdmin" size="2x"></fa-icon>

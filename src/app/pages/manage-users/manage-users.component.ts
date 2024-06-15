@@ -6,47 +6,16 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-  fruit2: string;
+import { IUserMan } from '../../models/user.models';
+import { AdminService } from '../../services/adminServices/admin.service';
+import { MatButtonModule } from '@angular/material/button';
+interface Usuario {
+  email: string;
+  id: number;
+  lastConnection: string;
+  rol: string | undefined; // Cambiamos el tipo a string o undefined
+  username: string;
 }
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 
 @Component({
   selector: 'app-manage-users',
@@ -59,29 +28,35 @@ const NAMES: string[] = [
     DatePipe,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
   ],
   templateUrl: './manage-users.component.html',
   styleUrl: './manage-users.component.scss',
 })
 export class ManageUsersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'fruit2'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = [
+    'id',
+    'username',
+    'email',
+    'lastConnection',
+    'rol',
+    'actions',
+  ];
+
+  dataSource!: MatTableDataSource<Usuario>;
+
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private _adminService: AdminService) {
+    this.getAllUsers();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  ngAfterViewInit() {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -91,24 +66,45 @@ export class ManageUsersComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
+  userdata: Usuario[] = [];
+  getAllUsers() {
+    this.isLoadingResults = true;
+    this._adminService.getAllUsers().subscribe({
+      next: (data) => {
+        const array = data as IUserMan[];
+        this.userdata = this.modificarUsuarios(array);
+        this.dataSource = new MatTableDataSource(this.userdata);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoadingResults = false;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
+  // Función para modificar un usuario
+  modificarUsuarios(usuarios: IUserMan[]): Usuario[] {
+    let userArr: Usuario[] = [];
+    usuarios.forEach((usuario) => {
+      const primerRol =
+        usuario.rol && usuario.rol.length > 0
+          ? usuario.rol[0]?.roleName
+          : undefined;
 
-    fruit2: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
+      let user: Usuario = {
+        id: usuario.id,
+        username: usuario.username,
+        email: usuario.email,
+        lastConnection: usuario.lastConnection,
+        rol: primerRol,
+      };
 
-  // fixme datos segunda tabla para usuarios
+      userArr.push(user);
+    });
+
+    return userArr;
+  }
 }

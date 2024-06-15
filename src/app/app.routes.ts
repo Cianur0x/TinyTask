@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   {
-    path: 'inicio',
+    path: 'tasks',
     component: InicioGeneralComponent,
     canActivate: [canActivate],
   },
@@ -50,19 +50,21 @@ export const routes: Routes = [
     canActivate: [canActivate],
   },
   {
+    path: 'statistics',
+    component: StatisticsComponent,
+    canActivate: [canActivate],
+  },
+  {
     path: 'manage-roles',
     component: ManageRolesComponent,
     canActivate: [canActivate],
+    data: { roles: ['ROL_ADMIN'] },
   },
   {
     path: 'manage-users',
     component: ManageUsersComponent,
     canActivate: [canActivate],
-  },
-  {
-    path: 'statistics',
-    component: StatisticsComponent,
-    canActivate: [canActivate],
+    data: { roles: ['ROL_ADMIN'] },
   },
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];

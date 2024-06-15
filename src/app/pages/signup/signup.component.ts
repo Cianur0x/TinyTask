@@ -79,7 +79,7 @@ export class SignupComponent implements OnInit {
 
     this.authService.register(username, password, email, rol).subscribe({
       next: (data) => {
-        this.router.navigate(['/inicio']).then(() => {
+        this.router.navigate(['/tasks']).then(() => {
           console.log('Register OK, loading login...');
           this.loginAfterSignUp(username, password);
         });
