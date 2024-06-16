@@ -1,5 +1,5 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,15 +9,37 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { MatDivider } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { FriendComponent } from '../../components/friends/friend/friend.component';
 import { IFriend } from '../../models/friend.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { UserService } from '../../services/user/user.service';
-import { FriendComponent } from '../../components/friends/friend/friend.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TaskService } from '../../services/task/task.service';
+
+interface Task {
+  id: number;
+  owner: string;
+  title: string;
+  taskDone: boolean;
+  description: string;
+  deadLine: string;
+}
 
 @Component({
   selector: 'app-friends-list',
@@ -34,6 +56,17 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     NgFor,
     FriendComponent,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    DatePipe,
+    MatFormFieldModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+    MatSelectModule,
   ],
   templateUrl: './friends-list.component.html',
   styleUrl: './friends-list.component.scss',
@@ -52,10 +85,12 @@ export class FriendsListComponent {
     private formBuilder: FormBuilder,
     private _userService: UserService,
     private _storageService: StorageService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _taskService: TaskService
   ) {
     this.user = this._storageService.getUser().id;
     this.getFriendsList();
+    this.getAllTasksViewed();
   }
 
   ngOnInit(): void {
@@ -111,6 +146,50 @@ export class FriendsListComponent {
         this._snackBar.open('Friend was deleted', 'Ok');
       },
       error: (error) => {},
+    });
+  }
+
+  displayedColumns: string[] = [
+    'id',
+    'owner',
+    'title',
+    'taskDone',
+    'description',
+    'deadline',
+  ];
+
+  dataSource!: MatTableDataSource<Task>;
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  taskdata: Task[] = [];
+  getAllTasksViewed() {
+    this.isLoadingResults = true;
+    this._taskService.getAllTaskViewed(this.user).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.taskdata = data as Task[];
+        this.dataSource = new MatTableDataSource(this.taskdata);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.isLoadingResults = false;
+      },
+      error: (error) => {
+        console.log('error', error);
+      },
     });
   }
 }

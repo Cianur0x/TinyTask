@@ -1,6 +1,55 @@
 .main-view {
     margin-left: 90px;
 
+    .table-tasks {
+        display: flex;
+
+        .example-container {
+            flex-grow: 1;
+
+            .tittle {
+
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .container {
+                margin: 15px;
+            }
+
+            .mat-mdc-form-field {
+                font-size: 14px;
+                width: 100%;
+            }
+
+            td,
+            th {
+                width: 15%;
+
+                mat-form-field {
+                    width: fit-content;
+                }
+            }
+
+            .mat-row {
+                .mat-cell {
+                    text-decoration: underline;
+                    font-weight: 600;
+                    text-align: center;
+                    padding: 15px 0;
+                }
+            }
+
+            button {
+                margin: 0 5px;
+            }
+
+            .actions {
+                text-align: center;
+            }
+        }
+    }
+
     .nav-month {
 
         .content {

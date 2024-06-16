@@ -27,7 +27,7 @@ interface Usuario {
   email: string;
   id: number;
   lastConnection: string;
-  rol: string; // Cambiamos el tipo a string o undefined
+  rol: string;
   username: string;
 }
 

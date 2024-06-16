@@ -8,16 +8,9 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
         </mat-form-field>
 
-        @if (isLoadingResults || isRateLimitReached) {
+        @if (isLoadingResults) {
         <div class="example-loading-shade">
-            @if (isLoadingResults) {
             <mat-spinner></mat-spinner>
-            }
-            @if (isRateLimitReached) {
-            <div class="example-rate-limit-reached">
-                GitHub's API rate limit has been reached. It will be reset in one minute.
-            </div>
-            }
         </div>
         }
 

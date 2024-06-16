@@ -54,6 +54,11 @@ export class TaskService {
     return this.httpClient.put(url, viewers, this.httpOptions);
   }
 
+  getAllTaskViewed(idowner: number) {
+    const url = `${this.taskURL}viewedtasks/${idowner}`;
+    return this.httpClient.get(url);
+  }
+
   getMap(
     start: string,
     end: string,

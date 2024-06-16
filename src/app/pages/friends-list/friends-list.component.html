@@ -4,29 +4,98 @@
             <div class="text">Friends</div>
         </div>
     </div>
-    <div class="friends-list">
-        <div class="add-tag mat-app-background" (click)="open()">
-            + Add Friends
-        </div>
-        <div class="form" *ngIf="show">
-            <form [formGroup]="searchUserForm" (ngSubmit)="onSubmit()">
-                <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
-                    <mat-label>Username</mat-label>
-                    <input matInput type="text" formControlName="username">
-                </mat-form-field>
-                <div class="button">
-                    <button mat-raised-button color="primary" type="submit"
-                        [disabled]="searchUserForm.invalid">Add<mat-icon aria-hidden="false"
-                            aria-label="Example home icon" fontIcon="send"></mat-icon>
-                    </button>
-                </div>
-            </form>
-            <div>
+    <div class="table-tasks">
+        <div class="friends-list">
+            <div class="add-tag mat-app-background" (click)="open()">
+                + Add Friends
+            </div>
+            <div class="form" *ngIf="show">
+                <form [formGroup]="searchUserForm" (ngSubmit)="onSubmit()">
+                    <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
+                        <mat-label>Username</mat-label>
+                        <input matInput type="text" formControlName="username">
+                    </mat-form-field>
+                    <div class="button">
+                        <button mat-raised-button color="primary" type="submit"
+                            [disabled]="searchUserForm.invalid">Add<mat-icon aria-hidden="false"
+                                aria-label="Example home icon" fontIcon="send"></mat-icon>
+                        </button>
+                    </div>
+                </form>
+                <div>
 
+                </div>
+            </div>
+            <div class="list" *ngFor="let item of friendList">
+                <app-friend [friend]="item" (friendDelete)="deleteFriend($event)"></app-friend>
             </div>
         </div>
-        <div class="list" *ngFor="let item of friendList">
-            <app-friend [friend]="item" (friendDelete)="deleteFriend($event)"></app-friend>
+
+        <div class="example-container">
+            <div class="tittle">
+                <h1>All Tasks</h1>
+            </div>
+            <div class="container">
+                <mat-form-field>
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+                </mat-form-field>
+
+                @if (isLoadingResults) {
+                <div class="example-loading-shade">
+                    <mat-spinner></mat-spinner>
+                </div>
+                }
+
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" matSort>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header sticky> ID </th>
+                            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                        </ng-container>
+
+                        <!-- Username Column -->
+                        <ng-container matColumnDef="owner">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Owner </th>
+                            <td mat-cell *matCellDef="let row"> {{row.owner}} </td>
+                        </ng-container>
+
+                        <!-- Email Column -->
+                        <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tittle </th>
+                            <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+                        </ng-container>
+
+                        <!-- LastConnection Column -->
+                        <ng-container matColumnDef="taskDone">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Done </th>
+                            <td mat-cell *matCellDef="let row"> {{row.taskDone ? 'Yes': 'No'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                            <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="deadline">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DeadLine </th>
+                            <td mat-cell *matCellDef="let row"> {{row.deadLine}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        </tr>
+                    </table>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]"
+                        aria-label="Select page of users"></mat-paginator>
+                </div>
+            </div>
         </div>
     </div>
 </div>
