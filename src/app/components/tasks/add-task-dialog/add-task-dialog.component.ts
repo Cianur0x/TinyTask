@@ -138,7 +138,7 @@ export class AddTaskDialogComponent implements OnInit {
         }),
         taskDescription: [this.currentTask.description, Validators.required],
       });
-      this.viewersList = this.currentTask.viewers.map((x) => ({
+      this.viewersList = this.currentTask.watchers.map((x) => ({
         ...x,
         checked: true,
       }));
@@ -188,12 +188,12 @@ export class AddTaskDialogComponent implements OnInit {
         id: userID,
       },
 
+      watchers: this.viewersList,
       viewers: this.viewersList,
     };
 
     this._taskService.postTask(task).subscribe({
       next: (data) => {
-        console.log('post close');
         this.dialogRef.close({
           task: data,
           operation: 'post',
@@ -203,11 +203,8 @@ export class AddTaskDialogComponent implements OnInit {
           let tarea = data as ITask;
           this._taskService.addViewers(this.viewersList, tarea.id).subscribe({
             next: (data) => {
+              //  this.currentTask.watchers = data as IFriend[];
               console.log('addviewers data', data);
-              // this.dialogRef.close({ // todo aqui flata toda la operacion de hacer visibles  alos usuarios que vena la tarea
-              //   task: data,
-              //   operation: 'put',
-              // });
             },
             error: (err) => {
               console.log('task NO actualizada');
@@ -263,6 +260,7 @@ export class AddTaskDialogComponent implements OnInit {
         id: userID,
       },
 
+      watchers: this.viewersList,
       viewers: this.viewersList,
     };
 
@@ -277,11 +275,11 @@ export class AddTaskDialogComponent implements OnInit {
         if (this.friendList.length > 0 && this.viewersList.length > 0) {
           this._taskService.addViewers(this.viewersList, task.id).subscribe({
             next: (data) => {
-              this.currentTask.viewers = data as IFriend[];
+              this.currentTask.watchers = data as IFriend[];
               console.log('addviewers data', data);
             },
             error: (err) => {
-              console.log('task NO actualizada');
+              console.log('task NO actualizada', err);
             },
           });
         }
@@ -367,6 +365,7 @@ export class AddTaskDialogComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       if (!!result) {
         this.viewersList = result.friendList as IFriendToInvite[];
         this.viewersList = this.viewersList.filter((x) => x.checked);

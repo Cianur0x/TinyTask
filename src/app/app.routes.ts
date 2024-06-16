@@ -9,7 +9,6 @@ import { AllTagsComponent } from './pages/all-tags/all-tags.component';
 import { FriendsListComponent } from './pages/friends-list/friends-list.component';
 import { NewsComponent } from './pages/news/news.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
-import { ManageRolesComponent } from './pages/manage-roles/manage-roles.component';
 import { ManageUsersComponent } from './pages/manage-users/manage-users.component';
 import { CreateNewsComponent } from './pages/create-news/create-news.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
@@ -53,12 +52,6 @@ export const routes: Routes = [
     path: 'statistics',
     component: StatisticsComponent,
     canActivate: [canActivate],
-  },
-  {
-    path: 'manage-roles',
-    component: ManageRolesComponent,
-    canActivate: [canActivate],
-    data: { roles: ['ROL_ADMIN'] },
   },
   {
     path: 'manage-users',

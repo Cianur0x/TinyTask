@@ -40,12 +40,10 @@ form {
         .viewers-list {
 
             .user {
-                background-color: crimson;
                 display: flex;
+                justify-content: start;
 
-                .info {
-                    background-color: aquamarine;
-                }
+                .info {}
             }
         }
     }

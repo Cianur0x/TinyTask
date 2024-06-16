@@ -66,7 +66,7 @@ export class AddFriendDialogComponent {
         username: x.username,
         imgProgile: x.imgProgile,
         state: x.state,
-        checked: data.viewersList.find((y) => y.id == x.id)?.checked ?? false,
+        checked: data.viewersList?.find((y) => y.id == x.id)?.checked ?? false,
       };
 
       this.friendList.push(object);

@@ -21,6 +21,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DeleteDialogComponent } from '../../components/delete-dialog/delete-dialog.component';
 import { IRol, IUserMan } from '../../models/user.models';
 import { AdminService } from '../../services/adminServices/admin.service';
+import { StorageService } from '../../services/storage/storage.service';
 
 interface Usuario {
   email: string;
@@ -76,13 +77,15 @@ export class ManageUsersComponent implements AfterViewInit {
     { id: 2, roleName: 'ROL_USER' },
   ];
 
-  hola: any;
+  currentAdmin: any;
 
   constructor(
     private _adminService: AdminService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _storageService: StorageService
   ) {
+    this.currentAdmin = this._storageService.getUser();
     this.getAllUsers();
   }
 

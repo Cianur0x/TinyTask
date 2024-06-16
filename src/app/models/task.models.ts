@@ -21,6 +21,7 @@ export interface ITask {
   };
 
   viewers: IFriend[];
+  watchers: IFriend[];
 }
 
 export interface ITag {
