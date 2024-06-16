@@ -1,12 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private userURL = 'http://localhost:8080/v1/api/admin';
+  private adminURL = 'http://localhost:8080/v1/api/admin';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -17,7 +21,32 @@ export class AdminService {
   constructor(private httpClient: HttpClient) {}
 
   getAllUsers(): Observable<Object> {
-    const url = `${this.userURL}`;
+    const url = `${this.adminURL}`;
     return this.httpClient.get(url);
+  }
+
+  deleteUser(id: number): Observable<unknown> {
+    const url = `${this.adminURL}/${id}`;
+    return this.httpClient
+      .delete(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 }

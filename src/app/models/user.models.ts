@@ -8,7 +8,7 @@ export interface IUserPut {
   state: string;
 }
 
-interface IRol {
+export interface IRol {
   id: number;
   roleName: string;
 }

@@ -1,14 +1,25 @@
 import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { IUserMan } from '../../models/user.models';
+import { DeleteDialogComponent } from '../../components/delete-dialog/delete-dialog.component';
+import { IRol, IUserMan } from '../../models/user.models';
 import { AdminService } from '../../services/adminServices/admin.service';
-import { MatButtonModule } from '@angular/material/button';
+
 interface Usuario {
   email: string;
   id: number;
@@ -29,11 +40,19 @@ interface Usuario {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle,
+    MatSelectModule,
   ],
   templateUrl: './manage-users.component.html',
   styleUrl: './manage-users.component.scss',
 })
 export class ManageUsersComponent implements AfterViewInit {
+  onChangeNature(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
   displayedColumns: string[] = [
     'id',
     'username',
@@ -44,7 +63,6 @@ export class ManageUsersComponent implements AfterViewInit {
   ];
 
   dataSource!: MatTableDataSource<Usuario>;
-
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -52,7 +70,16 @@ export class ManageUsersComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _adminService: AdminService) {
+  roles: IRol[] = [
+    { id: 1, roleName: 'ROL_ADMIN' },
+    { id: 2, roleName: 'ROL_USER' },
+  ];
+
+  constructor(
+    private _adminService: AdminService,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {
     this.getAllUsers();
   }
 
@@ -80,7 +107,7 @@ export class ManageUsersComponent implements AfterViewInit {
         this.isLoadingResults = false;
       },
       error: (error) => {
-        console.log(error);
+        console.log('error', error);
       },
     });
   }
@@ -88,6 +115,7 @@ export class ManageUsersComponent implements AfterViewInit {
   // Función para modificar un usuario
   modificarUsuarios(usuarios: IUserMan[]): Usuario[] {
     let userArr: Usuario[] = [];
+
     usuarios.forEach((usuario) => {
       const primerRol =
         usuario.rol && usuario.rol.length > 0
@@ -106,5 +134,29 @@ export class ManageUsersComponent implements AfterViewInit {
     });
 
     return userArr;
+  }
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    id: number
+  ) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: { id: id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.userdata = this.userdata.filter((x) => x.id != result.id);
+      this.dataSource = new MatTableDataSource(this.userdata);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      let snackBarRef = this._snackBar.open(
+        `The user with id:${result.id} has been deleted`,
+        'Ok'
+      );
+    });
   }
 }
