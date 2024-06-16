@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BadgeService {
-  private badgeURL = 'http://localhost:8080/v1/api/badges';
+  private badgeURL = 'https://tinytaskweb.onrender.com/v1/api/badges';
 
   httpOptions = {
     headers: new HttpHeaders({

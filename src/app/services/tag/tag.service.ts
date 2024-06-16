@@ -11,8 +11,8 @@ import { ITag, ITagBack } from '../../models/task.models';
   providedIn: 'root',
 })
 export class TagService {
-  // private tagURL = 'https://tinytaskweb.onrender.com/v1/api/tags';
-  private tagURL = 'http://localhost:8080/v1/api/tags';
+  private tagURL = 'https://tinytaskweb.onrender.com/v1/api/tags';
+  // private tagURL = 'http://localhost:8080/v1/api/tags';
 
   httpOptions = {
     headers: new HttpHeaders({
