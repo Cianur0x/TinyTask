@@ -128,7 +128,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
     });
 
     this.bioForm = this._formBuilder.group({
-      bio: [userInfo.biography, [Validators.maxLength(250)]],
+      bio: [userInfo.bio, [Validators.maxLength(250)]],
     });
 
     this.userDataForm = this._formBuilder.group({
