@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { UserRole } from '../../pages/manage-users/manage-users.component';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,11 @@ export class AdminService {
   getAllUsers(): Observable<Object> {
     const url = `${this.adminURL}`;
     return this.httpClient.get(url);
+  }
+
+  updateRole(userRole: UserRole): Observable<Object> {
+    const url = `${this.adminURL}/editrole`;
+    return this.httpClient.put<UserRole>(url, userRole, this.httpOptions);
   }
 
   deleteUser(id: number): Observable<unknown> {

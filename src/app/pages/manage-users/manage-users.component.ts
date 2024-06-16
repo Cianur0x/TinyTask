@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
@@ -9,6 +10,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -24,7 +26,7 @@ interface Usuario {
   email: string;
   id: number;
   lastConnection: string;
-  rol: string | undefined; // Cambiamos el tipo a string o undefined
+  rol: string; // Cambiamos el tipo a string o undefined
   username: string;
 }
 
@@ -45,14 +47,13 @@ interface Usuario {
     MatDialogContent,
     MatDialogTitle,
     MatSelectModule,
+    FormsModule,
+    MatIconModule,
   ],
   templateUrl: './manage-users.component.html',
   styleUrl: './manage-users.component.scss',
 })
 export class ManageUsersComponent implements AfterViewInit {
-  onChangeNature(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
   displayedColumns: string[] = [
     'id',
     'username',
@@ -74,6 +75,8 @@ export class ManageUsersComponent implements AfterViewInit {
     { id: 1, roleName: 'ROL_ADMIN' },
     { id: 2, roleName: 'ROL_USER' },
   ];
+
+  hola: any;
 
   constructor(
     private _adminService: AdminService,
@@ -117,10 +120,7 @@ export class ManageUsersComponent implements AfterViewInit {
     let userArr: Usuario[] = [];
 
     usuarios.forEach((usuario) => {
-      const primerRol =
-        usuario.rol && usuario.rol.length > 0
-          ? usuario.rol[0]?.roleName
-          : undefined;
+      const primerRol = usuario.rol[0].roleName;
 
       let user: Usuario = {
         id: usuario.id,
@@ -132,7 +132,7 @@ export class ManageUsersComponent implements AfterViewInit {
 
       userArr.push(user);
     });
-
+    console.log(userArr);
     return userArr;
   }
 
@@ -149,14 +149,38 @@ export class ManageUsersComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       this.userdata = this.userdata.filter((x) => x.id != result.id);
       this.dataSource = new MatTableDataSource(this.userdata);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      let snackBarRef = this._snackBar.open(
-        `The user with id:${result.id} has been deleted`,
-        'Ok'
-      );
+      if (!!result) {
+        this._snackBar.open(
+          `The user with id: ${result.id} has been deleted`,
+          'Ok'
+        );
+      }
     });
   }
+
+  updateRol(element: Usuario) {
+    const user: UserRole = {
+      id: element.id,
+      rol: element.rol,
+    };
+    this._adminService.updateRole(user).subscribe({
+      next: (data) => {
+        if (!!data) {
+          this._snackBar.open(
+            `The user with id: ${element.id} has been updated to ${element.rol}`,
+            'Ok'
+          );
+        }
+      },
+    });
+  }
+}
+export interface UserRole {
+  id: number;
+  rol: string;
 }
