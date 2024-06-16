@@ -38,12 +38,17 @@ form {
         }
 
         .viewers-list {
+            padding: 10px;
 
             .user {
                 display: flex;
                 justify-content: start;
+                align-items: center;
+                gap: 20px;
 
-                .info {}
+                .info {
+                    font-weight: 600;
+                }
             }
         }
     }

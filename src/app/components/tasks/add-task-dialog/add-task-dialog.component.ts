@@ -195,7 +195,11 @@ export class AddTaskDialogComponent implements OnInit {
     this._taskService.postTask(task).subscribe({
       next: (data) => {
         this.dialogRef.close({
-          task: data,
+          task: {
+            ...data,
+            watchers: this.viewersList,
+            viewers: this.viewersList,
+          },
           operation: 'post',
         });
 
@@ -203,7 +207,6 @@ export class AddTaskDialogComponent implements OnInit {
           let tarea = data as ITask;
           this._taskService.addViewers(this.viewersList, tarea.id).subscribe({
             next: (data) => {
-              //  this.currentTask.watchers = data as IFriend[];
               console.log('addviewers data', data);
             },
             error: (err) => {
@@ -268,14 +271,17 @@ export class AddTaskDialogComponent implements OnInit {
       next: (data) => {
         console.log('before close update:', data);
         this.dialogRef.close({
-          task: data,
+          task: {
+            ...data,
+            watchers: this.viewersList,
+            viewers: this.viewersList,
+          },
           operation: 'put',
         });
 
         if (this.friendList.length > 0 && this.viewersList.length > 0) {
           this._taskService.addViewers(this.viewersList, task.id).subscribe({
             next: (data) => {
-              this.currentTask.watchers = data as IFriend[];
               console.log('addviewers data', data);
             },
             error: (err) => {
