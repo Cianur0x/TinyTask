@@ -51,24 +51,25 @@
             <h6>Task Description</h6>
             <mat-form-field>
                 <mat-label>Description</mat-label>
-                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="10" rows="10" id="description" formControlName="taskDescription"></textarea>
+                <textarea matInput formControlName="taskDescription"></textarea>
             </mat-form-field>
         </div>
         <div class="viewers-list">
-            <label for="viewers">Viewers List</label>
-            <div *ngFor="let item of viewersList">
-                <div class="user">
-                    <fa-icon [icon]="faUser" size="2x"></fa-icon>
-                    <div class="info">
-                        <div>
-                            {{item.username}}
+            <h3>Viewers List</h3>
+            <div>
+                <div *ngFor="let item of this.viewersList">
+                    <div class="user">
+                        <fa-icon [icon]="faUser" size="2x"></fa-icon>
+                        <div class="info">
+                            <div>
+                                {{item.username}}
+                            </div>
+                            <div>
+                                state
+                            </div>
                         </div>
-                        <div>
-                            state
-                        </div>
+                        <fa-icon [icon]="faDelete"></fa-icon>
                     </div>
-                    <fa-icon [icon]="faDelete"></fa-icon>
                 </div>
             </div>
         </div>

@@ -36,6 +36,18 @@ form {
             flex-direction: column;
             justify-content: center;
         }
+
+        .viewers-list {
+
+            .user {
+                background-color: crimson;
+                display: flex;
+
+                .info {
+                    background-color: aquamarine;
+                }
+            }
+        }
     }
 }
 

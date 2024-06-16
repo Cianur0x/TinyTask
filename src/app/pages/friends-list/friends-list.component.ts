@@ -17,6 +17,7 @@ import { IFriend } from '../../models/friend.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { UserService } from '../../services/user/user.service';
 import { FriendComponent } from '../../components/friends/friend/friend.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-friends-list',
@@ -32,6 +33,7 @@ import { FriendComponent } from '../../components/friends/friend/friend.componen
     MatIconModule,
     NgFor,
     FriendComponent,
+    MatSnackBarModule,
   ],
   templateUrl: './friends-list.component.html',
   styleUrl: './friends-list.component.scss',
@@ -43,11 +45,14 @@ export class FriendsListComponent {
   user = 0;
   friendList: IFriend[] = [];
   userAdded: boolean = false;
+  addFailed = false;
+  errorMessage = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private _userService: UserService,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _snackBar: MatSnackBar
   ) {
     this.user = this._storageService.getUser().id;
     this.getFriendsList();
@@ -55,7 +60,7 @@ export class FriendsListComponent {
 
   ngOnInit(): void {
     this.searchUserForm = this.formBuilder.group({
-      username: [null, Validators.required],
+      username: [null, [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -73,9 +78,15 @@ export class FriendsListComponent {
           const newUser = data as IFriend;
           this.friendList.push(newUser);
           this.userAdded = true;
+          this.addFailed = false;
+          this._snackBar.open(`User ${us} added!`, 'Ok');
         }
       },
-      error: (error) => {},
+      error: (error) => {
+        this.errorMessage = error.error.message;
+        this.addFailed = true;
+        this._snackBar.open(this.errorMessage, 'Ok');
+      },
     });
   }
 
@@ -87,6 +98,19 @@ export class FriendsListComponent {
       error: (error) => {
         console.error(error);
       },
+    });
+  }
+
+  deleteFriend(id: any) {
+    this._userService.deleteFriend(id, this.user).subscribe({
+      next: (data) => {
+        let index = this.friendList.findIndex((x) => x.id == id);
+        if (index > -1) {
+          this.friendList.splice(index, 1);
+        }
+        this._snackBar.open('Friend was deleted', 'Ok');
+      },
+      error: (error) => {},
     });
   }
 }

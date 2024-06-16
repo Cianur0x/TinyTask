@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -45,6 +45,7 @@ import {
   AddFriendDialogComponent,
   IFriendToInvite,
 } from '../add-friend-dialog/add-friend-dialog.component';
+import { ControlValueAccessor } from '@angular/forms';
 
 export interface DialogData {
   currentDay: number;
@@ -74,6 +75,7 @@ export interface DialogData {
     MatDatepickerModule,
     FontAwesomeModule,
     NgFor,
+    NgIf,
   ],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
@@ -136,6 +138,10 @@ export class AddTaskDialogComponent implements OnInit {
         }),
         taskDescription: [this.currentTask.description, Validators.required],
       });
+      this.viewersList = this.currentTask.viewers.map((x) => ({
+        ...x,
+        checked: true,
+      }));
     } else {
       //inicializacion del formulario en caso de que no haya objeto
       this.taskForm = this._formBuilder.group({
@@ -181,6 +187,8 @@ export class AddTaskDialogComponent implements OnInit {
       user: {
         id: userID,
       },
+
+      viewers: this.viewersList,
     };
 
     this._taskService.postTask(task).subscribe({
@@ -254,6 +262,8 @@ export class AddTaskDialogComponent implements OnInit {
       user: {
         id: userID,
       },
+
+      viewers: this.viewersList,
     };
 
     this._taskService.updateTask(task).subscribe({
@@ -267,11 +277,8 @@ export class AddTaskDialogComponent implements OnInit {
         if (this.friendList.length > 0 && this.viewersList.length > 0) {
           this._taskService.addViewers(this.viewersList, task.id).subscribe({
             next: (data) => {
+              this.currentTask.viewers = data as IFriend[];
               console.log('addviewers data', data);
-              // this.dialogRef.close({
-              //   task: data,
-              //   operation: 'put',
-              // });
             },
             error: (err) => {
               console.log('task NO actualizada');
@@ -356,7 +363,7 @@ export class AddTaskDialogComponent implements OnInit {
    */
   openDialog3(): void {
     const dialogRef = this.dialog.open(AddFriendDialogComponent, {
-      data: { friendList: this.friendList },
+      data: { friendList: this.friendList, viewersList: this.viewersList },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

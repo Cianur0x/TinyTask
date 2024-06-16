@@ -21,6 +21,7 @@ import { FriendComponent } from '../../friends/friend/friend.component';
 
 export interface DialogData {
   friendList: IFriend[];
+  viewersList: IFriendToInvite[];
 }
 
 export interface IFriendToInvite {
@@ -65,7 +66,7 @@ export class AddFriendDialogComponent {
         username: x.username,
         imgProgile: x.imgProgile,
         state: x.state,
-        checked: false,
+        checked: data.viewersList.find((y) => y.id == x.id)?.checked ?? false,
       };
 
       this.friendList.push(object);

@@ -4,7 +4,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { IUserPut } from '../../models/user.models';
 
 @Injectable({
@@ -79,6 +79,13 @@ export class UserService {
   getUser(id: number): Observable<Object> {
     const url = `${this.userURL}/getuser/${id}`;
     return this.httpClient.get(url);
+  }
+
+  deleteFriend(id: number, myid: number): Observable<unknown> {
+    const url = `${this.userURL}/${myid}/${id}`;
+    return this.httpClient
+      .delete(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

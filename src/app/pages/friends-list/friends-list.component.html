@@ -13,9 +13,6 @@
                 <mat-form-field [hideRequiredMarker]="hideRequiredControl.value">
                     <mat-label>Username</mat-label>
                     <input matInput type="text" formControlName="username">
-                    <mat-error *ngIf="userAdded && searchUserForm.get('username')?.touched">
-                        User added!
-                    </mat-error>
                 </mat-form-field>
                 <div class="button">
                     <button mat-raised-button color="primary" type="submit"
@@ -24,9 +21,12 @@
                     </button>
                 </div>
             </form>
+            <div>
+
+            </div>
         </div>
         <div class="list" *ngFor="let item of friendList">
-            <app-friend [friend]="item"></app-friend>
+            <app-friend [friend]="item" (friendDelete)="deleteFriend($event)"></app-friend>
         </div>
     </div>
 </div>

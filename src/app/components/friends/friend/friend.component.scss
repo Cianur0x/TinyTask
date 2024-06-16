@@ -1,16 +1,16 @@
 .user {
     padding: 15px 50px;
     display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #bbb;
 
     fa-icon {
         display: flex;
         align-items: center;
-        margin-right: 10px;
     }
 
-    .info {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
+    .state {
+        font-size: small;
+        font-weight: 600;
     }
 }

@@ -31,6 +31,8 @@ export class GeneralNavbarComponent {
   // Variables
   isMenuOpen = false;
   isLoggedIn = false;
+  emailstring: string =
+    'mailto:tinyTask@supp.com?subject=Support Required&body=Hello!';
 
   constructor(
     private _storageService: StorageService,
