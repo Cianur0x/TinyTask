@@ -138,7 +138,7 @@ export class AddTaskDialogComponent implements OnInit {
         }),
         taskDescription: [this.currentTask.description, Validators.required],
       });
-      this.viewersList = this.currentTask.watchers.map((x) => ({
+      this.viewersList = this.currentTask.watchers?.map((x) => ({
         ...x,
         checked: true,
       }));
