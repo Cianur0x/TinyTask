@@ -22,7 +22,7 @@
             <label for="lastname">Duration </label>
             <mat-form-field>
                 <textarea matInput formControlName="duration" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" rows="10" id="descritption"></textarea>
+                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
                 <mat-hint>30m/1h/2h</mat-hint>
             </mat-form-field>
         </div>
@@ -51,7 +51,8 @@
             <h6>Task Description</h6>
             <mat-form-field>
                 <mat-label>Description</mat-label>
-                <textarea matInput formControlName="taskDescription"></textarea>
+                <textarea matInput formControlName="taskDescription" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" rows="10" id="description"></textarea>
             </mat-form-field>
         </div>
         <div class="viewers-list">
