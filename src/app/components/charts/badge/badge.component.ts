@@ -1,9 +1,9 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IBadge } from '../../../models/badge.models';
 import { BadgeService } from '../../../services/badge/badge.service';
 import { StorageService } from '../../../services/storage/storage.service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-badge',

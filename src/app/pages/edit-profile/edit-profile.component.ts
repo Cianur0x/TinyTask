@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgOptimizedImage, NgStyle } from '@angular/common';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -16,7 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { IUserPut } from '../../models/user.models';
-import { AuthService } from '../../services/auth/auth.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { UserService } from '../../services/user/user.service';
 
@@ -47,7 +46,7 @@ interface Status {
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
 })
-export class EditProfileComponent implements OnInit, OnChanges {
+export class EditProfileComponent {
   isImageLoading: boolean = false;
   user = this._storageService.getUser();
   state: Status[] = [
@@ -76,8 +75,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
   constructor(
     private _userService: UserService,
     private _storageService: StorageService,
-    private _formBuilder: FormBuilder,
-    private _authService: AuthService
+    private _formBuilder: FormBuilder
   ) {
     this.getImageFromService();
     this.getCurretUser();
@@ -149,10 +147,6 @@ export class EditProfileComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
-
-  ngOnInit(): void {}
-
   getImageFromService() {
     this.isImageLoading = true;
     const userID = this.user.id;
@@ -192,9 +186,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
       next: (data) => {
         this.getImageFromService();
       },
-      error: (error) => {
-        console.error(error);
-      },
+      error: (error) => {},
     });
   }
 
@@ -233,9 +225,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
       next: (data) => {
         this.currentUser = data as IUserPut;
       },
-      error: (error) => {
-        console.error(error);
-      },
+      error: (error) => {},
     });
   }
 
@@ -268,9 +258,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
         this.currentUser = data as IUserPut;
         this.initForms(this.currentUser);
       },
-      error: (error) => {
-        console.log(error);
-      },
+      error: (error) => {},
     });
   }
 
@@ -287,9 +275,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
       next: (data) => {
         this.currentUser = data as IUserPut;
       },
-      error: (error) => {
-        console.error(error);
-      },
+      error: (error) => {},
     });
   }
 
@@ -298,9 +284,7 @@ export class EditProfileComponent implements OnInit, OnChanges {
       next: () => {
         this.imageToShow = this.defaultImage;
       },
-      error: (err) => {
-        console.log('imagen no borrada');
-      },
+      error: (err) => {},
     });
   }
 }

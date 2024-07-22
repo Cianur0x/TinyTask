@@ -48,16 +48,22 @@
             <input matInput type="time" placeholder="end time" formControlName="endingTime" step="300">
         </div>
         <div class="description">
-            <h6>Task Description</h6>
+            <h5>Task Description</h5>
             <mat-form-field>
                 <mat-label>Description</mat-label>
                 <textarea matInput formControlName="taskDescription" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                     cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" rows="10" id="description"></textarea>
             </mat-form-field>
         </div>
-        <div class="viewers-list">
-            <h3>Viewers List</h3>
-            <div>
+        <div *ngIf="this.friendList !== undefined">
+            <div class="viewers-list" *ngIf="this.viewersList !== undefined">
+                <h3>Viewers List</h3>
+                @if (this.viewersList.length == 0) {
+                <h6>
+                    There's no viewers in this task
+                </h6>
+                }
+                @else {
                 <div *ngFor="let item of this.viewersList">
                     <div class="user">
                         <fa-icon [icon]="faUser" size="2x"></fa-icon>
@@ -71,15 +77,16 @@
                         </div>
                     </div>
                 </div>
+                }
             </div>
-        </div>
-        <div class="add-viewers">
-            <form>
-                <button mat-flat-button color="primary" (click)="openDialog3()">
-                    <fa-icon [icon]="faShare" size="xl"></fa-icon>
-                    Share with Friends
-                </button>
-            </form>
+            <div class="add-viewers" *ngIf="this.friendList !== undefined">
+                <form *ngIf="this.friendList.length > 0">
+                    <button mat-flat-button color="primary" (click)="openDialog3()">
+                        <fa-icon [icon]="faShare" size="xl"></fa-icon>
+                        Share with Friends
+                    </button>
+                </form>
+            </div>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>

@@ -1,10 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
   QueryList,
   SimpleChanges,
   ViewChildren,
@@ -71,8 +69,6 @@ export class InicioGeneralComponent implements OnInit {
     private _storageService: StorageService,
     private _taskService: TaskService
   ) {}
-
-  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     // Se comprueba que el usuario este logeado

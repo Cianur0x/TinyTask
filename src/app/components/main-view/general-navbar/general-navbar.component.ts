@@ -54,8 +54,6 @@ export class GeneralNavbarComponent {
   logout() {
     this._storageService.clean();
     this.isLoggedIn = false;
-    this._router.navigate(['/login']).then(() => {
-      console.log('Logout OK, cargando login...');
-    });
+    this._router.navigate(['/login']).then(() => {});
   }
 }

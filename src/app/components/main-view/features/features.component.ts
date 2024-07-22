@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { NgOptimizedImage } from '@angular/common';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -76,31 +76,6 @@ export class FeaturesComponent {
         'Streamlined daily task entry',
         'Allocate specific times to tasks',
         'Weekly task view for your tasks and calendar',
-      ],
-      img: 'assets/imgs/bwink_msc_07.jpg',
-    },
-  ];
-
-  características: Feature[] = [
-    {
-      name: 'Planifica tu trabajo y tareas personales en un solo lugar',
-      list: ['Separa tus tareas laborales y personales o combínalas ambas'],
-      img: 'assets/imgs/bwink_med_06.jpg',
-    },
-    {
-      name: 'Gestión de tareas de diseño',
-      list: [
-        'Vistas de tareas personalizables para gestionar tareas de diseño',
-        'Arrastra tareas a cuadros de tiempo',
-      ],
-      img: 'assets/imgs/bwink_msc_05.jpg',
-    },
-    {
-      name: 'Organiza proyectos',
-      list: [
-        'Entrada de tareas diarias simplificada',
-        'Asigna tiempos específicos a las tareas',
-        'Vista semanal de tus tareas y calendario',
       ],
       img: 'assets/imgs/bwink_msc_07.jpg',
     },

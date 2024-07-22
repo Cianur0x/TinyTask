@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, Colors, registerables } from 'chart.js';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TaskService } from '../../../services/task/task.service';
-import { UserService } from '../../../services/user/user.service';
 Chart.register(...registerables);
 Chart.register(Colors);
 

@@ -56,6 +56,7 @@ export class AddFriendDialogComponent {
   friendList: IFriendToInvite[] = [];
   faAdd = faPlus;
   faUser = faCircleUser;
+
   constructor(
     public dialogRef: MatDialogRef<AddFriendDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData

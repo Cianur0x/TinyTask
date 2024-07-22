@@ -29,8 +29,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FriendComponent } from '../../components/friends/friend/friend.component';
 import { IFriend } from '../../models/friend.models';
 import { StorageService } from '../../services/storage/storage.service';
-import { UserService } from '../../services/user/user.service';
 import { TaskService } from '../../services/task/task.service';
+import { UserService } from '../../services/user/user.service';
 
 interface Task {
   id: number;
@@ -80,6 +80,7 @@ export class FriendsListComponent {
   userAdded: boolean = false;
   addFailed = false;
   errorMessage = '';
+  taskdata: Task[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -175,7 +176,6 @@ export class FriendsListComponent {
     }
   }
 
-  taskdata: Task[] = [];
   getAllTasksViewed() {
     this.isLoadingResults = true;
     this._taskService.getAllTaskViewed(this.user).subscribe({
@@ -187,9 +187,7 @@ export class FriendsListComponent {
         this.dataSource.sort = this.sort;
         this.isLoadingResults = false;
       },
-      error: (error) => {
-        console.log('error', error);
-      },
+      error: (error) => {},
     });
   }
 }

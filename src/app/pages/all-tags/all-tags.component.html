@@ -5,7 +5,7 @@
                 <div class="text">Tags</div>
             </div>
         </div>
-        <div class="add-tag mat-app-background" (click)="openDialog2()">
+        <div class="add-tag mat-app-background" (click)="openDialogAddTag()">
             + Add Tag
         </div>
         <section class="filters">
@@ -36,7 +36,7 @@
                 <p>{{tag.name}}</p>
                 <button mat-icon-button matTooltip="Edit" color="primary"
                     aria-label="Example icon-button with a heart icon" [hidden]="tag.userId == null"
-                    (click)="openDialog(tag)">
+                    (click)="openDialogWithTag(tag)">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>

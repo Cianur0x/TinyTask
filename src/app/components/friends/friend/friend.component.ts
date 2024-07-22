@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IFriend } from '../../../models/friend.models';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
+import { IFriend } from '../../../models/friend.models';
 
 @Component({
   selector: 'app-friend',

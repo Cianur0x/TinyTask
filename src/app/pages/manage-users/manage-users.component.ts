@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -31,6 +31,11 @@ interface Usuario {
   username: string;
 }
 
+export interface UserRole {
+  id: number;
+  rol: string;
+}
+
 @Component({
   selector: 'app-manage-users',
   standalone: true,
@@ -54,7 +59,9 @@ interface Usuario {
   templateUrl: './manage-users.component.html',
   styleUrl: './manage-users.component.scss',
 })
-export class ManageUsersComponent implements AfterViewInit {
+export class ManageUsersComponent {
+  currentAdmin: any;
+  userdata: Usuario[] = [];
   displayedColumns: string[] = [
     'id',
     'username',
@@ -77,8 +84,6 @@ export class ManageUsersComponent implements AfterViewInit {
     { id: 2, roleName: 'ROL_USER' },
   ];
 
-  currentAdmin: any;
-
   constructor(
     private _adminService: AdminService,
     public dialog: MatDialog,
@@ -89,8 +94,6 @@ export class ManageUsersComponent implements AfterViewInit {
     this.getAllUsers();
   }
 
-  ngAfterViewInit() {}
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -100,7 +103,6 @@ export class ManageUsersComponent implements AfterViewInit {
     }
   }
 
-  userdata: Usuario[] = [];
   getAllUsers() {
     this.isLoadingResults = true;
     this._adminService.getAllUsers().subscribe({
@@ -135,7 +137,7 @@ export class ManageUsersComponent implements AfterViewInit {
 
       userArr.push(user);
     });
-    console.log(userArr);
+
     return userArr;
   }
 
@@ -182,8 +184,4 @@ export class ManageUsersComponent implements AfterViewInit {
       },
     });
   }
-}
-export interface UserRole {
-  id: number;
-  rol: string;
 }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faDiscord,
+  faInstagramSquare,
   faSquareFacebook,
   faXTwitter,
-  faInstagramSquare,
 } from '@fortawesome/free-brands-svg-icons';
-import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-footer',

@@ -15,7 +15,6 @@ import { LittleTaskComponent } from '../../components/tasks/little-task/little-t
 import { ITag, ITask } from '../../models/task.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { TagService } from '../../services/tag/tag.service';
-import { TaskService } from '../../services/task/task.service';
 import { InicioGeneralComponent } from '../inicio-general/inicio-general.component';
 
 export interface checkBox {
@@ -76,6 +75,16 @@ export class AllTagsComponent {
 
   @ViewChild(InicioGeneralComponent) inicioComponent?: InicioGeneralComponent;
 
+  constructor(
+    private _storageService: StorageService,
+    private _tagService: TagService,
+    public _dialog: MatDialog
+  ) {
+    this.userId = this._storageService.getUser().id;
+    this.getTags();
+    this.setAll(true);
+  }
+
   tagClikeado(id: number) {
     if (this.tagId == id) {
       this.tagId = 0;
@@ -85,7 +94,6 @@ export class AllTagsComponent {
   }
 
   updateAllComplete() {
-    console.log('update all');
     this.allComplete =
       this.task.subtasks != null &&
       this.task.subtasks.every((t) => t.completed);
@@ -95,6 +103,7 @@ export class AllTagsComponent {
     if (this.task.subtasks == null) {
       return false;
     }
+
     return (
       this.task.subtasks.filter((t) => t.completed).length > 0 &&
       !this.allComplete
@@ -106,26 +115,14 @@ export class AllTagsComponent {
     if (this.task.subtasks == null) {
       return;
     }
-    this.task.subtasks.forEach((t) => (t.completed = completed));
-  }
 
-  ///////
-  constructor(
-    private _storageService: StorageService,
-    private _tagService: TagService,
-    private _taskService: TaskService,
-    public _dialog: MatDialog
-  ) {
-    this.userId = this._storageService.getUser().id;
-    this.getTags();
-    this.setAll(true);
+    this.task.subtasks.forEach((t) => (t.completed = completed));
   }
 
   getTags() {
     this._tagService.getAllTags(this.userId).subscribe({
       next: (data) => {
         this.allTags = data as ITag[];
-        console.log(data);
       },
       error: (error) => {
         console.error('Error de conexión al servidor.', error);
@@ -133,7 +130,7 @@ export class AllTagsComponent {
     });
   }
 
-  openDialog(tag: ITag): void {
+  openDialogWithTag(tag: ITag): void {
     const dialogRef = this._dialog.open(AddTagDialogComponent, {
       data: {
         tag: tag,
@@ -154,7 +151,7 @@ export class AllTagsComponent {
     });
   }
 
-  openDialog2(): void {
+  openDialogAddTag(): void {
     const dialogRef = this._dialog.open(AddTagDialogComponent, {
       data: {}, // data vacia ª
     });

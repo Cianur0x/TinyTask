@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -30,11 +30,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faTrashCan,
-  faUserCircle,
-  faUserPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { IFriend } from '../../../models/friend.models';
 import { ITag, ITask } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
@@ -45,7 +41,6 @@ import {
   AddFriendDialogComponent,
   IFriendToInvite,
 } from '../add-friend-dialog/add-friend-dialog.component';
-import { ControlValueAccessor } from '@angular/forms';
 
 export interface DialogData {
   currentDay: number;
@@ -84,23 +79,22 @@ export interface DialogData {
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ],
 })
-export class AddTaskDialogComponent implements OnInit {
-  hideRequiredControl = new FormControl('');
-  taskForm!: FormGroup;
-  allTags: ITag[] = [];
-  date = new Date();
-  day = 0;
-  currentTime = this.date.toString().substring(16, 21);
-  currentTimePlus = this.addHours(1);
-  currentTask!: ITask;
-  deleteTask: boolean = false;
+export class AddTaskDialogComponent {
   faShare = faUserPlus;
   faUser = faUserCircle;
-  faDelete = faTrashCan;
-  friendList!: IFriend[];
-  user = this._storageService.getUser();
-  viewersList!: IFriendToInvite[];
+  deleteTask: boolean = false;
+  day = 0;
+  hideRequiredControl = new FormControl('');
+  taskForm!: FormGroup;
+  date = new Date();
   weekdayDate!: Date;
+  currentTask!: ITask;
+  allTags: ITag[] = [];
+  friendList!: IFriend[];
+  viewersList!: IFriendToInvite[];
+  user = this._storageService.getUser();
+  currentTime = this.date.toString().substring(16, 21);
+  currentTimePlus = this.addHours(1);
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskDialogComponent>,
@@ -159,8 +153,6 @@ export class AddTaskDialogComponent implements OnInit {
       });
     }
   }
-
-  ngOnInit(): void {}
 
   /**
    * se llama al backend para añadir una tarea
@@ -222,9 +214,7 @@ export class AddTaskDialogComponent implements OnInit {
   }
 
   /**
-   * AQUI SE HACE LA PEDITION YA SEA DE BORRADO ACTULIZADO O DE CREAR
-   * TODOS LOS METODOS DEBEN ESTAR METIDOS AQUI, ALA HACER CLIK SE LLAMA A ESTE METODO
-   * SEGUN CONDICIONES SE HACEN LAS OPERACIONES CRUD
+   * operaciones CRUD
    */
   onSubmit() {
     if (this.deleteTask) {
@@ -282,16 +272,16 @@ export class AddTaskDialogComponent implements OnInit {
         if (this.friendList.length > 0 && this.viewersList.length > 0) {
           this._taskService.addViewers(this.viewersList, task.id).subscribe({
             next: (data) => {
-              console.log('addviewers data', data);
+              // console.log('addviewers data', data);
             },
             error: (err) => {
-              console.log('task NO actualizada', err);
+              // console.log('task NO actualizada', err);
             },
           });
         }
       },
       error: (err) => {
-        console.log('task NO actualizada');
+        // console.log('task NO actualizada');
       },
     });
   }
@@ -313,14 +303,14 @@ export class AddTaskDialogComponent implements OnInit {
   removeTask() {
     this._taskService.deleteTask(this.currentTask.id).subscribe({
       next: () => {
-        console.log('delete close');
+        // console.log('delete close');
         this.dialogRef.close({
           task: this.currentTask,
           operation: 'delete',
         });
       },
       error: (err) => {
-        console.log('task NO borrada');
+        // console.log('task NO borrada');
       },
     });
   }
@@ -332,7 +322,7 @@ export class AddTaskDialogComponent implements OnInit {
         this.allTags = data as ITag[];
       },
       error: (error) => {
-        console.error('Error de conexión al servidor.', error);
+        // console.error('Error de conexión al servidor.', error);
       },
     });
   }
@@ -357,7 +347,7 @@ export class AddTaskDialogComponent implements OnInit {
         this.friendList = data as IFriend[];
       },
       error: (error) => {
-        console.error(error);
+        // console.error(error);
       },
     });
   }
@@ -371,7 +361,6 @@ export class AddTaskDialogComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if (!!result) {
         this.viewersList = result.friendList as IFriendToInvite[];
         this.viewersList = this.viewersList.filter((x) => x.checked);

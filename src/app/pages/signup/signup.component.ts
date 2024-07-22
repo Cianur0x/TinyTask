@@ -40,7 +40,7 @@ import { StorageService } from '../../services/storage/storage.service';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   registerForm!: FormGroup;
   isLoggedIn = false;
   isLoginFailed = false;
@@ -67,8 +67,6 @@ export class SignupComponent implements OnInit {
       rol: ['user', Validators.required],
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.registerForm.invalid) {

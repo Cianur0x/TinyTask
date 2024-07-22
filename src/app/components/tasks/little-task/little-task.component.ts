@@ -57,12 +57,9 @@ export class LittleTaskComponent implements OnInit {
     };
     this._taskService.updateTask(this.info.task).subscribe({
       next: (data) => {
-        console.log('checkbox update:', data);
         this.updateTask.emit(this.info);
       },
-      error: (err) => {
-        console.log('task NO actualizada');
-      },
+      error: (err) => {},
     });
   }
   /**
@@ -77,7 +74,6 @@ export class LittleTaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.info = result;
-      console.log('to Emit', this.info);
 
       if (!!this.info) {
         if (result.operation.localeCompare('delete') == 0) {
@@ -85,7 +81,6 @@ export class LittleTaskComponent implements OnInit {
         } else if (result.operation.localeCompare('put') == 0) {
           this.updateTask.emit(this.info);
         } else {
-          console.log('info', this.info);
         }
       }
     });

@@ -61,9 +61,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.storageService.clean();
     this.isLoggedIn = this.storageService.isLoggedIn();
-    this.router.navigate(['/login']).then(() => {
-      console.log('Logout OK, cargando login...');
-    });
+    this.router.navigate(['/login']);
   }
 
   changeProfile() {

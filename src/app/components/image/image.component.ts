@@ -14,8 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { UserService } from '../../services/user/user.service';
 import { IUserPut } from '../../models/user.models';
+import { UserService } from '../../services/user/user.service';
 
 interface Status {
   value: string;
@@ -44,7 +44,6 @@ interface Status {
 export class ImageComponent {
   hideRequiredControl = new FormControl('');
   currentUser!: IUserPut;
-  // maxSizeInBytes: number = 4 * 1024 * 1024; // 4 MB
   profileForm!: FormGroup;
   state: Status[] = [
     { value: 'ACTIVE', viewValue: 'Active' },
@@ -82,14 +81,8 @@ export class ImageComponent {
   onUpload() {
     console.log(this.file);
     this._userService.subirImagen(3, this.file).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.error(error);
-      },
+      // next: (data) => {},
+      // error: (error) => {},
     });
   }
-
-  onSubmit() {}
 }

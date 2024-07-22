@@ -22,9 +22,6 @@
                         </button>
                     </div>
                 </form>
-                <div>
-
-                </div>
             </div>
             <div class="list" *ngFor="let item of friendList">
                 <app-friend [friend]="item" (friendDelete)="deleteFriend($event)"></app-friend>

@@ -25,13 +25,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxColorsModule } from 'ngx-colors';
 import { ITag, ITagBack } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TagService } from '../../../services/tag/tag.service';
-import { TaskService } from '../../../services/task/task.service';
-import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-add-tag-dialog',
@@ -65,21 +64,20 @@ export class AddTagDialogComponent {
   allTags: ITag[] = [];
   deleteTag = false;
   currentTag!: ITag;
+  user = this._storageService.getUser();
   tagForm: FormGroup = this._formBuilder.group({
     tagColor: '',
     tagName: '',
   });
-  user = this._storageService.getUser();
 
   constructor(
     public dialogRef: MatDialogRef<AddTagDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public _dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
     private _storageService: StorageService,
-    private _taskService: TaskService,
-    private _tagService: TagService,
-    private _userService: UserService
+    private _tagService: TagService
   ) {
     dialogRef.disableClose = true;
     this.currentTag = data.tag;
@@ -98,6 +96,7 @@ export class AddTagDialogComponent {
       });
     }
   }
+
   onSubmit() {
     if (this.deleteTag) {
       this.removeTag();
@@ -111,7 +110,7 @@ export class AddTagDialogComponent {
   }
 
   addTag() {
-    let userID = this.user.id;
+    const userID = this.user.id;
     const formValues = this.tagForm.value;
 
     const tag: ITagBack = {
@@ -131,13 +130,13 @@ export class AddTagDialogComponent {
         });
       },
       error: (err) => {
-        console.log('tag NO enviada', err);
+        this.openSnackBar('Cant add tag');
       },
     });
   }
 
   updateTag(tagForm: FormGroup<any>) {
-    let userID = this.user.id;
+    const userID = this.user.id;
     const formValues = tagForm.value;
 
     const tag: ITagBack = {
@@ -157,7 +156,7 @@ export class AddTagDialogComponent {
         });
       },
       error: (err) => {
-        console.log('tag NO actualizada', err);
+        this.openSnackBar('Cant update tag');
       },
     });
   }
@@ -171,8 +170,14 @@ export class AddTagDialogComponent {
         });
       },
       error: (err) => {
-        console.log('task NO borrada', err);
+        this.openSnackBar('Cant delete tag');
       },
+    });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Close', {
+      duration: 4 * 1000,
     });
   }
 }
