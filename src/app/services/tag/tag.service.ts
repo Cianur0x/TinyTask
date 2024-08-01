@@ -2,6 +2,7 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -11,8 +12,8 @@ import { ITag, ITagBack } from '../../models/task.models';
   providedIn: 'root',
 })
 export class TagService {
-  private tagURL = 'https://tinytaskweb.onrender.com/v1/api/tags';
-  // private tagURL = 'http://localhost:8080/v1/api/tags';
+  // private tagURL = 'https://tinytaskweb.onrender.com/v1/api/tags';
+  private tagURL = 'http://localhost:8080/v1/api/tags';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -41,6 +42,40 @@ export class TagService {
     return this.httpClient
       .delete(url, this.httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  getMap(
+    start: string,
+    end: string,
+    userId: number, // fixme que el ID del usuario se pille dle token en el auth y no pasarlo por el cleinte xd
+    tagId: number
+  ): Observable<{
+    totalTasks: Map<number, number>;
+    completedTasks: Map<number, number>;
+  }> {
+    let params = new HttpParams()
+      .set('start', start)
+      .set('end', end)
+      .set('id', userId.toString())
+      .set('tagId', tagId.toString());
+
+    return this.httpClient.get<{
+      totalTasks: Map<number, number>;
+      completedTasks: Map<number, number>;
+    }>(this.tagURL + '/getmap', { params });
+  }
+
+  getDoughnut(
+    start: string,
+    end: string,
+    userId: number // fixme que el ID del usuario se pille dle token en el auth y no pasarlo por el cleinte xd
+  ) {
+    let params = new HttpParams()
+      .set('start', start)
+      .set('end', end)
+      .set('id', userId.toString());
+
+    return this.httpClient.get(this.tagURL + '/getdoughnut', { params });
   }
 
   private handleError(error: HttpErrorResponse) {

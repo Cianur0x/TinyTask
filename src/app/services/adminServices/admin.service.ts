@@ -11,7 +11,8 @@ import { UserRole } from '../../pages/manage-users/manage-users.component';
   providedIn: 'root',
 })
 export class AdminService {
-  private adminURL = 'https://tinytaskweb.onrender.com/v1/api/admin';
+  // private adminURL = 'https://tinytaskweb.onrender.com/v1/api/admin';
+  private adminURL = 'http://localhost:8080/v1/api/admin';
 
   httpOptions = {
     headers: new HttpHeaders({

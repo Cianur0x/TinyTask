@@ -13,8 +13,8 @@ import { ITask } from '../../models/task.models';
   providedIn: 'root',
 })
 export class TaskService {
-  private taskURL = 'https://tinytaskweb.onrender.com/v1/api/tasks/';
-  // private taskURL = 'http://localhost:8080/v1/api/tasks/';
+  // private taskURL = 'https://tinytaskweb.onrender.com/v1/api/tasks/';
+  private taskURL = 'http://localhost:8080/v1/api/tasks/';
 
   httpOptions = {
     headers: new HttpHeaders({

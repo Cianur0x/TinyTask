@@ -7,8 +7,8 @@ import { MessageResponse } from '../../models/auth.models';
   providedIn: 'root',
 })
 export class PruebaService {
-  private apiPruebaURL = 'https://tinytaskweb.onrender.com/v1/api/prueba';
-  // private apiPruebaURL = 'http://localhost:8080/v1/api/prueba';
+  // private apiPruebaURL = 'https://tinytaskweb.onrender.com/v1/api/prueba';
+  private apiPruebaURL = 'http://localhost:8080/v1/api/prueba';
 
   httpOptions = {
     headers: new HttpHeaders({

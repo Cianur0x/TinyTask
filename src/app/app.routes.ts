@@ -10,6 +10,7 @@ import { ManageUsersComponent } from './pages/manage-users/manage-users.componen
 import { SignupComponent } from './pages/signup/signup.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { canActivate } from './services/security/authguard';
+import { ShowTagsComponent } from './components/tags/show-tags/show-tags.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -18,12 +19,12 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   {
     path: 'tasks',
-    component: InicioGeneralComponent,
+    component: AllTagsComponent,
     canActivate: [canActivate],
   },
   {
     path: 'tags',
-    component: AllTagsComponent,
+    component: ShowTagsComponent,
     canActivate: [canActivate],
   },
   {
