@@ -69,7 +69,7 @@ export class TagService {
     start: string,
     end: string,
     userId: number // fixme que el ID del usuario se pille dle token en el auth y no pasarlo por el cleinte xd
-  ) {
+  ): Observable<any> {
     let params = new HttpParams()
       .set('start', start)
       .set('end', end)
