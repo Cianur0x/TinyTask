@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ITag } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TagService } from '../../../services/tag/tag.service';
@@ -11,26 +11,35 @@ import { Chart } from 'chart.js';
   templateUrl: './doughnut-chart.component.html',
   styleUrl: './doughnut-chart.component.scss',
 })
-export class DoughnutChartComponent {
+export class DoughnutChartComponent implements OnChanges {
   totalCounts: number[] = [];
   tagIdArr: number[] = [];
   chart: any;
   date = new Date();
   userId: number = 0;
-  allTags!: ITag[];
+  @Input() allTagsChild: ITag[] = [];
 
   constructor(
     private _tagService: TagService,
     private _storageService: StorageService
   ) {
     this.userId = this._storageService.getUser().id;
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getDoghtnut();
+  }
+
+  getDoghtnut() {
     this._tagService
       .getDoughnut('2024-01-01', '2024-12-31', this.userId)
       .subscribe({
         next: (data) => {
           this.separateKeysAndValues(data);
-          this.getTags();
+          this.getLabelAndColors();
+          setTimeout(() => {
+            this.createChart();
+          }, 500);
         },
         error: (error) => {
           console.log('Error de conexión al servidor.');
@@ -41,21 +50,10 @@ export class DoughnutChartComponent {
   colorsTagsArr: string[] = [];
   nameTagsArr: string[] = [];
 
-  getTags() {
-    this._tagService.getAllTags(this.userId).subscribe({
-      next: (data) => {
-        this.allTags = data as ITag[];
-        this.getLabelAndColors();
-        this.createChart();
-      },
-      error: (error) => {
-        console.error('Error de conexión al servidor.', error);
-      },
-    });
-  }
-
   getLabelAndColors() {
-    this.allTags.forEach((x) => {
+    this.colorsTagsArr = [];
+    this.nameTagsArr = [];
+    this.allTagsChild.forEach((x) => {
       this.colorsTagsArr.push(x.labelColor);
       this.nameTagsArr.push(x.name);
     });
@@ -70,10 +68,12 @@ export class DoughnutChartComponent {
       this.tagIdArr.push(Number(key));
       this.totalCounts.push(Number(value));
     }
-    console.log('separete keys', data);
   }
 
   createChart() {
+    if (!!this.chart) {
+      this.chart.destroy();
+    }
     const data = {
       labels: [...this.nameTagsArr],
       datasets: [
@@ -81,6 +81,7 @@ export class DoughnutChartComponent {
           label: 'Nº Tasks',
           data: [...this.totalCounts],
           backgroundColor: [...this.colorsTagsArr],
+          hoverOffset: 4,
         },
       ],
     };
@@ -88,12 +89,6 @@ export class DoughnutChartComponent {
       type: 'doughnut',
       data: data,
       options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Doughnut',
-          },
-        },
         responsive: true,
         maintainAspectRatio: false,
       },

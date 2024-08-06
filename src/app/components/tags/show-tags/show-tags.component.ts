@@ -30,7 +30,7 @@ export class ShowTagsComponent {
   tagId: number = 0;
   userId: number = 0;
   info: any;
-  tagSelected: ITag | null = null;
+  tagSelected: number = 0;
 
   constructor(
     private _storageService: StorageService,
@@ -39,7 +39,6 @@ export class ShowTagsComponent {
   ) {
     this.userId = this._storageService.getUser().id;
     this.getTags();
-    console.log(this.tagSelected);
   }
 
   getTags() {
@@ -56,10 +55,10 @@ export class ShowTagsComponent {
   tagClikeado(id: number) {
     if (this.tagId == id) {
       this.tagId = 0;
-      this.tagSelected = null;
+      this.tagSelected = 0;
     } else {
       this.tagId = id;
-      this.tagSelected = this.allTags[5 - 1];
+      this.tagSelected = id;
     }
   }
 
@@ -110,6 +109,7 @@ export class ShowTagsComponent {
     };
 
     this.allTags.push(tag);
+    this.allTags = this.allTags.slice();
   }
 
   updateTag(info: any) {
@@ -124,7 +124,8 @@ export class ShowTagsComponent {
       };
 
       this.allTags[index] = tag;
-      //  this.inicioComponent?.updateTag(tag);
+
+      this.allTags = this.allTags.slice();
     }
   }
 
@@ -133,7 +134,8 @@ export class ShowTagsComponent {
 
     if (index > -1) {
       this.allTags.splice(index, 1);
-      // this.inicioComponent?.removeTag(info.tag.id, this.allTags[0]);
+
+      this.allTags = this.allTags.slice();
     }
   }
 }

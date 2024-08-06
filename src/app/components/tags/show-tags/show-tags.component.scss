@@ -3,12 +3,14 @@
 
     .tittle {
         text-align: center;
-        background-color: aqua;
+        padding: 12px;
+        border-bottom: 1px solid black;
     }
 
     .add-tag {
         display: flex;
         justify-content: center;
+        border-bottom: 1px solid black;
         padding: 15px;
         cursor: pointer;
     }
@@ -16,21 +18,21 @@
     .tags {
         display: grid;
         gap: 15px;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         padding: 15px;
 
         .tag {
             font-weight: 500;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-evenly;
             border-radius: 8px;
+            padding: 12px;
         }
 
         .with-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
+            justify-content: space-between;
+            padding: 0 20px;
 
             mat-icon {
                 color: white;

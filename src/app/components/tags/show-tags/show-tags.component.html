@@ -1,6 +1,6 @@
 <div class="main-view">
-    <div class="tittle">
-        <h1>Tags</h1>
+    <div class="tittle mat-app-background">
+        <h2>Tags</h2>
     </div>
     <div class="add-tag mat-app-background" (click)="openDialogAddTag()">
         <p>+ Add Tag</p>
@@ -16,11 +16,11 @@
         </div>
     </div>
 
-    <div *ngIf="tagSelected == null">
-        <app-doughnut-chart></app-doughnut-chart>
+    <div *ngIf="tagSelected == 0">
+        <app-doughnut-chart [allTagsChild]="allTags"></app-doughnut-chart>
     </div>
 
-    <div *ngIf="tagSelected != null">
-        <app-tags-chart [tag]="tagSelected"></app-tags-chart>
+    <div *ngIf="tagSelected != 0">
+        <app-tags-chart [tag]="tagSelected" [allTagsChild]="allTags"></app-tags-chart>
     </div>
 </div>
