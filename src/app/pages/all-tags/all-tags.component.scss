@@ -2,6 +2,21 @@
     margin-left: 90px;
     display: flex;
     height: 100vh;
+    position: relative;
+
+    .show-tags {
+        margin-left: -27px;
+        z-index: 91;
+        position: absolute;
+        align-self: center;
+
+        mat-icon {
+            display: flex;
+            margin-left: 15px;
+            font-size: 30px;
+            align-items: center;
+        }
+    }
 
     .all-tags {
         background-color: white;
@@ -9,11 +24,9 @@
         border-width: 0 1px;
         overflow: auto;
         min-width: 270px;
-        z-index: 102;
-
-        // @media screen and (max-width: 600px) {
-        //     display: none;
-        // }
+        height: 100%;
+        z-index: 90;
+        position: absolute;
 
         .nav-month {
             .content {

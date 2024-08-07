@@ -31,6 +31,7 @@ import { IFriend } from '../../models/friend.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { TaskService } from '../../services/task/task.service';
 import { UserService } from '../../services/user/user.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 interface Task {
   id: number;
@@ -83,6 +84,7 @@ export class FriendsListComponent {
   taskdata: Task[] = [];
 
   constructor(
+    private _breakpointObserver: BreakpointObserver,
     private formBuilder: FormBuilder,
     private _userService: UserService,
     private _storageService: StorageService,
@@ -151,7 +153,6 @@ export class FriendsListComponent {
   }
 
   displayedColumns: string[] = [
-    'id',
     'owner',
     'title',
     'taskDone',
@@ -189,5 +190,22 @@ export class FriendsListComponent {
       },
       error: (error) => {},
     });
+  }
+
+  isSmallScreen: boolean = false;
+  clearTags() {
+    this._breakpointObserver
+      .observe([Breakpoints.XSmall, Breakpoints.Small])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.isSmallScreen = true;
+        } else {
+          this.isSmallScreen = false;
+        }
+      });
+  }
+
+  openTagsNav() {
+    this.isSmallScreen = !this.isSmallScreen;
   }
 }

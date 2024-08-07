@@ -94,15 +94,15 @@ export class AllTagsComponent {
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .subscribe((result) => {
         if (result.matches) {
-          this.tagClikeado(0);
-          this.setAll(true);
           this.isSmallScreen = true;
-          console.log('ola1');
         } else {
           this.isSmallScreen = false;
-          console.log('ola2');
         }
       });
+  }
+
+  openTagsNav() {
+    this.isSmallScreen = !this.isSmallScreen;
   }
 
   tagClikeado(id: number) {
