@@ -1,14 +1,11 @@
 <div class="main-view">
-    <div class="all-tags">
+    <div class="all-tags" *ngIf="!isSmallScreen">
         <div class="nav-month mat-app-background">
             <div class="content">
                 <div class="text">Tags</div>
             </div>
         </div>
-        <div class="add-tag mat-app-background" (click)="openDialogAddTag()">
-            + Add Tag
-        </div>
-        <section class="filters">
+        <div class="filters">
             <span class="all-filter">
                 <mat-checkbox class="example-margin" [checked]="allComplete" [color]="task.color"
                     [indeterminate]="someComplete()" (change)="setAll($event.checked)">
@@ -28,7 +25,7 @@
                     }
                 </ul>
             </span>
-        </section>
+        </div>
         <div class="tags">
             <div class="tag" [style.backgroundColor]="tag.labelColor" *ngFor="let tag of allTags"
                 (click)="tagClikeado(tag.id)"

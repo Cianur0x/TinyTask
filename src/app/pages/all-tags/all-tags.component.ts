@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -72,10 +73,12 @@ export class AllTagsComponent {
       { name: 'Done', completed: false, color: 'primary', done: true },
     ],
   };
+  isSmallScreen: boolean = false;
 
   @ViewChild(InicioGeneralComponent) inicioComponent?: InicioGeneralComponent;
 
   constructor(
+    private _breakpointObserver: BreakpointObserver,
     private _storageService: StorageService,
     private _tagService: TagService,
     public _dialog: MatDialog
@@ -83,6 +86,23 @@ export class AllTagsComponent {
     this.userId = this._storageService.getUser().id;
     this.getTags();
     this.setAll(true);
+    this.clearTags();
+  }
+
+  clearTags() {
+    this._breakpointObserver
+      .observe([Breakpoints.XSmall, Breakpoints.Small])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.tagClikeado(0);
+          this.setAll(true);
+          this.isSmallScreen = true;
+          console.log('ola1');
+        } else {
+          this.isSmallScreen = false;
+          console.log('ola2');
+        }
+      });
   }
 
   tagClikeado(id: number) {
@@ -154,6 +174,12 @@ export class AllTagsComponent {
   openDialogAddTag(): void {
     const dialogRef = this._dialog.open(AddTagDialogComponent, {
       data: {}, // data vacia ª
+    });
+
+    dialogRef.keydownEvents().subscribe((event) => {
+      if (event.key === 'Enter') {
+        dialogRef.close();
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
