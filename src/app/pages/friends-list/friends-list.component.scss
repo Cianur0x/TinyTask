@@ -10,7 +10,7 @@
         padding: 20px 0;
     }
 
-    .show-friends {
+    .show-requests {
         position: absolute;
         z-index: 91;
         margin-left: -27px;
@@ -26,11 +26,14 @@
 
     .friends-list {
         background-color: white;
-        position: absolute;
-        z-index: 90;
-        height: 100%;
         border-right: black 1px solid;
-        width: 320px;
+        width: 480px;
+    }
+
+    .friends-request {
+        background-color: white;
+        border-right: black 1px solid;
+        width: 480px;
 
         .add-friend {
             display: flex;
@@ -66,15 +69,7 @@
         }
     }
 
-    .table-tasks {
+    .main-content {
         width: 100%;
-
-        .filter-table {
-            margin: 10px 35px;
-
-            mat-form-field {
-                width: 100%;
-            }
-        }
     }
 }

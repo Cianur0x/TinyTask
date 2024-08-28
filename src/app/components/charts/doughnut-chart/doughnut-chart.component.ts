@@ -24,10 +24,14 @@ export class DoughnutChartComponent implements OnChanges {
     private _storageService: StorageService
   ) {
     this.userId = this._storageService.getUser().id;
+    this.getDoghtnut();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getDoghtnut();
+    if (!!this.chart) {
+      this.chart.destroy();
+      this.getDoghtnut();
+    }
   }
 
   getDoghtnut() {
@@ -35,9 +39,9 @@ export class DoughnutChartComponent implements OnChanges {
       .getDoughnut('2024-01-01', '2024-12-31', this.userId)
       .subscribe({
         next: (data) => {
-          this.separateKeysAndValues(data);
-          this.getLabelAndColors();
           setTimeout(() => {
+            this.separateKeysAndValues(data);
+            this.getLabelAndColors();
             this.createChart();
           }, 500);
         },
@@ -71,9 +75,6 @@ export class DoughnutChartComponent implements OnChanges {
   }
 
   createChart() {
-    if (!!this.chart) {
-      this.chart.destroy();
-    }
     const data = {
       labels: [...this.nameTagsArr],
       datasets: [
