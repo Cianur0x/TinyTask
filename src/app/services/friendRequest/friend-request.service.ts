@@ -5,12 +5,13 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { IFriendRequest } from '../../models/request.models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FriendRequestService {
-  private userURL = 'http://localhost:8080/v1/api/request';
+  private requestURL = 'http://localhost:8080/v1/api/request';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,8 +21,8 @@ export class FriendRequestService {
 
   constructor(private httpClient: HttpClient) {}
 
-  sendFriendRequest(): Observable<Object> {
-    return this.httpClient.post(this.userURL, user, this.httpOptions);
+  sendFriendRequest(request: IFriendRequest): Observable<Object> {
+    return this.httpClient.post(this.requestURL, request, this.httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -1,6 +1,8 @@
 <div class="main-view">
-
-    <button class="show-requests" (click)="openTagsNav()" mat-fab matTooltip="Show Tags" color="primary">
+    <button class="hide-requests" (click)="hideSide()" mat-fab matTooltip="Show Tags" color="primary">
+        <mat-icon>keyboard_double_arrow_right</mat-icon>
+    </button>
+    <button class="show-requests" (click)="openTagsNav()" mat-fab matTooltip="Show Tags" color="accent">
         <mat-icon>keyboard_double_arrow_right</mat-icon>
     </button>
     <div class="friends-list" *ngIf="!isSmallScreen">
@@ -35,6 +37,7 @@
         <div class="list" *ngFor="let item of friendList">
         </div>
     </div>
+
     <div class="main-content">
         <div class="mat-app-background">
             <h3>Friend's Tasks</h3>

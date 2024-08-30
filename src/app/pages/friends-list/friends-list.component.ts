@@ -33,6 +33,7 @@ import { IFriend } from '../../models/friend.models';
 import { StorageService } from '../../services/storage/storage.service';
 import { UserService } from '../../services/user/user.service';
 import { FriendRequestService } from '../../services/friendRequest/friend-request.service';
+import { IFriendRequest } from '../../models/request.models';
 
 export interface FriendsTasks {
   nameOwner: string;
@@ -116,24 +117,42 @@ export class FriendsListComponent {
 
   onSubmit(): void {
     let username: string = this.searchUserForm.value.username;
-    const us = username.trim();
-
-    this._userService.addFriends(us, this.user.id).subscribe({
+    const friend = username.trim();
+    const request: IFriendRequest = {
+      sender: this.user.id,
+      receiver: friend,
+      status: 'PENDING',
+    };
+    this._requestService.sendFriendRequest(request).subscribe({
       next: (data) => {
         if (data != null) {
-          const newUser = data as IFriend;
-          this.friendList.push(newUser);
-          this.userAdded = true;
-          this.addFailed = false;
-          this._snackBar.open(`User ${us} added!`, 'Ok');
+          console.log(data);
         }
       },
       error: (error) => {
+        console.log('ola error');
         this.errorMessage = error.error.message;
         this.addFailed = true;
         this._snackBar.open(this.errorMessage, 'Ok');
       },
     });
+
+    // this._userService.addFriends(friend, this.user.id).subscribe({
+    //   next: (data) => {
+    //     if (data != null) {
+    //       const newUser = data as IFriend;
+    //       this.friendList.push(newUser);
+    //       this.userAdded = true;
+    //       this.addFailed = false;
+    //       this._snackBar.open(`User ${friend} added!`, 'Ok');
+    //     }
+    //   },
+    //   error: (error) => {
+    //     this.errorMessage = error.error.message;
+    //     this.addFailed = true;
+    //     this._snackBar.open(this.errorMessage, 'Ok');
+    //   },
+    // });
   }
 
   getFriendsList() {
@@ -177,5 +196,9 @@ export class FriendsListComponent {
   openTagsNav() {
     this.isSmallScreen = !this.isSmallScreen;
     this.hideRequest = !this.isSmallScreen;
+  }
+
+  hideSide() {
+    this.isSmallScreen = this.hideRequest = true;
   }
 }

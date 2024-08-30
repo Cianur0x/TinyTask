@@ -10,6 +10,21 @@
         padding: 20px 0;
     }
 
+    .hide-requests {
+        position: absolute;
+        z-index: 91;
+        margin-left: -27px;
+        margin-top: 120px;
+        align-self: center;
+
+        mat-icon {
+            display: flex;
+            margin-left: 15px;
+            font-size: 30px;
+            align-items: center;
+        }
+    }
+
     .show-requests {
         position: absolute;
         z-index: 91;
@@ -27,13 +42,13 @@
     .friends-list {
         background-color: white;
         border-right: black 1px solid;
-        width: 480px;
+        width: 450px;
     }
 
     .friends-request {
         background-color: white;
         border-right: black 1px solid;
-        width: 480px;
+        width: 450px;
 
         .add-friend {
             display: flex;

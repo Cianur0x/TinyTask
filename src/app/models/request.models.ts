@@ -1,5 +1,5 @@
-export interface FriendRequest {
+export interface IFriendRequest {
   sender: number;
   receiver: string;
+  status: string;
 }
-// TODO crear otro con status para poder pasearlo bien
