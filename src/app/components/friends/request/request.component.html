@@ -1,0 +1,17 @@
+<div class="square">
+    <span>
+        <span id="receiver-name">{{request.receiver}}</span> sent a friend request.
+    </span>
+    <div class="example-button-container">
+        <div>
+            <button mat-fab color="accent" (click)="addFriend(1,0)">
+                <mat-icon>check</mat-icon>
+            </button>
+        </div>
+        <div>
+            <button mat-fab color="warn" (click)="addFriend(1,1)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

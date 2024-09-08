@@ -25,6 +25,11 @@ export class FriendRequestService {
     return this.httpClient.post(this.requestURL, request, this.httpOptions);
   }
 
+  getFriendRequest(id: number): Observable<Object> {
+    const url = `${this.requestURL}/requestlist?id=${id}`;
+    return this.httpClient.get(url);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

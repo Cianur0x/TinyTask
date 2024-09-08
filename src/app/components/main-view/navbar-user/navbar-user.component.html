@@ -21,12 +21,12 @@
                         [matTooltipPosition]="'right'">
                         <fa-icon [icon]="faAdmin" size="2x"></fa-icon>
                     </li>
-                    <li (click)="logout()" matTooltip="Logout" [matTooltipPosition]="'right'">
-                        <fa-icon [icon]="faExit" size="2x"></fa-icon>
-                    </li>
                     <li routerLink="/edit-profile" routerLinkActive="active" ariaCurrentWhenActive="page"
                         matTooltip="Edit Profile" [matTooltipPosition]="'right'">
                         <fa-icon [icon]="faconfig" size="2x"></fa-icon>
+                    </li>
+                    <li (click)="logout()" matTooltip="Logout" [matTooltipPosition]="'right'">
+                        <fa-icon [icon]="faExit" size="2x"></fa-icon>
                     </li>
                 </ul>
             </li>

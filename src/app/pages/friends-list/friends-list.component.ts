@@ -34,6 +34,7 @@ import { StorageService } from '../../services/storage/storage.service';
 import { UserService } from '../../services/user/user.service';
 import { FriendRequestService } from '../../services/friendRequest/friend-request.service';
 import { IFriendRequest } from '../../models/request.models';
+import { RequestComponent } from '../../components/friends/request/request.component';
 
 export interface FriendsTasks {
   nameOwner: string;
@@ -77,6 +78,7 @@ export interface Task {
     MatSelectModule,
     TreeNestedOverviewExample,
     NgClass,
+    RequestComponent,
   ],
   templateUrl: './friends-list.component.html',
   styleUrl: './friends-list.component.scss',
@@ -101,7 +103,7 @@ export class FriendsListComponent {
     private _snackBar: MatSnackBar
   ) {
     this.user = this._storageService.getUser();
-    this.getFriendsList();
+
     this.clearTags();
   }
 
@@ -109,6 +111,8 @@ export class FriendsListComponent {
     this.searchUserForm = this.formBuilder.group({
       username: [null, [Validators.required, Validators.minLength(4)]],
     });
+    this.getFriendsList();
+    this.getRequestList();
   }
 
   open() {
@@ -119,6 +123,7 @@ export class FriendsListComponent {
     let username: string = this.searchUserForm.value.username;
     const friend = username.trim();
     const request: IFriendRequest = {
+      id: 0,
       sender: this.user.id,
       receiver: friend,
       status: 'PENDING',
@@ -166,6 +171,19 @@ export class FriendsListComponent {
     });
   }
 
+  requestList: IFriendRequest[] = [];
+  getRequestList() {
+    this._requestService.getFriendRequest(this.user.id).subscribe({
+      next: (data) => {
+        this.requestList = data as IFriendRequest[];
+        console.log('request', data);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
   deleteFriend(id: any) {
     this._userService.deleteFriend(id, this.user.id).subscribe({
       next: (data) => {
@@ -180,25 +198,22 @@ export class FriendsListComponent {
   }
 
   isSmallScreen: boolean = false;
-  hideRequest: boolean = false;
+  change: boolean = true;
   clearTags() {
     this._breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
       .subscribe((result) => {
         if (result.matches) {
-          this.isSmallScreen = this.hideRequest = true;
-        } else {
-          this.hideRequest = this.hideRequest = false;
+          this.isSmallScreen = true;
         }
       });
   }
 
   openTagsNav() {
     this.isSmallScreen = !this.isSmallScreen;
-    this.hideRequest = !this.isSmallScreen;
   }
 
-  hideSide() {
-    this.isSmallScreen = this.hideRequest = true;
+  changeSide(side: number) {
+    this.change = this.show = side == 0;
   }
 }
