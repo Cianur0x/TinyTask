@@ -1,6 +1,7 @@
 export interface IFriendRequest {
   id: number;
-  sender: number;
+  senderId: number;
+  sender: string;
   receiver: string;
   status: string;
 }

@@ -3,7 +3,7 @@
     <button class="show-requests" (click)="openTagsNav()" mat-fab matTooltip="Show Tags" color="accent">
         <mat-icon>keyboard_double_arrow_right</mat-icon>
     </button>
-    <div class="friends">
+    <div class="friends" *ngIf="!isSmallScreen">
         <div class="divider">
             <div class="mat-app-background" [ngClass]="{'ola': change}" (click)="changeSide(0)" color="accent">
                 <h3>Friends</h3>

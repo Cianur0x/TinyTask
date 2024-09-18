@@ -4,7 +4,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { IFriendRequest } from '../../models/request.models';
 
 @Injectable({
@@ -25,9 +25,18 @@ export class FriendRequestService {
     return this.httpClient.post(this.requestURL, request, this.httpOptions);
   }
 
-  getFriendRequest(id: number): Observable<Object> {
-    const url = `${this.requestURL}/requestlist?id=${id}`;
+  getFriendRequestEnviadas(id: number): Observable<Object> {
+    const url = `${this.requestURL}/requestsent?id=${id}`;
     return this.httpClient.get(url);
+  }
+  getFriendRequestRecibidas(id: number): Observable<Object> {
+    const url = `${this.requestURL}/requestreceive?id=${id}`;
+    return this.httpClient.get(url);
+  }
+
+  updateRequest(request: IFriendRequest): Observable<Object> {
+    const url = `${this.requestURL}/${request.id}`;
+    return this.httpClient.put<IFriendRequest>(url, request, this.httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {

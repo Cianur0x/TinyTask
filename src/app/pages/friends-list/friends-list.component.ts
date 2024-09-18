@@ -124,7 +124,8 @@ export class FriendsListComponent {
     const friend = username.trim();
     const request: IFriendRequest = {
       id: 0,
-      sender: this.user.id,
+      senderId: this.user.id,
+      sender: this.user.username,
       receiver: friend,
       status: 'PENDING',
     };
@@ -132,6 +133,7 @@ export class FriendsListComponent {
       next: (data) => {
         if (data != null) {
           console.log(data);
+          this._snackBar.open(this.errorMessage, 'Ok');
         }
       },
       error: (error) => {
@@ -173,7 +175,7 @@ export class FriendsListComponent {
 
   requestList: IFriendRequest[] = [];
   getRequestList() {
-    this._requestService.getFriendRequest(this.user.id).subscribe({
+    this._requestService.getFriendRequestRecibidas(this.user.id).subscribe({
       next: (data) => {
         this.requestList = data as IFriendRequest[];
         console.log('request', data);

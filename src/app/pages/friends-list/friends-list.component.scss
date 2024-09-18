@@ -13,13 +13,9 @@
     .friends {
         border-right: 1px solid black;
         width: 280px;
-
-        @media (max-width: 650px) {
-            height: 100%;
-            z-index: 90;
-            position: absolute;
-        }
-
+        height: 100%;
+        z-index: 90;
+        position: absolute;
     }
 
     .show-requests {
