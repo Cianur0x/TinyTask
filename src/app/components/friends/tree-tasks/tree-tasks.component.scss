@@ -1,22 +1,16 @@
-.example-tree {
-    margin-left: 15px;
-}
-
 .example-tree-invisible {
-    display: none;
-}
-
-.example-tree ul,
-.example-tree li {
-    margin-top: 0;
-    margin-bottom: 0;
+    display: none !important; // no esta bien hacer esto xd
 }
 
 /*
    * This padding sets alignment of the nested nodes.
    */
 .example-tree .mat-nested-tree-node div[role=group] {
-    padding-left: 40px;
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    justify-items: center;
+    padding-right: 15px;
 }
 
 /*
@@ -25,5 +19,5 @@
    * under the same parent.
    */
 .example-tree div[role=group]>.mat-tree-node {
-    padding-left: 40px;
+    padding-left: 20px;
 }

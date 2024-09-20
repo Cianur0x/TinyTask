@@ -1,11 +1,13 @@
 import { NestedTreeControl } from '@angular/cdk/tree';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
-import { Task } from '../../../pages/friends-list/friends-list.component';
+import { ITask } from '../../../models/task.models';
 import { StorageService } from '../../../services/storage/storage.service';
 import { TaskService } from '../../../services/task/task.service';
+import { FriendTaskComponent } from '../friend-task/friend-task.component';
 
 interface Mapa {
   name: string;
@@ -18,7 +20,13 @@ interface Mapa {
 @Component({
   selector: 'app-tree-tasks',
   standalone: true,
-  imports: [MatTreeModule, MatButtonModule, MatIconModule],
+  imports: [
+    MatTreeModule,
+    MatButtonModule,
+    MatIconModule,
+    NgClass,
+    FriendTaskComponent,
+  ],
   templateUrl: './tree-tasks.component.html',
   styleUrl: './tree-tasks.component.scss',
 })
@@ -39,17 +47,16 @@ export class TreeNestedOverviewExample {
     this._taskService.getAllTaskViewed(this.user).subscribe({
       next: (data) => {
         const result = Object.entries(data).map(([key, list]) => {
+          console.log(data);
           return {
             name: key,
-            children: list.map((obj: Task) => ({
-              title: obj.title,
-              deadline: obj.deadLine,
-              done: obj.taskDone == true ? 'Yes' : 'No',
+            children: list.map((obj: ITask, i: number) => ({
+              task: obj,
+              i: i + 1,
             })),
           };
         });
 
-        console.log(result);
         this.dataSource.data = result;
       },
       error: (error) => {},

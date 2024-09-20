@@ -1,15 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
-import { IFriendRequest } from '../../../models/request.models';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
+import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatSnackBar,
-  MatSnackBarAction,
-  MatSnackBarActions,
-  MatSnackBarLabel,
-  MatSnackBarRef,
-} from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { IFriendRequest } from '../../../models/request.models';
 import { FriendRequestService } from '../../../services/friendRequest/friend-request.service';
 
 @Component({
@@ -42,11 +36,17 @@ export class RequestComponent {
       next: (data) => {
         if (data != null) {
           console.log(data);
+          this.reloadPage();
         }
       },
       error: (error) => {
         console.log('ola error');
+        this.reloadPage();
       },
     });
+  }
+
+  reloadPage(): void {
+    window.location.reload();
   }
 }

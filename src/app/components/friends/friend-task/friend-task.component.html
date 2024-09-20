@@ -1,0 +1,13 @@
+<div class="task">
+    <div class="header">
+        <mat-checkbox [checked]="task.taskDone" disabled></mat-checkbox>
+        <div class="label" [ngClass]="{'done': task.taskDone}">{{task.title}}</div>
+    </div>
+    <div class="description">
+        <p>{{task.description}}</p>
+    </div>
+    <div class="body">
+        <div class="date">{{task.deadLine}}</div>
+        <div class="tag" [style.backgroundColor]="task.tag.labelColor">{{task.tag.name}}</div>
+    </div>
+</div>

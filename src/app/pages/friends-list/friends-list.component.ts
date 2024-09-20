@@ -50,6 +50,10 @@ export interface Task {
   deadLine: string;
 }
 
+interface Message {
+  message: string;
+}
+
 @Component({
   selector: 'app-friends-list',
   standalone: true,
@@ -132,8 +136,10 @@ export class FriendsListComponent {
     this._requestService.sendFriendRequest(request).subscribe({
       next: (data) => {
         if (data != null) {
-          console.log(data);
+          const value = data as Message;
+          this.errorMessage = value.message;
           this._snackBar.open(this.errorMessage, 'Ok');
+          this.errorMessage = '';
         }
       },
       error: (error) => {
@@ -141,25 +147,9 @@ export class FriendsListComponent {
         this.errorMessage = error.error.message;
         this.addFailed = true;
         this._snackBar.open(this.errorMessage, 'Ok');
+        this.errorMessage = '';
       },
     });
-
-    // this._userService.addFriends(friend, this.user.id).subscribe({
-    //   next: (data) => {
-    //     if (data != null) {
-    //       const newUser = data as IFriend;
-    //       this.friendList.push(newUser);
-    //       this.userAdded = true;
-    //       this.addFailed = false;
-    //       this._snackBar.open(`User ${friend} added!`, 'Ok');
-    //     }
-    //   },
-    //   error: (error) => {
-    //     this.errorMessage = error.error.message;
-    //     this.addFailed = true;
-    //     this._snackBar.open(this.errorMessage, 'Ok');
-    //   },
-    // });
   }
 
   getFriendsList() {
