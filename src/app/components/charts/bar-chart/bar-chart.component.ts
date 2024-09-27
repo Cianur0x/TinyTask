@@ -62,7 +62,7 @@ export class BarChartComponent {
       options: {
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: 'Overview',
           },
         },

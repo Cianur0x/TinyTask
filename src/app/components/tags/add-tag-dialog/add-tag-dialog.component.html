@@ -15,7 +15,8 @@
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button (click)="deleteTag = true" type="button" [disabled]="!currentTag">Delete Task</button>
+        <button mat-button (click)="deleteTag = true" type="submit" [disabled]="!currentTag">Delete
+            Task</button>
         <button mat-flat-button color="primary" type="submit" color="primary" [disabled]="!tagForm.valid">Save</button>
     </mat-dialog-actions>
 </form>
